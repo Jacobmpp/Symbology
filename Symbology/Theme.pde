@@ -1,6 +1,6 @@
 class Theme{
-    private color on;
-    private color off;
+    protected color on;
+    protected color off;
 
     Theme(color on_, color off_){
         on = on_;

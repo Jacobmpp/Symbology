@@ -10,8 +10,8 @@ class Spell{
         damage = parseInt(parts[0]);
         type = parts[1].charAt(0);
         flavor = parts[2];
-        discoverable = part[3].equals("1") || part[3].toLowerCase().equals("true");
-        state = State(part[4]);
+        discoverable = parts[3].equals("1") || parts[3].toLowerCase().equals("true");
+        state = new State(Long.parseLong(parts[4]));
     }
 
     public void show(float x, float y, float w, float h){

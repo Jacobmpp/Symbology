@@ -2,12 +2,6 @@ import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.util.Scanner; // Import the Scanner class to read text files
 
-public class ReadFile {
-  public static void main(String[] args) {
-    
-  }
-}
-
 class Spellbook{
     Spell spells[];
     boolean avalable[];
@@ -19,15 +13,12 @@ class Spellbook{
     
     private void loadSpells(String filename){
         try {
-            File fp = new File(filename);
-            Scanner s = new Scanner(fp);
-            spells = new Spell[parseInt(s.nextLine())];
-            int i = 0;
-            while (s.hasNextLine()) {
-                spells[i++]=new Spell(s.nextLine());
+            String[] lines = loadStrings(filename);
+            spells = new Spell[lines.length];
+            for(int i=0; i<lines.length;i++) {
+                spells[i-1]=new Spell(lines[i]);
             }
-            s.close();
-        } catch (FileNotFoundException e) {
+        } catch (NullPointerException e) {
             System.out.println("Spells file not found!"); // Display to screen
             e.printStackTrace();
         }

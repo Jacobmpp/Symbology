@@ -23,7 +23,7 @@ class State{
         calc();
     }
     State(){ // This is weird, make sure it works
-        State((long)random(1<<3,1<<54) + 3); 
+        this((long)random(1<<3,1<<54) + 3); 
     }
 
     // Cell Math
@@ -68,15 +68,16 @@ class State{
         }
         return out;
     }
-    public resize(int newSize){
-        newSize = Math.min(Math.max(newSize, 3), 7);
+    public boolean resize(int newSize){
+        if(newSize<3||newSize>7)return false;
         subState = resize(subState, newSize);
         topState = resize(topState, newSize);
         size = newSize;
+        return true;
     }
 
     // Encoding
-    public int getEncoded(){
+    public long getEncoded(){
         return encodedTopState;
     }
     public long convert(boolean[][] state){
@@ -106,24 +107,23 @@ class State{
         strokeWeight(strokeWeight);
         stroke(stroke);
         fill(on);
-        for(int i = 0; i < size; i++){
-        for(int j = 0; j < size; j++){
+        for(int i = 0; i < size; i++)
+          for(int j = 0; j < size; j++)
             if(topState[i][j])
-            rect(x+i*gWidth/size, y+j*gWidth/size, gWidth/size, gWidth/size);
+              rect(x+i*gWidth/size, y+j*gWidth/size, gWidth/size, gWidth/size);
         fill(off);
-        for(int i = 0; i < sizeX; i++){
-        for(int j = 0; j < sizeY; j++){
+        for(int i = 0; i < size; i++)
+          for(int j = 0; j < size; j++)
             if(!topState[i][j])
-            rect(x+i*gWidth/size, y+j*gWidth/size, gWidth/size, gWidth/size);
-    }
+              rect(x+i*gWidth/size, y+j*gWidth/size, gWidth/size, gWidth/size);
     }
     public void show(float x, float y, float gWidth, color on, color off, color stroke, float strokeWeight, boolean debug){
         show(x, y, gWidth, on, off, stroke, strokeWeight);
         if(!debug)
         fill(color(255,0,0));
-        for(int i = 0; i < sizeX; i++){
-        for(int j = 0; j < sizeY; j++){
+        for(int i = 0; i < size; i++)
+          for(int j = 0; j < size; j++)
             if(!topState[i][j])
-            ellipse(x+(i+.5)*gWidth/size, y+(j+.5)*gWidth/size, gWidth/size/2, gWidth/size/2);
+              ellipse(x+(i+.5)*gWidth/size, y+(j+.5)*gWidth/size, gWidth/size/2, gWidth/size/2);
     }
  }

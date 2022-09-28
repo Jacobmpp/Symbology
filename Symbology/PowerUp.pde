@@ -3,12 +3,22 @@ class PowerUp{
     int count;
     int resize;
     char stat;
-    int magnatude;
+    int magnitude;
     PImage favicon;
 
-    PowerUp(String name_, )
+    public PowerUp(String name_, int count_, int resize_){
+      name = name_;
+      count = count_;
+      resize = resize_;
+    }
+    public PowerUp(String name_, int count_, char stat_, int magnitude_){
+      name = name_;
+      count = count_;
+      stat = stat_;
+      magnitude = magnitude_;
+    }
 
-    public void show(float x, float y, float w, float h) {
+    public void show(float x, float y, int w, int h) {
         favicon.resize(w, h);
         image(favicon, x, y);
     }
@@ -16,7 +26,7 @@ class PowerUp{
     public boolean use(GameBoard gb){
         if(count > 0){
             if(resize!=0){
-                bb.resize(gb.getSize()+resize);
+                gb.resize(gb.getSize()+resize);
             }
             count--;
             return true;
@@ -26,7 +36,7 @@ class PowerUp{
 
     public boolean use(Player p){
         if(count > 0){
-            p.effect(stat, magnatude);
+            p.effect(stat, magnitude);
             count--;
             return true;
         }
