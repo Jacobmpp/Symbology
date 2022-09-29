@@ -21,6 +21,6 @@ class BattleScreen extends Screen{
     }
 
     public void show(boolean debug){
-
+        
     }
 }

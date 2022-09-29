@@ -29,7 +29,6 @@ void keyPressed(){
 }
 
 void draw(){
-    background(15);
     if(screen==2){
         battleScreen.show(debug);
     }

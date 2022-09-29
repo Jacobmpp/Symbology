@@ -15,10 +15,12 @@ class State{
     }
     State(int size_){
         size = size_;
+        subState = new boolean[size][size];
+        topState = new boolean[size][size];
         for(int i = 0; i < size; i++){
-        for(int j = 0; j < size; j++){
-            subState[i][j] = false;
-        }
+            for(int j = 0; j < size; j++){
+                subState[i][j] = false;
+            }
         }
         calc();
     }
@@ -33,9 +35,9 @@ class State{
     }
     public void calc(){
         for(int i = 0; i < size; i++){
-        for(int j = 0; j < size; j++){
-            sum(i, j);
-        }
+            for(int j = 0; j < size; j++){
+                sum(i, j);
+            }
         }
         encodedTopState = convert(topState);
     }
@@ -59,11 +61,11 @@ class State{
         boolean bigger = newSize > board.length;
         for(int i = 0; i < min(newSize, board.length); i++){
             for(int j = 0; j < min(newSize, board.length); j++){
-            if(bigger){
-                out[i+offset][j+offset] = board[i][j];
-            } else {
-                out[i][j] = board[i+offset][j+offset];
-            }
+                if(bigger){
+                    out[i+offset][j+offset] = board[i][j];
+                } else {
+                    out[i][j] = board[i+offset][j+offset];
+                }
             }
         }
         return out;
@@ -83,8 +85,8 @@ class State{
     public long convert(boolean[][] state){
         long out = 0;
         for(int i = 0; i < size*size; i++){
-        out<<=1;
-        out+=(state[i%size][i/size])?1:0;
+            out<<=1;
+            out+=(state[i%size][i/size])?1:0;
         }
         out<<=3;
         out+=size;
