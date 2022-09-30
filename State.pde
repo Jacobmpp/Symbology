@@ -31,6 +31,7 @@ class State{
     // Cell Math
     public void click(int x, int y){
         subState[x][y] = !subState[x][y];
+        println(x + ":" + y + " = " + size + " + " + subState[x][y]);
         calc();
     }
     public void calc(){
@@ -42,7 +43,7 @@ class State{
         encodedTopState = convert(topState);
     }
     private void sum(int x, int y){
-        boolean out = true;
+        boolean out = !subState[x][y];
         if(x>0&&subState[x-1][y])out=!out;
         if(y>0&&subState[x][y-1])out=!out;
         if(x<size-1&&subState[x+1][y])out=!out;
@@ -103,11 +104,9 @@ class State{
         return out;
     }
 
-    // Show (Processing required)
-    public void show(float x, float y, float gWidth, color on, color off, color stroke, float strokeWeight){
+    // Show
+    public void show(float x, float y, float gWidth, color on, color off){
         if(size<1)return;
-        strokeWeight(strokeWeight);
-        stroke(stroke);
         fill(on);
         for(int i = 0; i < size; i++)
           for(int j = 0; j < size; j++)
@@ -119,13 +118,13 @@ class State{
             if(!topState[i][j])
               rect(x+i*gWidth/size, y+j*gWidth/size, gWidth/size, gWidth/size);
     }
-    public void show(float x, float y, float gWidth, color on, color off, color stroke, float strokeWeight, boolean debug){
-        show(x, y, gWidth, on, off, stroke, strokeWeight);
-        if(!debug)
+    public void show(float x, float y, float gWidth, color on, color off, boolean debug){
+        show(x, y, gWidth, on, off);
+        if(!debug)return;
         fill(color(255,0,0));
         for(int i = 0; i < size; i++)
           for(int j = 0; j < size; j++)
-            if(!topState[i][j])
+            if(subState[i][j])
               ellipse(x+(i+.5)*gWidth/size, y+(j+.5)*gWidth/size, gWidth/size/2, gWidth/size/2);
     }
  }

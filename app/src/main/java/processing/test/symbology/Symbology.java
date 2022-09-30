@@ -25,15 +25,17 @@ boolean debug = true;
 int screen = 2;
 BattleScreen battleScreen;
 Player player;
-Theme currentTheme = new AnimatedTheme(color(200, 100, 100), color(50, 20, 20), color(30, 10, 10), 1);
+Theme currentTheme;
 
  public void setup(){
     /* size commented out by preprocessor */;
     ellipseMode(CENTER);
     rectMode(CORNER);
-    textSize(min(width, 3*height/4)/18);
+    float margin = min(width, 3*height/4)/6;
+    float gameWidth = min(width, 3*height/4)-margin*2;
+    textSize(margin/3);
     textAlign(CENTER);
-    battleScreen = new BattleScreen(width, height, new Player(1000, 1));
+    battleScreen = new BattleScreen(margin, gameWidth, new Player(1000, 1));
 }
 
  public void mousePressed(){
@@ -51,20 +53,15 @@ Theme currentTheme = new AnimatedTheme(color(200, 100, 100), color(50, 20, 20), 
 
  public void draw(){
     switch (screen){
-        case 0:
-            break;
-        case 1:
-            break;
         case 2:
-            battleScreen.show(currentTheme, debug);
-            break;
+            battleScreen.show(debug);
     }
 }
 class AnimatedTheme extends Theme {
     int speed;
 
-    public AnimatedTheme(int on_, int off_, int background_, int speed_){
-        super(on_, off_, background_);
+    public AnimatedTheme(int on_, int off_, int speed_){
+        super(on_, off_);
         speed=speed_;
     }
 
@@ -74,20 +71,6 @@ class AnimatedTheme extends Theme {
         on = color((hue(on)+speed)%256, saturation(on), brightness(on));
         colorMode(RGB,255);
         return on;
-    }
-    @Override
-    public int getOff(){
-        colorMode(HSB,255);
-        off = color((hue(on)+speed)%256, saturation(off), brightness(off));
-        colorMode(RGB,255);
-        return off;
-    }
-    @Override
-    public int getBackground(){
-        colorMode(HSB,255);
-        background = color((hue(on)+speed)%256, saturation(background), brightness(background));
-        colorMode(RGB,255);
-        return background;
     }
 }
 class BattleScreen extends Screen{
@@ -100,18 +83,23 @@ class BattleScreen extends Screen{
         super(width_, height_);
         player = player_;
         enemy = new Enemy(player.getLevel());
-        grid = new GameBoard((int)gameWidth);
+        GameBoard grid = new GameBoard((int)gameWidth_);
     }
 
     public void mousePressed(int mx, int my){
-        grid.click(mx, my);
+        int size = grid.getState().getSize();
+        int x = floor((mx-margin)/(gameWidth/size));
+        int y = floor((my-margin)/(gameWidth/size));
+        if(!(x>=size||x<0 || y>=size||y<0)){
+            grid.getState().click(x,y);
+        }
     }
 
-    public void show(Theme theme, boolean debug){
-        background(theme.getBackground());
-        enemy.show(wid/2-margin/2, margin/2, margin, margin);
+    public void show(boolean debug){
+        background(15);
+        enemy.show(width/2-margin/2, margin/2, margin, margin);
         //enemy.showHP();
-        grid.show(margin, hei-margin-gameWidth, gameWidth, theme.getOn(), theme.getOff(), debug);
+        grid.show(margin, height-margin-gameWidth, gameWidth, gameWidth);
         //player.showHP();
     }
 }
@@ -133,14 +121,10 @@ class Enemy{
         maxHp=maxHp_;
         hp=maxHp_;
         damage=damage_;
-        sprite=loadImage(spriteFilename+".monster.png");
+        sprite=loadImage(spriteFilename+".monster.png");;
     }
-    Enemy(int seed){
-        //TODO: make "random" enemy based on a seed
-        maxHp = 50;
-        hp = 50;
-        damage = 1;
-        sprite = loadImage("assets/monsters/"+seed%1+".monster.png", "png");
+    Enemy(int level){
+      //TODO: make "random" enemy based on level as seed
     }
 
     public boolean takeDamage(int amount){
@@ -155,37 +139,28 @@ class Enemy{
         return maxHp;
     }
 
-    public void show(float x, float y, float w, float h){
-        if(sprite.width!=w||sprite.height!=h) sprite.resize((int)w,(int)h);
+    public void show(float x, float y, int w, int h){
+        if(sprite.width!=w||sprite.height!=h) sprite.resize(w,h);
         image(sprite, x, y);
     }
 }
 class GameBoard{
-    private int scaleFactor = 20;
     private State state;
     private int lastSize = 0;
-    private PImage board, original; 
-    private PVector topCorner = null;
-    private PVector dimensions = null;
+    private PImage board, original; //(Processing required)
 
     // Constructor
     GameBoard(State state_, int gWidth){
         state = state_;
-        loadImages("assets/brick.board.png", gWidth);
+        loadImages("assets/brick", gWidth);
     }
     GameBoard(int gWidth){
       this(new State(3), gWidth);
     }
 
     // State Functions
-    public void click(int mx, int my){
-        
-        int size = getState().getSize();
-        int x = floor((mx-topCorner.x)/(dimensions.x/size));
-        int y = floor((my-topCorner.y)/(dimensions.y/size));
-        if(!(x>=size||x<0 || y>=size||y<0)){
-            state.click(x,y);
-        }
+    public void click(int x, int y){
+        state.click(x, y);
     }
     public int getSize(){
         return state.getSize();
@@ -197,25 +172,23 @@ class GameBoard{
       return state.resize(newSize);
     }
 
-    // Load Images
+    // Load Images (Processing required)
     private void loadImages(String filename, int gWidth){
-        original = loadImage(filename);
-        board = original.get(((7-state.getSize())/2)*16*scaleFactor,((7-state.getSize())/2)*16*scaleFactor,16*state.getSize()*scaleFactor,16*state.getSize()*scaleFactor);
+        original = loadImage(filename+".board.png");
+        board = original.get(((7-state.getSize())/2)*16,((7-state.getSize())/2)*16,16*state.getSize(),16*state.getSize());
         board.resize(gWidth,gWidth);
     }
 
-    // Show
-    public void show(float x, float y, float gWidth, int on, int off, boolean debug){
+    // Show (Processing required)
+    public void show(float x, float y, int gWidth, int on, int off, int stroke, float strokeWeight){
         int size = state.getSize();
-        if(topCorner==null)topCorner=new PVector(x, y);
-        if(dimensions==null)dimensions=new PVector(gWidth, gWidth);
         if(size<1)return;
-            if(size!=lastSize){
-                board = original.get(((7-state.getSize())/2)*16*scaleFactor, ((7-state.getSize())/2)*16*scaleFactor, 16*state.getSize()*scaleFactor, 16*state.getSize()*scaleFactor);
-                board.resize((int)gWidth,(int)gWidth);
-                lastSize = size;
-            }
-        state.show(x, y, gWidth, on, off, debug);
+        if(size!=lastSize){
+            board = original.get(((7-state.getSize())/2)*16,((7-state.getSize())/2)*16,16*state.getSize(),16*state.getSize());
+            board.resize(gWidth,gWidth);
+            lastSize = size;
+        }
+        state.show(x, y, gWidth, on, off, stroke, strokeWeight);
         image(board, x, y);
     }
 }
@@ -289,14 +262,14 @@ class PowerUp{
     }
 }
 abstract class Screen {
-    int wid;
-    int hei;
+    int width;
+    int height;
     float margin;
     float gameWidth;
     
-    public Screen(int width_, int height_){
-        wid = width_;
-        hei = height_;
+    public Screen(float width_, float height_){
+        width = width_;
+        height = height_;
         margin = min(width_, 3*height_/4)/6;
         gameWidth = min(width_, 3*height_/4)-margin*2;;
     }
@@ -384,7 +357,6 @@ class State{
     // Cell Math
     public void click(int x, int y){
         subState[x][y] = !subState[x][y];
-        println(x + ":" + y + " = " + size + " + " + subState[x][y]);
         calc();
     }
     public void calc(){
@@ -396,7 +368,7 @@ class State{
         encodedTopState = convert(topState);
     }
     private void sum(int x, int y){
-        boolean out = !subState[x][y];
+        boolean out = true;
         if(x>0&&subState[x-1][y])out=!out;
         if(y>0&&subState[x][y-1])out=!out;
         if(x<size-1&&subState[x+1][y])out=!out;
@@ -457,9 +429,11 @@ class State{
         return out;
     }
 
-    // Show
-    public void show(float x, float y, float gWidth, int on, int off){
+    // Show (Processing required)
+    public void show(float x, float y, float gWidth, int on, int off, int stroke, float strokeWeight){
         if(size<1)return;
+        strokeWeight(strokeWeight);
+        stroke(stroke);
         fill(on);
         for(int i = 0; i < size; i++)
           for(int j = 0; j < size; j++)
@@ -471,25 +445,23 @@ class State{
             if(!topState[i][j])
               rect(x+i*gWidth/size, y+j*gWidth/size, gWidth/size, gWidth/size);
     }
-    public void show(float x, float y, float gWidth, int on, int off, boolean debug){
-        show(x, y, gWidth, on, off);
-        if(!debug)return;
+    public void show(float x, float y, float gWidth, int on, int off, int stroke, float strokeWeight, boolean debug){
+        show(x, y, gWidth, on, off, stroke, strokeWeight);
+        if(!debug)
         fill(color(255,0,0));
         for(int i = 0; i < size; i++)
           for(int j = 0; j < size; j++)
-            if(subState[i][j])
+            if(!topState[i][j])
               ellipse(x+(i+.5f)*gWidth/size, y+(j+.5f)*gWidth/size, gWidth/size/2, gWidth/size/2);
     }
  }
 class Theme{
     protected int on;
     protected int off;
-    protected int background;
 
-    Theme(int on_, int off_, int background_){
+    Theme(int on_, int off_){
         on = on_;
         off = off_;
-        background = background_;
     }
 
     public int getOn(){
@@ -497,9 +469,6 @@ class Theme{
     }
     public int getOff(){
         return off;
-    }
-    public int getBackground(){
-        return background;
     }
 }
 

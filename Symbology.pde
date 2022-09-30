@@ -2,17 +2,15 @@ boolean debug = true;
 int screen = 2;
 BattleScreen battleScreen;
 Player player;
-Theme currentTheme;
+Theme currentTheme = new AnimatedTheme(color(200, 100, 100), color(50, 20, 20), color(30, 10, 10), 1);
 
 void setup(){
     fullScreen();
     ellipseMode(CENTER);
     rectMode(CORNER);
-    float margin = min(width, 3*height/4)/6;
-    float gameWidth = min(width, 3*height/4)-margin*2;
-    textSize(margin/3);
+    textSize(min(width, 3*height/4)/18);
     textAlign(CENTER);
-    battleScreen = new BattleScreen(margin, gameWidth, new Player(1000, 1));
+    battleScreen = new BattleScreen(width, height, new Player(1000, 1));
 }
 
 void mousePressed(){
@@ -29,7 +27,13 @@ void keyPressed(){
 }
 
 void draw(){
-    if(screen==2){
-        battleScreen.show(debug);
+    switch (screen){
+        case 0:
+            break;
+        case 1:
+            break;
+        case 2:
+            battleScreen.show(currentTheme, debug);
+            break;
     }
 }

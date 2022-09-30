@@ -4,23 +4,22 @@ class BattleScreen extends Screen{
     GameBoard grid;
     PowerUp powerUps[];
 
-    public BattleScreen(float margin_, float gameWidth_, Player player_){
-        super(margin_, gameWidth_);
+    public BattleScreen(int width_, int height_, Player player_){
+        super(width_, height_);
         player = player_;
         enemy = new Enemy(player.getLevel());
-        GameBoard grid = new GameBoard((int)gameWidth_);
+        grid = new GameBoard((int)gameWidth);
     }
 
     public void mousePressed(int mx, int my){
-        int size = grid.getState().getSize();
-        int x = floor((mx-margin)/(gameWidth/size));
-        int y = floor((my-margin)/(gameWidth/size));
-        if(!(x>=size||x<0 || y>=size||y<0)){
-            grid.getState().click(x,y);
-        }
+        grid.click(mx, my);
     }
 
-    public void show(boolean debug){
-        
+    public void show(Theme theme, boolean debug){
+        background(theme.getBackground());
+        enemy.show(wid/2-margin/2, margin/2, margin, margin);
+        //enemy.showHP();
+        grid.show(margin, hei-margin-gameWidth, gameWidth, theme.getOn(), theme.getOff(), debug);
+        //player.showHP();
     }
 }

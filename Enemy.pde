@@ -16,10 +16,14 @@ class Enemy{
         maxHp=maxHp_;
         hp=maxHp_;
         damage=damage_;
-        sprite=loadImage(spriteFilename+".monster.png");;
+        sprite=loadImage(spriteFilename+".monster.png");
     }
-    Enemy(int level){
-      //TODO: make "random" enemy based on level as seed
+    Enemy(int seed){
+        //TODO: make "random" enemy based on a seed
+        maxHp = 50;
+        hp = 50;
+        damage = 1;
+        sprite = loadImage("assets/monsters/"+seed%1+".monster.png", "png");
     }
 
     public boolean takeDamage(int amount){
@@ -34,8 +38,8 @@ class Enemy{
         return maxHp;
     }
 
-    public void show(float x, float y, int w, int h){
-        if(sprite.width!=w||sprite.height!=h) sprite.resize(w,h);
+    public void show(float x, float y, float w, float h){
+        if(sprite.width!=w||sprite.height!=h) sprite.resize((int)w,(int)h);
         image(sprite, x, y);
     }
 }
