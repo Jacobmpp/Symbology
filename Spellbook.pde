@@ -1,9 +1,11 @@
 import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.util.Scanner; // Import the Scanner class to read text files
+import java.util.Hashtable;
 
 class Spellbook{
-    Spell spells[];
+    private Hashtable <Long, Spell> spells = new Hashtable<Long, Spell>();
+    private long spellsLookup[];
     boolean avalable[];
     int index = 0;
     
@@ -14,9 +16,11 @@ class Spellbook{
     private void loadSpells(String filename){
         try {
             String[] lines = loadStrings(filename);
-            spells = new Spell[lines.length];
+            spellsLookup = new long[lines.length];
             for(int i=0; i<lines.length;i++) {
-                spells[i-1]=new Spell(lines[i]);
+                Spell temp = new Spell(lines[i]);
+                spells.put(temp.getEncoded(), temp);
+                spellsLookup[i] = temp.getEncoded();
             }
         } catch (NullPointerException e) {
             System.out.println("Spells file not found!"); // Display to screen
@@ -25,6 +29,10 @@ class Spellbook{
     }
     
     public void show(int index, float x, float y, float w, float h){
-        spells[index].show(x,y,w,h);
+        spells.get(spells.get(index)).show(x,y,w,h);
+    }
+
+    public Spell getSpell(long encodedTopState){
+        return spells.get(encodedTopState);
     }
 }

@@ -31,7 +31,6 @@ class State{
     // Cell Math
     public void click(int x, int y){
         subState[x][y] = !subState[x][y];
-        println(x + ":" + y + " = " + size + " + " + subState[x][y]);
         calc();
     }
     public void calc(){

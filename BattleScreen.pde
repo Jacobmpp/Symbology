@@ -17,9 +17,9 @@ class BattleScreen extends Screen{
 
     public void show(Theme theme, boolean debug){
         background(theme.getBackground());
-        enemy.show(wid/2-margin/2, margin/2, margin, margin);
+        enemy.show(wid/2-margin, margin, margin*2, margin*2);
         //enemy.showHP();
-        grid.show(margin, hei-margin-gameWidth, gameWidth, theme.getOn(), theme.getOff(), debug);
+        grid.show(wid/2-gameWidth/2, hei-margin-gameWidth, gameWidth, theme.getOn(), theme.getOff(), debug);
         //player.showHP();
     }
 }

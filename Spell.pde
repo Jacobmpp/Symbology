@@ -17,4 +17,8 @@ class Spell{
     public void show(float x, float y, float w, float h){
         //TODO
     }
+
+    public long getEncoded(){
+        return state.getEncoded();
+    }
 }

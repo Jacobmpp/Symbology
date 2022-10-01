@@ -1,8 +1,8 @@
-boolean debug = true;
+boolean debug = false;
 int screen = 2;
 BattleScreen battleScreen;
 Player player;
-Theme currentTheme = new AnimatedTheme(color(200, 100, 100), color(50, 20, 20), color(30, 10, 10), 1);
+Theme currentTheme = new AnimatedTheme(color(255, 150, 150), color(50, 20, 20), color(20, 10, 10), 1);
 
 void setup(){
     fullScreen();

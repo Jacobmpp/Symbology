@@ -39,7 +39,7 @@ class GameBoard{
     private void loadImages(String filename, int gWidth){
         original = loadImage(filename);
         board = original.get(((7-state.getSize())/2)*16*scaleFactor,((7-state.getSize())/2)*16*scaleFactor,16*state.getSize()*scaleFactor,16*state.getSize()*scaleFactor);
-        board.resize(gWidth,gWidth);
+        board.resize(gWidth, gWidth);
     }
 
     // Show
@@ -50,10 +50,10 @@ class GameBoard{
         if(size<1)return;
             if(size!=lastSize){
                 board = original.get(((7-state.getSize())/2)*16*scaleFactor, ((7-state.getSize())/2)*16*scaleFactor, 16*state.getSize()*scaleFactor, 16*state.getSize()*scaleFactor);
-                board.resize((int)gWidth,(int)gWidth);
                 lastSize = size;
+                board.resize((int)gWidth, (int)gWidth);
             }
         state.show(x, y, gWidth, on, off, debug);
-        image(board, x, y);
+        image(board, x, y, gWidth, gWidth);
     }
 }
