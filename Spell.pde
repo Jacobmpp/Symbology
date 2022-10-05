@@ -1,4 +1,5 @@
 class Spell{
+    String name;
     int damage;
     char type;
     String flavor;
@@ -12,6 +13,8 @@ class Spell{
         flavor = parts[2];
         discoverable = parts[3].equals("1") || parts[3].toLowerCase().equals("true");
         state = new State(Long.parseLong(parts[4]));
+        name= part[5];
+        
     }
 
     public void show(float x, float y, float w, float h){
