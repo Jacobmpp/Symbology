@@ -8,12 +8,13 @@ class Spell{
     
     Spell(String encoded){
         String parts[] = encoded.split(",");
-        damage = parseInt(parts[0]);
-        type = parts[1].charAt(0);
-        flavor = parts[2];
-        discoverable = parts[3].equals("1") || parts[3].toLowerCase().equals("true");
-        state = new State(Long.parseLong(parts[4]));
-        name= part[5];
+        name= part[0];
+        damage = parseInt(parts[1]);
+        type = parts[2].charAt(0);
+        flavor = parts[3];
+        discoverable = parts[3].equals("1") || parts[4].toLowerCase().equals("true");
+        state = new State(Long.parseLong(parts[5]));
+        
         
     }
 
