@@ -12,7 +12,7 @@ class Spell{
         damage = parseInt(parts[1]);
         type = parts[2].charAt(0);
         flavor = parts[3];
-        discoverable = parts[3].equals("1") || parts[4].toLowerCase().equals("true");
+        discoverable = parts[4].equals("1") || parts[4].toLowerCase().equals("true");
         state = new State(Long.parseLong(parts[5]));
         
         
