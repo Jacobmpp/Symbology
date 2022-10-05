@@ -18,9 +18,11 @@ class Spellbook{
             String[] lines = loadStrings(filename);
             spellsLookup = new long[lines.length];
             for(int i=0; i<lines.length;i++) {
-                Spell temp = new Spell(lines[i]);
-                spells.put(temp.getEncoded(), temp);
-                spellsLookup[i] = temp.getEncoded();
+                if(lines[i].split(",").length>5){
+                    Spell temp = new Spell(lines[i]);
+                    spells.put(temp.getEncoded(), temp);
+                    spellsLookup[i] = temp.getEncoded(); \\jacok fix the inde3x
+                }
             }
         } catch (NullPointerException e) {
             System.out.println("Spells file not found!"); // Display to screen
