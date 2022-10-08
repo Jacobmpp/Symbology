@@ -1,30 +1,46 @@
 class Enemy{
+    private char[] TYPES = {'n','a','e','f','w'};
     private String[] fileNames = new String[] {"green"};
     private int maxHp;
     private int hp;
     private int damage;
-    private char resistance;
-    private color tint;
+    private char type;
     private PImage sprite;
 
-    Enemy(int maxHp_, int damage_, char resistance_, color tint_, PImage sprite_){
+    Enemy(int maxHp_, int damage_, char type_, PImage sprite_){
         maxHp = maxHp_;
         hp = maxHp_;
         damage = damage_;
-        resistance = resistance_;
-        tint = tint_;
+        type = type_;
         sprite = sprite_;
     }
     Enemy(int seed){
-        //TODO: make "random" and scaling enemy based on seed
-        maxHp = 50;
-        hp = 50;
-        damage = 1;
-        sprite = loadImage("assets/monsters/"+seed%1+".monster.png");
+        randomSeed(seed);
+        maxHp = floor(pow(1.01, seed)*random(.8,1.2));
+        hp = maxHp;
+        damage = floor(pow(1.01, seed)*random(0.5,2)*map((1+seed%4), 1, 4, 1, 3));
+        type = randomResistance(seed);
+        sprite = loadImage("assets/monsters/"+floor(random(0,4))+".monster.png");
     }
 
-    public boolean takeDamage(int amount){
-        hp-=amount;
+    public boolean takeDamage(int amount, char damageType){
+        switch(type){
+            case 'n':
+                hp-=amount;
+                break;
+            case 'a':
+                hp-=(damageType=='a')?amount*2:amount/2;
+                break;
+            case 'e':
+                hp-=(damageType=='f')?amount*2:amount/2;
+                break;
+            case 'f':
+                hp-=(damageType=='w')?amount*2:amount/2;
+                break;
+            case 'w':
+                hp-=(damageType=='e')?amount*2:amount/2;
+                break;
+        }
         return hp>0;
     }
 
@@ -34,13 +50,42 @@ class Enemy{
     public int getMaxHp(){
         return maxHp;
     }
-    public color getTint(){
-      return tint;
+    public int getDamage(){
+        return damage;
+    }
+    private void myTint(){
+        switch(type){
+            case 'n':
+                tint(200);
+                break; 
+            case 'a':
+                tint(255,255,150);
+                break; 
+            case 'e':
+                tint(50,150,50);
+                break; 
+            case 'f':
+                tint(255,100,100);
+                break; 
+            case 'w':
+                tint(150,150,255);
+                break; 
+        }
+    }
+    private void untint(){
+        tint(255);
+    }
+
+    private char randomResistance(int seed){
+        if(seed<=4)return 'n';
+        return TYPES[floor(random(0,4))];
     }
 
     public void show(float x, float y, float w, float h){
         if(sprite.width!=w||sprite.height!=h) sprite.resize((int)w,(int)h);
+        myTint();
         image(sprite, x, y);
+        untint();
     }
 
     public void showHp(float x, float y, float w, float h, Theme t){
