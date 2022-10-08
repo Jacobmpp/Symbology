@@ -2,7 +2,7 @@ class GameBoard{
     private int scaleFactor = 20;
     private State state;
     private int lastSize = 0;
-    private PImage board, original; 
+    private PImage board, original, boarder; 
     private PVector topCorner = null;
     private PVector dimensions = null;
 
@@ -10,6 +10,8 @@ class GameBoard{
     GameBoard(State state_, int gWidth){
         state = state_;
         loadImages("assets/brick.board.png", gWidth);
+        boarder = loadImage("assets/boarder.board.png");
+        boarder.resize((int)(gWidth*1.2), (int)(gWidth*1.2));
     }
     GameBoard(int gWidth){
       this(new State(3), gWidth);
@@ -38,7 +40,7 @@ class GameBoard{
     // Load Images
     private void loadImages(String filename, int gWidth){
         original = loadImage(filename);
-        board = original.get(((7-state.getSize())/2)*16*scaleFactor,((7-state.getSize())/2)*16*scaleFactor,16*state.getSize()*scaleFactor,16*state.getSize()*scaleFactor);
+        board = original.get(((7-state.getSize())/2+(1-state.getSize()%2))*16*scaleFactor,((7-state.getSize())/2+(1-state.getSize()%2))*16*scaleFactor,16*state.getSize()*scaleFactor,16*state.getSize()*scaleFactor);
         board.resize(gWidth, gWidth);
     }
 
@@ -49,10 +51,13 @@ class GameBoard{
         if(dimensions==null)dimensions=new PVector(gWidth, gWidth);
         if(size<1)return;
             if(size!=lastSize){
-                board = original.get(((7-state.getSize())/2)*16*scaleFactor, ((7-state.getSize())/2)*16*scaleFactor, 16*state.getSize()*scaleFactor, 16*state.getSize()*scaleFactor);
+                board = original.get(((7-state.getSize())/2+(1-state.getSize()%2))*16*scaleFactor, ((7-state.getSize())/2+(1-state.getSize()%2))*16*scaleFactor, 16*state.getSize()*scaleFactor, 16*state.getSize()*scaleFactor);
                 lastSize = size;
                 board.resize((int)gWidth, (int)gWidth);
             }
+        tint(red(on), green(on), blue(on));
+        image(boarder, x-gWidth*0.1, y-gWidth*0.1, gWidth*1.2, gWidth*1.2);
+        tint(255,255,255);
         state.show(x, y, gWidth, on, off, debug);
         image(board, x, y, gWidth, gWidth);
     }

@@ -75,6 +75,7 @@ class State{
         subState = resize(subState, newSize);
         topState = resize(topState, newSize);
         size = newSize;
+        calc();
         return true;
     }
 

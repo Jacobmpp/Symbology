@@ -16,10 +16,13 @@ class BattleScreen extends Screen{
     }
 
     public void show(Theme theme, boolean debug){
+        theme.update();
         background(theme.getBackground());
+        image(theme.getBackgroundImage(),0,0,width,height);
         enemy.show(wid/2-margin, margin, margin*2, margin*2);
-        //enemy.showHP();
+        enemy.showHp(0, 0, width, margin/2, theme);
         grid.show(wid/2-gameWidth/2, hei-margin-gameWidth, gameWidth, theme.getOn(), theme.getOff(), debug);
-        //player.showHP();
+        player.showHp(0,height-margin/2, width, margin/2, theme);
+        //player.spellbook.show();
     }
 }

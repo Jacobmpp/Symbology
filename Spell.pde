@@ -8,7 +8,7 @@ class Spell{
     
     Spell(String encoded){
         String parts[] = encoded.split(",");
-        name= part[0];
+        name = parts[0];
         damage = parseInt(parts[1]);
         type = parts[2].charAt(0);
         flavor = parts[3];

@@ -6,22 +6,25 @@ import java.util.Hashtable;
 class Spellbook{
     private Hashtable <Long, Spell> spells = new Hashtable<Long, Spell>();
     private long spellsLookup[];
+    private PImage background;
     boolean avalable[];
     int index = 0;
     
-    Spellbook(String filename){
-        loadSpells(filename);
+    Spellbook(String spellFile, String bgFile){
+        loadSpells(spellFile);
+        //background = loadImage("assests/"+ bgFile + ".spellbook.png");
     }
     
     private void loadSpells(String filename){
         try {
             String[] lines = loadStrings(filename);
             spellsLookup = new long[lines.length];
+            int index = 0;
             for(int i=0; i<lines.length;i++) {
                 if(lines[i].split(",").length>5){
                     Spell temp = new Spell(lines[i]);
                     spells.put(temp.getEncoded(), temp);
-                    spellsLookup[i] = temp.getEncoded(); \\jacok fix the inde3x
+                    spellsLookup[index++] = temp.getEncoded();
                 }
             }
         } catch (NullPointerException e) {
@@ -30,8 +33,9 @@ class Spellbook{
         }
     }
     
-    public void show(int index, float x, float y, float w, float h){
-        spells.get(spells.get(index)).show(x,y,w,h);
+    public void show(int index, float x, float y, float w, float h, int width, int margin){
+        if(x+margin/2<width)spells.get(spells.get(spellsLookup[index])).show(x,y,w,h);
+        
     }
 
     public Spell getSpell(long encodedTopState){
