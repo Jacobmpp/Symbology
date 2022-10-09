@@ -12,7 +12,7 @@ void setup(){
     textSize(min(width, 3*height/4)/18);
     textAlign(CENTER);
     strokeWeight(0);
-    player = new Player(1000, 1);
+    player = new Player(10000, 1);
     currentTheme = new AnimatedTheme(color(255, 150, 150), color(50, 20, 20), color(60, 20, 20), "0", .3);
     battleScreen = new BattleScreen(width, height, player);
 }
@@ -53,6 +53,10 @@ void draw(){
         case 1:
             break;
         case 2:
+            if(!battleScreen.update(currentTheme)){
+                screen--;
+                player.revive(); // may cause errors when maxHP is increased
+            }
             battleScreen.show(currentTheme, debug);
             break;
     }

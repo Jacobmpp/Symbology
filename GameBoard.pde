@@ -26,6 +26,9 @@ class GameBoard{
             state.click(x,y);
         }
     }
+    public void scramble(){
+        state.scramble();
+    }
     public int getSize(){
         return state.getSize();
     }
@@ -39,6 +42,9 @@ class GameBoard{
         int x = floor((mx-topCorner.x));
         int y = floor((my-topCorner.y));
         return !(x>=dimensions.x||x<0 || y>=dimensions.y||y<0);
+    }
+    public long getEncoded(){
+        return state.getEncoded();
     }
 
     // Load Images

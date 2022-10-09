@@ -51,6 +51,14 @@ class State{
         if(y<size-1&&subState[x][y+1])out=!out;
         topState[x][y] = out;
     }
+    public void scramble(){
+        for(int i = 0; i < size; i++){
+            for(int j = 0; j < size; j++){
+                subState[i][j] = random(0,1) < 0.5;
+            }
+        }
+        calc();
+    }
 
     // Resizing
     public int getSize(){

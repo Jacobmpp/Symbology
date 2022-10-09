@@ -23,7 +23,7 @@ class Enemy{
         sprite = loadImage("assets/monsters/"+floor(random(0,4))+".monster.png");
     }
 
-    public boolean takeDamage(int amount, char damageType){
+    public void takeDamage(int amount, char damageType){
         switch(type){
             case 'n':
                 hp-=amount;
@@ -41,6 +41,9 @@ class Enemy{
                 hp-=(damageType=='e')?amount*2:amount/2;
                 break;
         }
+    }
+
+    public boolean alive(){
         return hp>0;
     }
 

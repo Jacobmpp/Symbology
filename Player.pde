@@ -12,6 +12,10 @@ class Player{
         spellbook = new Spellbook("spells.dat", "0");
     }
 
+    public void takeDamage(int damage){
+        hp-=damage;
+    }
+
     public void effect(char stat, int mag){
         switch(stat) {
             case 'h':
@@ -24,9 +28,17 @@ class Player{
       return level;
     }
 
+    public boolean alive(){
+        return hp > 0;
+    }
+
+    public void revive(){
+        hp = maxHp;
+    }
+
     public void showHp(float x, float y, float w, float h, Theme t){
         float edge = map(hp,0,maxHp,0,w);
-        edge = min(edge - edge%(w/15) + w/15, w);
+        edge = min(edge - edge%(w/(maxHp/50)) + w/(maxHp/50), w);
         fill(t.getOff());
         rect(x+edge,y,w-edge,h);
         fill(t.getOn());

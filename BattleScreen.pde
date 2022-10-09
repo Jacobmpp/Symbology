@@ -16,7 +16,18 @@ class BattleScreen extends Screen{
         lastX = mx;
         lastY = my;
         if(player.spellbook.visible || !grid.onBoard(mx, my))player.spellbook.toggleable = true;
-        if(!player.spellbook.visible)grid.click(mx, my);
+        if(!player.spellbook.visible){
+            grid.click(mx, my);
+            Spell temp = player.spellbook.getSpell(grid.getEncoded());
+            if(temp!=null){
+                enemy.takeDamage(temp.damage, temp.type);
+                grid.scramble();
+                if(!enemy.alive()){
+                    player.level++;
+                    enemy = new Enemy(player.level);
+                }
+            }
+        }
         else player.spellbook.click(mx,my, this);
     }
 
@@ -24,8 +35,13 @@ class BattleScreen extends Screen{
         player.spellbook.toggleable = false;
     }
 
-    public void show(Theme theme, boolean debug){
+    public boolean update(Theme theme){
         theme.update();
+        player.takeDamage(enemy.getDamage());
+        return player.alive();
+    }
+
+    public void show(Theme theme, boolean debug){
         background(theme.getBackground());
         image(theme.getBackgroundImage(),0,0,width,height);
         enemy.show(wid/2-margin, margin, margin*2, margin*2);
