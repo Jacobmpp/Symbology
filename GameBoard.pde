@@ -19,7 +19,6 @@ class GameBoard{
 
     // State Functions
     public void click(int mx, int my){
-        
         int size = getState().getSize();
         int x = floor((mx-topCorner.x)/(dimensions.x/size));
         int y = floor((my-topCorner.y)/(dimensions.y/size));
@@ -35,6 +34,11 @@ class GameBoard{
     }
     public boolean resize(int newSize){
       return state.resize(newSize);
+    }
+    public boolean onBoard(int mx, int my){
+        int x = floor((mx-topCorner.x));
+        int y = floor((my-topCorner.y));
+        return !(x>=dimensions.x||x<0 || y>=dimensions.y||y<0);
     }
 
     // Load Images

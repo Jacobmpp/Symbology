@@ -3,7 +3,6 @@ int screen = 2;
 BattleScreen battleScreen;
 Player player;
 Theme currentTheme;
-int mouseXPressed, mouseYPressed;
 
 void setup(){
     //fullScreen();
@@ -12,18 +11,27 @@ void setup(){
     rectMode(CORNER);
     textSize(min(width, 3*height/4)/18);
     textAlign(CENTER);
+    strokeWeight(0);
     player = new Player(1000, 1);
     currentTheme = new AnimatedTheme(color(255, 150, 150), color(50, 20, 20), color(60, 20, 20), "0", .3);
     battleScreen = new BattleScreen(width, height, player);
 }
 
 void mousePressed(){
-    mouseXPressed = mouseX;
-    mouseYPressed = mouseY;
-    if(screen==2){
-        battleScreen.mousePressed(mouseX, mouseY);
+    switch(screen){
+        case 2:
+            battleScreen.mousePressed(mouseX, mouseY);
+            break;
     }
 
+}
+
+void mouseReleased(){
+    switch(screen){
+        case 2:
+            battleScreen.mouseReleased(mouseX, mouseY);
+            break;
+    }
 }
 
 void keyPressed(){

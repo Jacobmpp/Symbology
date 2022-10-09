@@ -16,7 +16,7 @@ class Enemy{
     }
     Enemy(int seed){
         randomSeed(seed);
-        maxHp = floor(pow(1.01, seed)*random(.8,1.2));
+        maxHp = floor(pow(1.01, seed)*random(.8,1.2)*map((1+seed%4), 1, 4, 1, 3));
         hp = maxHp;
         damage = floor(pow(1.01, seed)*random(0.5,2)*map((1+seed%4), 1, 4, 1, 3));
         type = randomResistance(seed);
@@ -53,27 +53,18 @@ class Enemy{
     public int getDamage(){
         return damage;
     }
-    private void myTint(){
+    private color typeToTint(){
         switch(type){
-            case 'n':
-                tint(200);
-                break; 
             case 'a':
-                tint(255,255,150);
-                break; 
+                return color(255,255,150);
             case 'e':
-                tint(50,150,50);
-                break; 
+                return color(50,150,50);
             case 'f':
-                tint(255,100,100);
-                break; 
+                return color(255,100,100);
             case 'w':
-                tint(150,150,255);
-                break; 
+                return color(150,150,255);
         }
-    }
-    private void untint(){
-        tint(255);
+        return color(200);
     }
 
     private char randomResistance(int seed){
@@ -83,9 +74,9 @@ class Enemy{
 
     public void show(float x, float y, float w, float h){
         if(sprite.width!=w||sprite.height!=h) sprite.resize((int)w,(int)h);
-        myTint();
+        tint(typeToTint());
         image(sprite, x, y);
-        untint();
+        tint(255);
     }
 
     public void showHp(float x, float y, float w, float h, Theme t){

@@ -11,7 +11,9 @@ class State{
         calc();
     }
     State(long state){
-        convert(state);
+        this((int)8);
+        subState = convert(state);
+        calc();
     }
     State(int size_){
         size = size_;
@@ -81,6 +83,7 @@ class State{
 
     // Encoding
     public long getEncoded(){
+        calc();
         return encodedTopState;
     }
     public long convert(boolean[][] state){
@@ -94,11 +97,11 @@ class State{
         return out;
     }
     public boolean[][] convert(long in){
-        int s = (int)in%8;
-        boolean out[][] = new boolean[s][s];
+        size = (int)(in%8);
+        boolean out[][] = new boolean[size][size];
         in>>=3;
-        for(int i = s*s-1; i >= 0; i--){
-        out[i%s][i/s] = in%2==1;
+        for(int i = size*size-1; i >= 0; i--){
+        out[i%size][i/size] = in%2==1;
         in>>=1;
         }
         return out;
