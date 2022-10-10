@@ -16,10 +16,13 @@ class Player{
         hp-=damage;
     }
 
-    public void effect(char stat, int mag){
+    public void effect(char stat){
         switch(stat) {
             case 'h':
-                hp+=mag;
+                hp = maxHp;
+                break;
+            case 'l':
+                level++;
                 break;
         }
     }

@@ -3,7 +3,7 @@ int screen = 2;
 BattleScreen battleScreen;
 Player player;
 Theme currentTheme;
-
+PowerUp[] powerUps = new PowerUp[4];
 void setup(){
     //fullScreen();
     size(500,800);
@@ -12,9 +12,12 @@ void setup(){
     textSize(min(width, 3*height/4)/18);
     textAlign(CENTER);
     strokeWeight(0);
-    player = new Player(10000, 1);
+    player = new Player(1000, 1);
+    powerUps = new PowerUp[]{new PowerUp("Grow Board",5,"grow",1), new PowerUp("Shrink Board",5,"shrink",-1), new PowerUp("Skip Level",5,"skip",'l'), new PowerUp("Heal Player",5,"heal",'h')};
+    battleScreen = new BattleScreen(width, height, player, powerUps);
+    powerUps[2].loadScreen(battleScreen);
+    powerUps[3].loadScreen(battleScreen);
     currentTheme = new AnimatedTheme(color(255, 150, 150), color(50, 20, 20), color(60, 20, 20), "0", .3);
-    battleScreen = new BattleScreen(width, height, player);
 }
 
 void mousePressed(){

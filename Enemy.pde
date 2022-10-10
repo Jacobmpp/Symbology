@@ -6,6 +6,7 @@ class Enemy{
     private int damage;
     private char type;
     private PImage sprite;
+    private boolean boss = false;
 
     Enemy(int maxHp_, int damage_, char type_, PImage sprite_){
         maxHp = maxHp_;
@@ -16,11 +17,12 @@ class Enemy{
     }
     Enemy(int seed){
         randomSeed(seed);
-        maxHp = floor(pow(1.01, seed)*random(.8,1.2)*map((1+seed%4), 1, 4, 1, 3));
+        maxHp = 4 * floor(pow(1.01, seed)*random(.8,1.2)*map((1+seed%4), 1, 4, 1, 3));
         hp = maxHp;
         damage = floor(pow(1.01, seed)*random(0.5,2)*map((1+seed%4), 1, 4, 1, 3));
         type = randomResistance(seed);
         sprite = loadImage("assets/monsters/"+floor(random(0,4))+".monster.png");
+        boss = seed%4==0;
     }
 
     public void takeDamage(int amount, char damageType){
@@ -76,6 +78,12 @@ class Enemy{
     }
 
     public void show(float x, float y, float w, float h){
+        if(boss){
+            x-=w/2;
+            y-=h/2;
+            w*=2;
+            h*=2;
+        }
         if(sprite.width!=w||sprite.height!=h) sprite.resize((int)w,(int)h);
         tint(typeToTint());
         image(sprite, x, y);

@@ -5,38 +5,48 @@ class PowerUp{
     char stat;
     int magnitude;
     PImage favicon;
+    BattleScreen screen;
 
-    public PowerUp(String name_, int count_, int resize_){
+    public PowerUp(String name_, int count_, String favicon_){
       name = name_;
       count = count_;
-      resize = resize_;
+      favicon = loadImage("assets/powerUps/" + favicon_ + ".powerUp.png");
     }
-    public PowerUp(String name_, int count_, char stat_, int magnitude_){
-      name = name_;
-      count = count_;
-      stat = stat_;
-      magnitude = magnitude_;
+    public PowerUp(String name_, int count_, String favicon_, int resize_){
+        this(name_, count_, favicon_);
+        resize = resize_;
+    }
+    public PowerUp(String name_, int count_, String favicon_, char stat_){
+        this(name_, count_, favicon_);
+        stat = stat_;
+    }
+
+    public void loadScreen(BattleScreen screen_){
+        screen = screen_;
     }
 
     public void show(float x, float y, int w, int h) {
-        favicon.resize(w, h);
-        image(favicon, x, y);
+        image(favicon, x, y, w, h);
+        fill(255);
+        ellipse(x+w*.8, y+h*.85, w/3, h/3);
+        textAlign(CENTER, CENTER);
+        String tempCount = "" + count;
+        textSize(w/3/tempCount.length());
+        fill(0);
+        text(tempCount, x+w*.8, y+h*.8);
     }
 
     public boolean use(GameBoard gb){
         if(count > 0){
             if(resize!=0){
                 gb.resize(gb.getSize()+resize);
+                gb.scramble();
             }
-            count--;
-            return true;
-        }
-        return false;
-    }
-
-    public boolean use(Player p){
-        if(count > 0){
-            p.effect(stat, magnitude);
+            if(screen != null){
+                screen.player.effect(stat);
+                if(stat == 'l')
+                    screen.enemy = new Enemy(screen.player.getLevel());
+            }
             count--;
             return true;
         }
