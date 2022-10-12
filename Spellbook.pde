@@ -16,7 +16,7 @@ class Spellbook{
     
     Spellbook(String spellFile, String bgFile){
         loadSpells(spellFile);
-        //background = loadImage("assests/"+ bgFile + ".spellbook.png");
+        background = loadImage("assets/"+ bgFile + ".spellbook.png");
     }
     
     private void loadSpells(String filename){
@@ -64,15 +64,13 @@ class Spellbook{
             x = width-screen.margin/2;
         }
         y = height/2-h/2;
-        fill(theme.getOn());
-        rect(x,y,w,h);
+        tint(theme.getOn());
+        image(background, x, y, w, h);
+        tint(255);
         fill(theme.getOff());
         triangle(x+w/8,y+7*h/8, x+w/4,y+13*h/16, x+w/4,y+15*h/16);
         triangle(x+7*w/8,y+7*h/8, x+3*w/4,y+13*h/16, x+3*w/4,y+15*h/16);
         if(x+screen.margin/2<width)spells.get(spellsLookup[visibleIndex]).show(x+screen.margin/2,y+screen.margin/2,w-screen.margin,h-screen.margin, theme);
-        tint(theme.getOn());
-        //image(background, x, y, w, h);
-        tint(255);
     }
 
     public Spell getSpell(long encodedTopState){

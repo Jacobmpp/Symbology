@@ -25,7 +25,7 @@ class Spell{
         fill(typeToTint());
         rect(x+w/2,y,w/2,w/2);
         fill(0);
-        text(""+damage, x+3*w/4, y+w/4);
+        text(""+damage, x+3*w/4, y+w/4-tSize/5);
         textAlign(CENTER, BOTTOM);
         fill(theme.getOff());
         textSize(w/10);

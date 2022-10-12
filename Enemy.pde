@@ -1,6 +1,5 @@
 class Enemy{
     private char[] TYPES = {'n','a','e','f','w'};
-    private String[] fileNames = new String[] {"green"};
     private int maxHp;
     private int hp;
     private int damage;
