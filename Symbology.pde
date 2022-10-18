@@ -42,10 +42,10 @@ void keyPressed(){
         debug=!debug;
     }
     if(key=='+'){
-        battleScreen.grid.resize(battleScreen.grid.getSize()+1);
+        battleScreen.gameBoard.resize(battleScreen.gameBoard.getSize()+1);
     }
     if(key=='-'){
-        battleScreen.grid.resize(battleScreen.grid.getSize()-1);
+        battleScreen.gameBoard.resize(battleScreen.gameBoard.getSize()-1);
     }
 }
 
