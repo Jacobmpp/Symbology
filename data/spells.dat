@@ -1,5 +1,37 @@
-Test1,1,n,In the beginning,1,3
-Test2,20,a,They do be leaving,1,1236
-Test3,300,e,You think this is boring?,1,32237
-Test4,4000,f,How about this one?,1,262
-Test5,50000,w,Yep. This one is prime boredom,1,4503599627370495
+elements list: R-random n-none f-fire a-air w-water e-earth 
+
+<cantrips> 
+Slap,1,n,Well its a start.,1,131
+spear,10,n,wow using weapons instead of spells what a cop out.,0,547
+magic staff wack,10,R,magic slap!!!,0,2731
+Magic missle,3,n,Its magic whistle I mean missle.,1,1155
+magic magic missle X5,25,its bigger.,1,34643933
+
+<level 1 spells 3x3>
+Fire Ball,5,f,Its a bit hot dont you say,1,2731
+Air Slash,5,a,Did some one cut wind?,1,2603
+Splash,5,w,Wow it actually does dammage!,1,1363
+Rock Throw,5,e,nothing like a rock to the head.,1,43
+snake rain,7,R,let the noodles rain.,0,2683
+
+<level 2 spells 4x4>
+Flame Thrower,10,f,"Fire never dies alone.",1,308044
+gust,10,a,lets not stand by the ledge you might fall.,1,294988
+Waterfall,10,w,as water falls you do too.,1,524284
+Earth Quake,10,e,its a bit shaky,1,210892
+Slam,20,n,nothing like physical violence :),1,31996
+Scream,21,R,stop yelling,0,34844
+
+<level 3 spells 5x5>
+Disco Inferno,25,f,"up side in side out.",1,5
+dance of the leaves,25,a,its falling.,1,234880989
+rain dance,25,w,do a rain dance it might help.,1,92135253
+brake it down,50,e,literally.,1,268435453
+
+<level 4 spells 6x6>
+The Sun,
+
+water Board,
+
+<level 5 spells 7x7>
+
