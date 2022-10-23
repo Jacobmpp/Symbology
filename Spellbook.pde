@@ -23,10 +23,12 @@ class Spellbook{
         try {
             String[] lines = loadStrings(filename);
             spellsLookup = new long[lines.length];
+            avalable  = new boolean[lines.length];
             for(int i=0; i<lines.length;i++) {
                 if(lines[i].split(",").length>5){
                     Spell temp = new Spell(lines[i]);
                     spells.put(temp.getEncoded(), temp);
+                    avalable[spellCount] = true;
                     spellsLookup[spellCount++] = temp.getEncoded();
                 }
             }
@@ -37,11 +39,14 @@ class Spellbook{
     }
 
     public void click(int mX, int mY, BattleScreen screen){
-        if(pow(x+3*w/16-mX,2)+pow(y+7*h/8-mY,2)<pow(screen.margin,2)){
-            visibleIndex = ((visibleIndex - 1)+spellCount)%spellCount;
-        } else if(pow(x+13*w/16-mX,2)+pow(y+7*h/8-mY,2)<pow(screen.margin,2)){
-            visibleIndex = (visibleIndex + 1)%spellCount;
-        }
+        int attempts = 0;
+        do {
+            if(pow(x+3*w/16-mX,2)+pow(y+7*h/8-mY,2)<pow(screen.margin,2)){
+                visibleIndex = ((visibleIndex - 1)+spellCount)%spellCount;
+            } else if(pow(x+13*w/16-mX,2)+pow(y+7*h/8-mY,2)<pow(screen.margin,2)){
+                visibleIndex = (visibleIndex + 1)%spellCount;
+            }
+        } while(!avalable[visibleIndex] && attempts++<spellCount-1);
     }
     
     public void show(float deployment, float w_, float h_, BattleScreen screen, Theme theme){

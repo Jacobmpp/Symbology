@@ -55,7 +55,7 @@ class BattleScreen extends Screen{
         image(theme.getBackgroundImage(),0,0,wid,hei);
         enemy.show(wid/2-margin, margin, margin*2, margin*2);
         enemy.showHp(0, 0, wid, margin/2, theme);
-        gameBoard.show(wid/2-gameWidth/2, wid/2, gameWidth, theme.getOn(), theme.getOff(), debug);
+        gameBoard.show(wid/2-gameWidth/2, hei/3.2, gameWidth, theme.getOn(), theme.getOff(), debug);
         player.showHp(0,height-margin/2, width, margin/2, theme);
         player.spellbook.show(map(lastX-mouseX, 0, 2*margin, 0, 1), gameWidth, gameWidth+2*margin, this, theme);
         for(int i=0; i<4; i++){
