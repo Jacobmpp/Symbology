@@ -36,7 +36,7 @@ class BattleScreen extends Screen{
                 }
             }
         }
-        if(mx==constrain(mx, wid/10, 9*wid/10)&&my==constrain(my, wid/2 + gameWidth + margin/2, 2*wid/3 + gameWidth + margin/2)){
+        if(mx==constrain(mx, wid/10, 9*wid/10)&&my==constrain(my, hei/3.2 + gameWidth*1.1 + margin/2, hei/3.2 + gameWidth*1.1 + margin/2 + wid/5)){
             int x = floor((mx-wid/10)/(wid/5));
             if(x == constrain(x, 0, 3))
                 powerUps[x].use(gameBoard);
@@ -57,9 +57,9 @@ class BattleScreen extends Screen{
         enemy.showHp(0, 0, wid, margin/2, theme);
         gameBoard.show(wid/2-gameWidth/2, hei/3.2, gameWidth, theme.getOn(), theme.getOff(), debug);
         player.showHp(0,height-margin/2, width, margin/2, theme);
-        player.spellbook.show(map(lastX-mouseX, 0, 2*margin, 0, 1), gameWidth, gameWidth+2*margin, this, theme);
+        player.spellbook.show(map(lastX-mouseX, 0, 2*margin, 0, 1), wid-1.5*margin, gameWidth+2*margin, this, theme);
         for(int i=0; i<4; i++){
-            powerUps[i].show(wid/10 * (1+2*i), wid/2 + gameWidth + margin/2, wid/5, wid/5);
+            powerUps[i].show(wid/10 * (1+2*i), hei/3.2 + gameWidth*1.1 + margin/2, wid/5, wid/5);
         }
     }
 }

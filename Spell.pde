@@ -7,7 +7,7 @@ class Spell{
     State state;
     
     Spell(String encoded){
-        String parts[] = encoded.split(",");
+        String parts[] = encoded.split(";");
         name = parts[0];
         damage = parseInt(parts[1]);
         type = parts[2].charAt(0);
@@ -25,14 +25,14 @@ class Spell{
         fill(typeToTint());
         rect(x+w/2,y,w/2,w/2);
         fill(0);
-        text(""+damage, x+3*w/4, y+w/4-tSize/5);
+        text(""+damage, x+3*w/4, y+h/5-tSize/5);
         textAlign(CENTER, BOTTOM);
         fill(theme.getOff());
         textSize(w/10);
         text(name, x+w/2, y+3*w/4);
         textAlign(LEFT, TOP);
         textSize(w/15);
-        text(flavor, x, y+3*w/4, x+w, y+5*h/8);
+        text(flavor, x, y+3*w/4, w, y+5*h/8);
 
     }
 

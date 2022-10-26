@@ -6,7 +6,7 @@ Theme currentTheme;
 PowerUp[] powerUps = new PowerUp[4];
 void setup(){
     //fullScreen();
-    size(500,800);
+    size(500,900);
     ellipseMode(CENTER);
     rectMode(CORNER);
     textSize(min(width, 3*height/4)/18);
@@ -17,7 +17,7 @@ void setup(){
     battleScreen = new BattleScreen(width, height, player, powerUps);
     powerUps[2].loadScreen(battleScreen);
     powerUps[3].loadScreen(battleScreen);
-    currentTheme = new AnimatedTheme(color(255, 150, 150), color(50, 20, 20), color(60, 20, 20), "0", .3);
+    currentTheme = new AnimatedTheme(color(255, 150, 150), color(50, 20, 20), color(60, 20, 20), "0", .6);
 }
 
 void mousePressed(){

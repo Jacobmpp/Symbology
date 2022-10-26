@@ -118,6 +118,8 @@ class State{
     // Show
     public void show(float x, float y, float gWidth, color on, color off){
         if(size<1)return;
+        strokeWeight(1);
+        stroke(0);
         fill(on);
         for(int i = 0; i < size; i++)
           for(int j = 0; j < size; j++)

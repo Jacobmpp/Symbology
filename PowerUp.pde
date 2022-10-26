@@ -33,7 +33,7 @@ class PowerUp{
         String tempCount = "" + count;
         textSize(w/3/tempCount.length());
         fill(0);
-        text(tempCount, x+w*.8, y+h*.8);
+        text(tempCount, x+w*.8, y+h*.83);
     }
 
     public boolean use(GameBoard gb){

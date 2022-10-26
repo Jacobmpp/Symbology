@@ -25,7 +25,7 @@ class Spellbook{
             spellsLookup = new long[lines.length];
             avalable  = new boolean[lines.length];
             for(int i=0; i<lines.length;i++) {
-                if(lines[i].split(",").length>5){
+                if(lines[i].split(";").length>5){
                     Spell temp = new Spell(lines[i]);
                     spells.put(temp.getEncoded(), temp);
                     avalable[spellCount] = true;
