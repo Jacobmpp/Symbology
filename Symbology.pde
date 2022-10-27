@@ -6,13 +6,13 @@ Theme currentTheme;
 PowerUp[] powerUps = new PowerUp[4];
 void setup(){
     //fullScreen();
-    size(500,900);
+    size(375,675);
     ellipseMode(CENTER);
     rectMode(CORNER);
     textSize(min(width, 3*height/4)/18);
     textAlign(CENTER);
     strokeWeight(0);
-    player = new Player(1000, 1);
+    player = new Player(3000, 1);
     powerUps = new PowerUp[]{new PowerUp("Grow Board",5,"grow",1), new PowerUp("Shrink Board",5,"shrink",-1), new PowerUp("Skip Level",5,"skip",'l'), new PowerUp("Heal Player",5,"heal",'h')};
     battleScreen = new BattleScreen(width, height, player, powerUps);
     powerUps[2].loadScreen(battleScreen);

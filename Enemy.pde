@@ -16,7 +16,7 @@ class Enemy{
     }
     Enemy(int seed){
         randomSeed(seed);
-        maxHp = 4 * floor(pow(1.01, seed)*random(.8,1.2)*map((1+seed%4), 1, 4, 1, 3));
+        maxHp = floor(4*pow(1.01, seed)*random(.8,1.2)*map((1+seed%4), 1, 4, 1, 3));
         hp = maxHp;
         damage = floor(pow(1.01, seed)*random(0.5,2)*map((1+seed%4), 1, 4, 1, 3));
         type = randomResistance(seed);
