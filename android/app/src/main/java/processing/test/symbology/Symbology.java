@@ -29,10 +29,9 @@ Player player;
 Theme currentTheme;
 PowerUp[] powerUps = new PowerUp[4];
  public void setup(){
-    fullScreen();
     ellipseMode(CENTER);
     rectMode(CORNER);
-    textSize(min(width, 3*height/4)/18);
+    textSize(min(width, 3*(float)height/4)/18);
     textAlign(CENTER);
     strokeWeight(0);
     player = new Player(3000, 1);
@@ -440,7 +439,7 @@ class PowerUp{
         screen = screen_;
     }
 
-    public void show(float x, float y, int w, int h) {
+    public void show(float x, float y, float w, float h) {
         image(favicon, x, y, w, h);
         fill(255);
         ellipse(x+w*.8f, y+h*.85f, w/3, h/3);
@@ -469,15 +468,15 @@ class PowerUp{
     }
 }
 abstract class Screen {
-    int wid;
-    int hei;
+    float wid;
+    float hei;
     float margin;
     float gameWidth;
     
     public Screen(int width_, int height_){
-        wid = width_;
-        hei = height_;
-        margin = min(width_, 3*height_/4)/8;
+        wid = (float)width_;
+        hei = (float)height_;
+        margin = min(wid, 3*hei/4)/8;
         gameWidth = min(width_, 3*height_/4)-margin*2;;
     }
 }
