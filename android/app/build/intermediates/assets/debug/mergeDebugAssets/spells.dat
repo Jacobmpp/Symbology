@@ -1,0 +1,37 @@
+elements list: R-random n-none f-fire a-air w-water e-earth 
+
+<cantrips> 
+Slap;1;n;Well it's a start.;1;131
+Spear;10;n;Wow, using weapons instead of spells what a cop out.;0;547
+Magic Staff of Wacking;10;R;Magic slap!!!;0;2731
+Magic Missle;3;n;It's a magic whistle... I mean missle.;1;1155
+Magic Magic Missle GX5090 Ti;25;It's bigger.;1;34643933
+
+<level 1 spells 3x3>
+Fire Ball;5;f;It's a bit hot, don't you know?;1;1491
+Air Slash;5;a;Did some one cut wind?;1;2603
+Splash;5;w;Wow, it actually does damage!;1;1363
+Rock Throw;5;e;Nothing like a rock to the head.;1;43
+Rain of Serpants;7;R;Let the noodles rain.;0;2683
+
+<level 2 spells 4x4>
+Gout of Flame;10;f;"Fire never dies alone.";1;308044
+Gust;10;a;lets not stand by the ledge you might fall.;1;294988
+Waterfall;10;w;As water falls as do you.;1;524284
+Earth Quake;10;e;It's a bit shaky;1;210892
+Slam;20;n;Ain't nothing like physical violence :);1;31996
+Scream;21;R;Stop yelling;0;34844
+
+<level 3 spells 5x5>
+Disco Inferno;25;f;"up side in side out.";1;5
+Breeze of Autumn;25;a;Ouch! Those leaves are sharp!;1;234880989
+Dance of Rain;25;w;Do a rain dance it might help.;1;92135253
+Break it Down;50;e;Literally.;1;268435453
+
+<level 4 spells 6x6>
+The Sun;
+
+water Board;
+
+<level 5 spells 7x7>
+

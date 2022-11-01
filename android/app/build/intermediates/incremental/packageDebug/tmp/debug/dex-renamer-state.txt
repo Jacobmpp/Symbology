@@ -1,0 +1,4 @@
+#Tue Nov 01 11:22:03 CDT 2022
+base.0=C\:\\Users\\HP\\Documents\\Symbology\\android\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex

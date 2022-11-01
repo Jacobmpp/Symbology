@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "processing.test.symbology.app-merged_res-8:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "processing.test.symbology.app-main-10:/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "processing.test.symbology.app-merged_res-8:/mipmap-ldpi_ic_launcher.png.flat",
+        "source": "processing.test.symbology.app-main-10:/mipmap-ldpi/ic_launcher.png"
+    },
+    {
+        "merged": "processing.test.symbology.app-merged_res-8:/layout_main.xml.flat",
+        "source": "processing.test.symbology.app-main-10:/layout/main.xml"
+    },
+    {
+        "merged": "processing.test.symbology.app-merged_res-8:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "processing.test.symbology.app-main-10:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "processing.test.symbology.app-merged_res-8:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "processing.test.symbology.app-main-10:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "processing.test.symbology.app-merged_res-8:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "processing.test.symbology.app-main-10:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "processing.test.symbology.app-merged_res-8:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "processing.test.symbology.app-main-10:/mipmap-xxxhdpi/ic_launcher.png"
+    }
+]
