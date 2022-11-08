@@ -38,7 +38,15 @@ class Player{
     public void revive(){
         hp = maxHp;
     }
-
+    
+    public int getCount(){
+       return count; 
+    }
+    
+    public void setCount(int count_){
+        count=count_;
+    }
+ 
     public void showHp(float x, float y, float w, float h, Theme t){
         float edge = map(hp,0,maxHp,0,w);
         edge = min(edge - edge%(w/(maxHp/50)) + w/(maxHp/50), w);
