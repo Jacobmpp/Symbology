@@ -14,7 +14,7 @@ class Shop extends Screen{
   
   public Shop(int width_, int height_){
        super(width_, height_);
-       //spellbook = new Spellbook("spells.dat", "0");
+       spellbook = new Spellbook("spells.dat", "0");
   }
   
   void makebutton(float width,float height,PImage button,String image,int size){// creates a button
