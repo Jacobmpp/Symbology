@@ -37,6 +37,10 @@ class Spellbook{
             e.printStackTrace();
         }
     }
+    
+    public Spell getSpell(int spellNum){
+        return spells.get(spellsLookup[spellNum]);    
+    }
 
     public void click(int mX, int mY, BattleScreen screen){
         int attempts = 0;
