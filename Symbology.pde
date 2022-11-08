@@ -5,8 +5,8 @@ Player player;
 Theme currentTheme;
 PowerUp[] powerUps = new PowerUp[4];
 void setup(){
-    //fullScreen();
-    size(375,675);
+    fullScreen();
+    //size(375,675);
     ellipseMode(CENTER);
     rectMode(CORNER);
     textSize(min(width, 3*height/4)/18);
