@@ -61,7 +61,7 @@ void draw(){
             break;
         case 2:
             if(!battleScreen.update(currentTheme)){
-                screen--;                                                       uncomment this when other screens are ready
+                screen--;                                                       
                 player.revive(); // may cause errors when maxHP is increased
             }
             battleScreen.show(currentTheme, debug);
