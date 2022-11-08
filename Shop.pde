@@ -5,8 +5,8 @@ class Shop extends Screen{
   PowerUp powerUps[];
   PImage shop;
   PImage button;
-  int new_width=width/3+30;
-  int new_height=height/3-20;
+  float new_width=width/3+(width/12.5);
+  float new_height=height/3-(height/33.75);
   boolean clicked=false;//prevents overlaping screens
   int bools[]={1,1,1,1};//prevents overlaping screens
   Spellbook spellbook;
@@ -17,7 +17,7 @@ class Shop extends Screen{
        //spellbook = new Spellbook("spells.dat", "0");
   }
   
-  void makebutton(int width,int height,PImage button,String image,int size){// creates a button
+  void makebutton(float width,float height,PImage button,String image,int size){// creates a button
        button = loadImage(image);
        button.resize(size,size);
        image(button, width, height); 
