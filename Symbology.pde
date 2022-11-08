@@ -2,6 +2,7 @@ boolean debug = false;
 int screen = 2;
 BattleScreen battleScreen;
 Player player;
+Shop Shop;
 Theme currentTheme;
 PowerUp[] powerUps = new PowerUp[4];
 void setup(){
@@ -15,6 +16,7 @@ void setup(){
     player = new Player(3000, 1);
     powerUps = new PowerUp[]{new PowerUp("Grow Board",5,"grow",1), new PowerUp("Shrink Board",5,"shrink",-1), new PowerUp("Skip Level",5,"skip",'l'), new PowerUp("Heal Player",5,"heal",'h')};
     battleScreen = new BattleScreen(width, height, player, powerUps);
+    Shop = new Shop(width, height);
     powerUps[2].loadScreen(battleScreen);
     powerUps[3].loadScreen(battleScreen);
     currentTheme = new AnimatedTheme(color(255, 150, 150), color(50, 20, 20), color(60, 20, 20), "0", .6);
@@ -54,10 +56,12 @@ void draw(){
         case 0:
             break;
         case 1:
+            if(Shop.show(currentTheme,powerUps)==1)
+                screen++;
             break;
         case 2:
             if(!battleScreen.update(currentTheme)){
-                //screen--;                                                       uncomment this when other screens are ready
+                screen--;                                                       uncomment this when other screens are ready
                 player.revive(); // may cause errors when maxHP is increased
             }
             battleScreen.show(currentTheme, debug);
