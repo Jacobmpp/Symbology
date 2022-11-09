@@ -86,18 +86,18 @@ class ShopScreen extends Screen{
     }
 
     void buttonLayout(){ // creates the layout
-        //powerups
+        //powers
         makebutton(new_width, new_height,"assets/powerUps/grow.powerUp.png",width*0.16533333333);
-        makebutton(new_width-86, new_height,"assets/powerUps/shrink.powerUp.png",width*0.16533333333);
+        makebutton(new_width-(width/4.36046511628), new_height,"assets/powerUps/shrink.powerUp.png",width*0.16533333333);
         makebutton(new_width, new_height+70,"assets/powerUps/skip.powerUp.png",width*0.16533333333);
-        makebutton(new_width-86, new_height+70,"assets/powerUps/heal.powerUp.png",width*0.16533333333);
+        makebutton(new_width-(width/4.36046511628), new_height+(height/9.6428571),"assets/powerUps/heal.powerUp.png",width*0.16533333333);
         //spells
-        makebutton(new_width-86, new_height+140,"assets/items/spell.item.png",width*0.16533333333);
-        makebutton(new_width, new_height+140,"assets/items/spell.item.png",width*0.16533333333);
-        makebutton(new_width+86, new_height,"assets/items/spell.item.png",width*0.16533333333);
-        makebutton(new_width+86, new_height+70,"assets/items/spell.item.png",width*0.16533333333);
+        makebutton(new_width-(width/4.36046511628), new_height+(height/4.82142857143),"assets/items/spell.item.png",width*0.16533333333);
+        makebutton(new_width, new_height+(height/4.82142857143),"assets/items/spell.item.png",width*0.16533333333);
+        makebutton(new_width+(width/4.36046511628), new_height,"assets/items/spell.item.png",width*0.16533333333);
+        makebutton(new_width+(width/4.36046511628), new_height+(height/9.6428571),"assets/items/spell.item.png",width*0.16533333333);
         //done
-        makebutton(new_width, new_height+230,"assets/powerUps/heal.powerUp.png",width*0.16533333333);
+        makebutton(new_width, new_height+230,"assets/powerUps/heal.powerUp.png",width*0.16533333333);//chage when done button is made
     } 
 
     void printshop(PowerUp powerup[]){//prints buysrceen in shop
