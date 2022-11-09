@@ -27,12 +27,7 @@ class ShopScreen extends Screen{
         buttons.put(name, loadImage(name));
         buttons.get(name).resize(buttonSize,buttonSize);
     }
-
-    void makebutton(float width,float height,String image){// draw a button
-             //button = loadImage(image); // FIX ME!!! This is very slow to do often ------------------------------------------------------
-             //buttons.get(image).resize(size,size); // I am pretty sure this is quite slow as well
-             image(buttons.get(image), width, height);
-    }
+    
     void makebutton(float width,float height,String image, int size){// draw a button with a size
              image(buttons.get(image), width, height, size, size); // this is not especially fast because it resizes, but it is necessary because of the different sized images
     }
@@ -92,17 +87,17 @@ class ShopScreen extends Screen{
 
     void buttonLayout(){ // creates the layout
         //powerups
-        makebutton(new_width, new_height,"assets/powerUps/grow.powerUp.png");
-        makebutton(new_width-86, new_height,"assets/powerUps/shrink.powerUp.png");
-        makebutton(new_width, new_height+70,"assets/powerUps/skip.powerUp.png");
-        makebutton(new_width-86, new_height+70,"assets/powerUps/heal.powerUp.png");
+        makebutton(new_width, new_height,"assets/powerUps/grow.powerUp.png",width*0.16533333333);
+        makebutton(new_width-86, new_height,"assets/powerUps/shrink.powerUp.png",width*0.16533333333);
+        makebutton(new_width, new_height+70,"assets/powerUps/skip.powerUp.png",width*0.16533333333);
+        makebutton(new_width-86, new_height+70,"assets/powerUps/heal.powerUp.png",width*0.16533333333);
         //spells
-        makebutton(new_width-86, new_height+140,"assets/items/spell.item.png");
-        makebutton(new_width, new_height+140,"assets/items/spell.item.png");
-        makebutton(new_width+86, new_height,"assets/items/spell.item.png");
-        makebutton(new_width+86, new_height+70,"assets/items/spell.item.png");
+        makebutton(new_width-86, new_height+140,"assets/items/spell.item.png",width*0.16533333333);
+        makebutton(new_width, new_height+140,"assets/items/spell.item.png",width*0.16533333333);
+        makebutton(new_width+86, new_height,"assets/items/spell.item.png",width*0.16533333333);
+        makebutton(new_width+86, new_height+70,"assets/items/spell.item.png",width*0.16533333333);
         //done
-        makebutton(new_width, new_height+230,"assets/powerUps/heal.powerUp.png");
+        makebutton(new_width, new_height+230,"assets/powerUps/heal.powerUp.png",width*0.16533333333);
     } 
 
     void printshop(PowerUp powerup[]){//prints buysrceen in shop
