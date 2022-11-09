@@ -4,7 +4,14 @@ import java.util.Random;
 class ShopScreen extends Screen{
     PowerUp powerUps[];
     PImage shop;
-    HashMap<String, PImage> buttons = new HashMap<String, PImage>(10);
+    String buttonFilenames[] = { 
+        "assets/powerUps/grow.powerUp.png", 
+        "assets/powerUps/shrink.powerUp.png", 
+        "assets/powerUps/skip.powerUp.png", 
+        "assets/powerUps/heal.powerUp.png", 
+        "assets/items/spell.item.png"
+        };
+    HashMap<String, PImage> buttons = new HashMap<String, PImage>(buttonFilenames.length*2);
     float new_width=width/3+(width/12.5);
     float new_height=height/3-(height/33.75);
     float buttonSize = width*0.16533333333;
@@ -15,11 +22,9 @@ class ShopScreen extends Screen{
 
     public ShopScreen(int width_, int height_, Spellbook spellbook_){
         super(width_, height_);
-        addImage("assets/powerUps/grow.powerUp.png");
-        addImage("assets/powerUps/shrink.powerUp.png");
-        addImage("assets/powerUps/skip.powerUp.png");
-        addImage("assets/powerUps/heal.powerUp.png");
-        addImage("assets/items/spell.item.png");
+        for(String imageFilename : buttonFilenames){
+            addImage(imageFilename);
+        }
         spellbook = spellbook_; // Fixed a thing where you made your own spellbook instead of using the player's spellbook
     }
 
@@ -28,7 +33,10 @@ class ShopScreen extends Screen{
         buttons.get(name).resize((int)buttonSize,(int)buttonSize);
     }
     
-    void makebutton(float width,float height,String image, float size){// draw a button with a size
+    void makebutton(float width,float height,String image){// draw a button of default size
+             image(buttons.get(image), width, height);
+    }
+    void makebutton(float width,float height,String image, float size){// draw a button with a specific size
              image(buttons.get(image), width, height, size, size); // this is not especially fast because it resizes, but it is necessary because of the different sized images
     }
 
@@ -87,17 +95,17 @@ class ShopScreen extends Screen{
 
     void buttonLayout(){ // creates the layout
         //powerups
-        makebutton(new_width, new_height,"assets/powerUps/grow.powerUp.png",buttonSize);
-        makebutton(new_width-(width/4.36046511628), new_height,"assets/powerUps/shrink.powerUp.png",buttonSize);
-        makebutton(new_width, new_height+70,"assets/powerUps/skip.powerUp.png",buttonSize);
-        makebutton(new_width-(width/4.36046511628), new_height+(height/9.6428571),"assets/powerUps/heal.powerUp.png",buttonSize);
+        makebutton(new_width, new_height,"assets/powerUps/grow.powerUp.png");
+        makebutton(new_width-(width/4.36046511628), new_height,"assets/powerUps/shrink.powerUp.png");
+        makebutton(new_width, new_height+70,"assets/powerUps/skip.powerUp.png");
+        makebutton(new_width-(width/4.36046511628), new_height+(height/9.6428571),"assets/powerUps/heal.powerUp.png");
         //spells
-        makebutton(new_width-(width/4.36046511628), new_height+(height/4.82142857143),"assets/items/spell.item.png",buttonSize);
-        makebutton(new_width, new_height+(height/4.82142857143),"assets/items/spell.item.png",buttonSize);
-        makebutton(new_width+(width/4.36046511628), new_height,"assets/items/spell.item.png",buttonSize);
-        makebutton(new_width+(width/4.36046511628), new_height+(height/9.6428571),"assets/items/spell.item.png",buttonSize);
+        makebutton(new_width-(width/4.36046511628), new_height+(height/4.82142857143),"assets/items/spell.item.png");
+        makebutton(new_width, new_height+(height/4.82142857143),"assets/items/spell.item.png");
+        makebutton(new_width+(width/4.36046511628), new_height,"assets/items/spell.item.png");
+        makebutton(new_width+(width/4.36046511628), new_height+(height/9.6428571),"assets/items/spell.item.png");
         //done
-        makebutton(new_width, new_height+230,"assets/powerUps/heal.powerUp.png",buttonSize);//chage when done button is made
+        makebutton(new_width, new_height+230,"assets/powerUps/heal.powerUp.png");//chage when done button is made
     } 
 
     void printshop(PowerUp powerup[]){//prints buysrceen in shop

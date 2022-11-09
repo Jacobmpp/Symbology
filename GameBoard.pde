@@ -14,7 +14,7 @@ class GameBoard{
         boarder.resize((int)(gWidth*1.2), (int)(gWidth*1.2));
     }
     GameBoard(int gWidth){
-      this(new State(3), gWidth);
+        this(new State(3), gWidth);
     }
 
     // State Functions
@@ -36,7 +36,7 @@ class GameBoard{
         return state;
     }
     public boolean resize(int newSize){
-      return state.resize(newSize);
+        return state.resize(newSize);
     }
     public boolean onBoard(int mx, int my){
         int x = floor((mx-topCorner.x));

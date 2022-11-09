@@ -32,7 +32,6 @@ class Spell{
         textAlign(LEFT, TOP);
         textSize(w/15);
         text(flavor, x, y+3*w/4, w, y+5*h/8);
-
     }
 
     public long getEncoded(){

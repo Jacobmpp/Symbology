@@ -31,7 +31,7 @@ class BattleScreen extends Screen{
         if(!player.spellbook.visible && pow(lastX-mx,2)+pow(lastY-my, 2)<pow(margin/2,2)){
             gameBoard.click(mx, my); // tell the board
             Spell currentBoardSpell = player.spellbook.getSpell(gameBoard.getEncoded()); // get the spell from spellbook if there is one
-            if(currentBoardSpell!=null){ // if there is a spell
+            if(currentBoardSpell!=null && currentBoardSpell.available){ // if there is a spell
                 enemy.takeDamage(currentBoardSpell.damage, currentBoardSpell.type);
                 gameBoard.scramble();
                 if(!enemy.alive()){ // if you kill the enemy, make a new one

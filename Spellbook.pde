@@ -35,7 +35,7 @@ class Spellbook{
         }
     }
 
-    public Spell getSpell(int spellNum){
+    public Spell getSpellIndexed(int spellNum){
         return spells.get(spellsLookup[spellNum]);    
     }
 
@@ -47,7 +47,7 @@ class Spellbook{
             } else if(pow(x+13*w/16-mX,2)+pow(y+7*h/8-mY,2)<pow(screen.margin,2)){
                 visibleIndex = (visibleIndex + 1)%spellCount;
             }
-        } while(!getSpell(visibleIndex).available && attempts++<spellCount-1);
+        } while(!getSpellIndexed(visibleIndex).available && attempts++<spellCount-1);
     }
 
     public void show(float deployment, float w_, float h_, BattleScreen screen, Theme theme){
