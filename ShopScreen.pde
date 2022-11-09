@@ -113,16 +113,16 @@ class ShopScreen extends Screen{
 
     void mouseClicked(){//for the items in the shop
         if(clicked==false){ 
-            if(mouseX >= new_width && mouseX <= new_width + 62 && mouseY >= new_height && mouseY <= new_height + 62&&mousePressed)
+            if(mouseX >= new_width && mouseX <= new_width + width*0.16533333333 && mouseY >= new_height && mouseY <= new_height + width*0.16533333333&&mousePressed)
 
             bools[0]=0;
-            if(mouseX >= new_width-86&& mouseX <= new_width-86 + 62 && mouseY >= new_height && mouseY <= new_height + 62&&mousePressed)
+            if(mouseX >= new_width-86&& mouseX <= new_width-(width/4.36046511628) + width*0.16533333333 && mouseY >= new_height && mouseY <= new_height + width*0.16533333333&&mousePressed)
             bools[1]=0;
 
-            if(mouseX >= new_width && mouseX <= new_width + 62 && mouseY >= new_height+70 && mouseY <= new_height+70 + 62&&mousePressed)
+            if(mouseX >= new_width && mouseX <= new_width + width*0.16533333333 && mouseY >= new_height+(height/9.6428571) && mouseY <= new_height+(height/9.6428571) + width*0.16533333333&&mousePressed)
             bools[2]=0;
 
-            if(mouseX >= new_width-86&& mouseX <= new_width-86 + 62 && mouseY >= new_height+70 && mouseY <= new_height+70 + 62&&mousePressed)
+            if(mouseX >= new_width-(width/4.36046511628)&& mouseX <= new_width-(width/4.36046511628) + width*0.16533333333 && mouseY >= new_height+(height/9.6428571) && mouseY <= new_height+(height/9.6428571) + width*0.16533333333&&mousePressed)
             bools[3]=0;
 
         }
