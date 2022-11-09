@@ -7,7 +7,7 @@ class ShopScreen extends Screen{
     HashMap<String, PImage> buttons = new HashMap<String, PImage>(10);
     float new_width=width/3+(width/12.5);
     float new_height=height/3-(height/33.75);
-    int buttonSize = 62;
+    float buttonSize = width*0.16533333333;
     boolean clicked=false;//prevents overlaping screens
     int bools[]={1,1,1,1};//prevents overlaping screens
     Spellbook spellbook;
@@ -25,7 +25,7 @@ class ShopScreen extends Screen{
 
     private void addImage(String name){
         buttons.put(name, loadImage(name));
-        buttons.get(name).resize(buttonSize,buttonSize);
+        buttons.get(name).resize((int)buttonSize,(int)buttonSize);
     }
     
     void makebutton(float width,float height,String image, int size){// draw a button with a size
@@ -86,18 +86,18 @@ class ShopScreen extends Screen{
     }
 
     void buttonLayout(){ // creates the layout
-        //powers
-        makebutton(new_width, new_height,"assets/powerUps/grow.powerUp.png",width*0.16533333333);
-        makebutton(new_width-(width/4.36046511628), new_height,"assets/powerUps/shrink.powerUp.png",width*0.16533333333);
-        makebutton(new_width, new_height+70,"assets/powerUps/skip.powerUp.png",width*0.16533333333);
-        makebutton(new_width-(width/4.36046511628), new_height+(height/9.6428571),"assets/powerUps/heal.powerUp.png",width*0.16533333333);
+        //powerups
+        makebutton(new_width, new_height,"assets/powerUps/grow.powerUp.png",buttonSize);
+        makebutton(new_width-(width/4.36046511628), new_height,"assets/powerUps/shrink.powerUp.png",buttonSize);
+        makebutton(new_width, new_height+70,"assets/powerUps/skip.powerUp.png",buttonSize);
+        makebutton(new_width-(width/4.36046511628), new_height+(height/9.6428571),"assets/powerUps/heal.powerUp.png",buttonSize);
         //spells
-        makebutton(new_width-(width/4.36046511628), new_height+(height/4.82142857143),"assets/items/spell.item.png",width*0.16533333333);
-        makebutton(new_width, new_height+(height/4.82142857143),"assets/items/spell.item.png",width*0.16533333333);
-        makebutton(new_width+(width/4.36046511628), new_height,"assets/items/spell.item.png",width*0.16533333333);
-        makebutton(new_width+(width/4.36046511628), new_height+(height/9.6428571),"assets/items/spell.item.png",width*0.16533333333);
+        makebutton(new_width-(width/4.36046511628), new_height+(height/4.82142857143),"assets/items/spell.item.png",buttonSize);
+        makebutton(new_width, new_height+(height/4.82142857143),"assets/items/spell.item.png",buttonSize);
+        makebutton(new_width+(width/4.36046511628), new_height,"assets/items/spell.item.png",buttonSize);
+        makebutton(new_width+(width/4.36046511628), new_height+(height/9.6428571),"assets/items/spell.item.png",buttonSize);
         //done
-        makebutton(new_width, new_height+230,"assets/powerUps/heal.powerUp.png",width*0.16533333333);//chage when done button is made
+        makebutton(new_width, new_height+230,"assets/powerUps/heal.powerUp.png",buttonSize);//chage when done button is made
     } 
 
     void printshop(PowerUp powerup[]){//prints buysrceen in shop
@@ -113,16 +113,16 @@ class ShopScreen extends Screen{
 
     void mouseClicked(){//for the items in the shop
         if(clicked==false){ 
-            if(mouseX >= new_width && mouseX <= new_width + width*0.16533333333 && mouseY >= new_height && mouseY <= new_height + width*0.16533333333&&mousePressed)
+            if(mouseX >= new_width && mouseX <= new_width + buttonSize && mouseY >= new_height && mouseY <= new_height + buttonSize&&mousePressed)
 
             bools[0]=0;
-            if(mouseX >= new_width-86&& mouseX <= new_width-(width/4.36046511628) + width*0.16533333333 && mouseY >= new_height && mouseY <= new_height + width*0.16533333333&&mousePressed)
+            if(mouseX >= new_width-86&& mouseX <= new_width-(width/4.36046511628) + buttonSize && mouseY >= new_height && mouseY <= new_height + buttonSize&&mousePressed)
             bools[1]=0;
 
-            if(mouseX >= new_width && mouseX <= new_width + width*0.16533333333 && mouseY >= new_height+(height/9.6428571) && mouseY <= new_height+(height/9.6428571) + width*0.16533333333&&mousePressed)
+            if(mouseX >= new_width && mouseX <= new_width + buttonSize && mouseY >= new_height+(height/9.6428571) && mouseY <= new_height+(height/9.6428571) + buttonSize&&mousePressed)
             bools[2]=0;
 
-            if(mouseX >= new_width-(width/4.36046511628)&& mouseX <= new_width-(width/4.36046511628) + width*0.16533333333 && mouseY >= new_height+(height/9.6428571) && mouseY <= new_height+(height/9.6428571) + width*0.16533333333&&mousePressed)
+            if(mouseX >= new_width-(width/4.36046511628)&& mouseX <= new_width-(width/4.36046511628) + buttonSize && mouseY >= new_height+(height/9.6428571) && mouseY <= new_height+(height/9.6428571) + buttonSize&&mousePressed)
             bools[3]=0;
 
         }
