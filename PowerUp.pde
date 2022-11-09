@@ -21,12 +21,16 @@ class PowerUp{
         stat = stat_;
     }
 
+    public void resize(int x, int y){
+        favicon.resize(x, y);
+    }
+
     public void loadScreen(BattleScreen screen_){
         screen = screen_;
     }
 
     public void show(float x, float y, int w, int h) {
-        image(favicon, x, y, w, h);
+        image(favicon, x, y);
         fill(255);
         ellipse(x+w*.8, y+h*.85, w/3, h/3);
         textAlign(CENTER, CENTER);
@@ -39,7 +43,7 @@ class PowerUp{
     public boolean use(GameBoard gb){
         if(count > 0){
             if(resize!=0){
-                gb.resize(gb.getSize()+resize);
+                if(!gb.resize(gb.getSize()+resize))return false;
                 gb.scramble();
             }
             if(screen != null){

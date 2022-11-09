@@ -4,12 +4,14 @@ class Player{
     private int maxHp;
     private int level;
     public Spellbook spellbook;
+    private int currency;
 
     public Player(int maxHp_, int level_){
         maxHp = maxHp_;
         hp = maxHp_;
         level = level_;
         spellbook = new Spellbook("spells.dat", "0");
+        currency = 0;
     }
 
     public void takeDamage(int damage){
@@ -26,7 +28,7 @@ class Player{
                 break;
         }
     }
-    
+
     public int getLevel(){
       return level;
     }
@@ -38,15 +40,15 @@ class Player{
     public void revive(){
         hp = maxHp;
     }
-    
-    public int getCount(){
-       return count; 
+
+    void setCurrency(int currency_){
+        currency = currency_;
     }
-    
-    public void setCount(int count_){
-        count=count_;
+
+    int getCurrency(){
+        return currency;
     }
- 
+
     public void showHp(float x, float y, float w, float h, Theme t){
         float edge = map(hp,0,maxHp,0,w);
         edge = min(edge - edge%(w/(maxHp/50)) + w/(maxHp/50), w);

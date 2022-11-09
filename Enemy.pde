@@ -15,30 +15,31 @@ class Enemy{
         sprite = sprite_;
     }
     Enemy(int seed){
-        randomSeed(seed);
-        maxHp = floor(4*pow(1.01, seed)*random(.8,1.2)*map((1+seed%4), 1, 4, 1, 3));
+        boss = seed%4==0;
+        randomSeed(seed); // set the random seed so each level is always the same, and different levels are different and we don't have to make them
+        maxHp = floor(4*pow(1.01, seed)*random(.8,1.2)*map((seed%4), 0, 3, 1, 3)*(boss?2:1));
         hp = maxHp;
-        damage = floor(pow(1.01, seed)*random(0.5,2)*map((1+seed%4), 1, 4, 1, 3));
+        damage = floor(pow(1.01, seed)*random(.8,1.2)*(boss?2:1));
         type = randomResistance(seed);
         sprite = loadImage("assets/monsters/"+floor(random(0,4))+".monster.png");
-        boss = seed%4==0;
+        sprite.resize(width/2, width/2); // small optimization
     }
 
     public void takeDamage(int amount, char damageType){
         switch(type){
-            case 'n':
+            case 'n': // if the enemy is of type neutral it just takes the damage
                 hp-=amount;
                 break;
-            case 'a':
+            case 'a': // if the enemy is of type air it takes double damage from air spells and half from others
                 hp-=(damageType=='a')?amount*2:amount/2;
                 break;
-            case 'e':
+            case 'e': // if the enemy is of type earth it takes double damage from fire spells and half from others
                 hp-=(damageType=='f')?amount*2:amount/2;
                 break;
-            case 'f':
+            case 'f': // if the enemy is of type fire it takes double damage from water spells and half from others
                 hp-=(damageType=='w')?amount*2:amount/2;
                 break;
-            case 'w':
+            case 'w': // if the enemy is of type water it takes double damage from earth spells and half from others
                 hp-=(damageType=='e')?amount*2:amount/2;
                 break;
         }
@@ -57,7 +58,7 @@ class Enemy{
     public int getDamage(){
         return damage;
     }
-    private color typeToTint(){
+    private color typeToTint(){ // get the color tint based on the type
         switch(type){
             case 'a':
                 return color(255,255,150);
@@ -71,7 +72,7 @@ class Enemy{
         return color(200);
     }
 
-    private char randomResistance(int seed){
+    private char randomResistance(int seed){ // get a random resistance from the seed
         if(seed<=4)return 'n';
         return TYPES[floor(random(0,4))];
     }
@@ -83,9 +84,8 @@ class Enemy{
             w*=2;
             h*=2;
         }
-        if(sprite.width!=w||sprite.height!=h) sprite.resize((int)w,(int)h);
         tint(typeToTint());
-        image(sprite, x, y);
+        image(sprite, x, y, w, h);
         tint(255);
     }
 

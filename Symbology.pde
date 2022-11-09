@@ -2,25 +2,37 @@ boolean debug = false;
 int screen = 2;
 BattleScreen battleScreen;
 Player player;
-Shop Shop;
+ShopScreen shopScreen;
 Theme currentTheme;
 PowerUp[] powerUps = new PowerUp[4];
 void setup(){
-    fullScreen();
-    //size(375,675);
+    //fullScreen(); // use when compiled for android
+    size(375,675); // use when testing on Processing IDE
+
+    // enitializing several drawing properties
     ellipseMode(CENTER);
     rectMode(CORNER);
     textSize(min(width, 3*height/4)/18);
     textAlign(CENTER);
     strokeWeight(0);
-    player = new Player(3000, 1);
-    powerUps = new PowerUp[]{new PowerUp("Grow Board",5,"grow",1), new PowerUp("Shrink Board",5,"shrink",-1), new PowerUp("Skip Level",5,"skip",'l'), new PowerUp("Heal Player",5,"heal",'h')};
+
+    // initializing system variables
+    player = new Player(300, 1); // 3000 base hp, level 1
+    powerUps = new PowerUp[]{
+        new PowerUp("Grow Board",5,"grow",1), // start with 5 grow powerUps
+        new PowerUp("Shrink Board",5,"shrink",-1), // start with 5 shrink powerUps
+        new PowerUp("Skip Level",5,"skip",'l'), // start with 5 skip powerUps
+        new PowerUp("Heal Player",5,"heal",'h') // start with 5 heal powerUps
+    };
     battleScreen = new BattleScreen(width, height, player, powerUps);
-    Shop = new Shop(width, height);
-    powerUps[2].loadScreen(battleScreen);
-    powerUps[3].loadScreen(battleScreen);
-    currentTheme = new AnimatedTheme(color(255, 150, 150), color(50, 20, 20), color(60, 20, 20), "0", .6);
+    shopScreen = new ShopScreen(width, height, player.spellbook);
+    for(int i = 0; i < powerUps.length; i++){
+        powerUps[i].resize(width/5, width/5);
+        if(i>1)powerUps[i].loadScreen(battleScreen);
+    }
+    currentTheme = new AnimatedTheme(color(255, 150, 150), color(50, 20, 20), color(60, 20, 20), "0", .6, width, height);
 }
+
 
 void mousePressed(){
     switch(screen){
@@ -56,7 +68,7 @@ void draw(){
         case 0:
             break;
         case 1:
-            if(Shop.show(currentTheme,powerUps)==1)
+            if(shopScreen.show(currentTheme,powerUps)==1)
                 screen++;
             break;
         case 2:
