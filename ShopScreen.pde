@@ -28,7 +28,7 @@ class ShopScreen extends Screen{
         buttons.get(name).resize((int)buttonSize,(int)buttonSize);
     }
     
-    void makebutton(float width,float height,String image, int size){// draw a button with a size
+    void makebutton(float width,float height,String image, float size){// draw a button with a size
              image(buttons.get(image), width, height, size, size); // this is not especially fast because it resizes, but it is necessary because of the different sized images
     }
 
