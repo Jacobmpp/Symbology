@@ -13,7 +13,7 @@ class ShopScreen extends Screen{
     Spellbook spellbook;
     int randSpell[]={1,2,3,4};
     boolean RandSpell=false;
-    boolean bought[]={false,false,false,false};//prevents repeats spalls
+    boolean bought[]={false,false,false,false};//prevents repeats spells
     String Bought="assets/40f.png";
 
 
@@ -172,24 +172,22 @@ class ShopScreen extends Screen{
 
     void printshop(PowerUp powerup[]){//prints buysrceen in shop
         //shop
-        if(RandSpell==false)
-        RandomSpells();
         if(bools[0]==0)
-        buyScreen("assets/powerUps/grow.powerUp.png",powerup);
+            buyScreen("assets/powerUps/grow.powerUp.png",powerup);
         if(bools[1]==0)
-        buyScreen("assets/powerUps/shrink.powerUp.png",powerup);
+            buyScreen("assets/powerUps/shrink.powerUp.png",powerup);
         if(bools[2]==0)
-        buyScreen("assets/powerUps/skip.powerUp.png",powerup);
+            buyScreen("assets/powerUps/skip.powerUp.png",powerup);
         if(bools[3]==0)
-        buyScreen("assets/powerUps/heal.powerUp.png",powerup);
+            buyScreen("assets/powerUps/heal.powerUp.png",powerup);
         if(bools[4]==0)
-        buySpellScreen("assets/items/spell.item.png",randSpell[0]);
+            buySpellScreen("assets/items/spell.item.png",randSpell[0]);
         if(bools[5]==0)
-        buySpellScreen("assets/items/spell.item.png",randSpell[1]);
+            buySpellScreen("assets/items/spell.item.png",randSpell[1]);
         if(bools[6]==0)
-        buySpellScreen("assets/items/spell.item.png",randSpell[2]);
+            buySpellScreen("assets/items/spell.item.png",randSpell[2]);
         if(bools[7]==0)
-        buySpellScreen("assets/items/spell.item.png",randSpell[3]);      
+            buySpellScreen("assets/items/spell.item.png",randSpell[3]);      
     }
 
     void mouseClicked(){//for the items in the shop
@@ -199,30 +197,27 @@ class ShopScreen extends Screen{
 
             bools[0]=0;
             if(mouseX >= new_width-86&& mouseX <= new_width-(width/4.36046511628) + buttonSize && mouseY >= new_height && mouseY <= new_height + buttonSize&&mousePressed)
-            bools[1]=0;
+                bools[1]=0;
 
             if(mouseX >= new_width && mouseX <= new_width + buttonSize && mouseY >= new_height+(height/9.6428571) && mouseY <= new_height+(height/9.6428571) + buttonSize&&mousePressed)
-            bools[2]=0;
+                bools[2]=0;
 
             if(mouseX >= new_width-(width/4.36046511628)&& mouseX <= new_width-(width/4.36046511628) + buttonSize && mouseY >= new_height+(height/9.6428571) && mouseY <= new_height+(height/9.6428571) + buttonSize&&mousePressed)
-            bools[3]=0;
+                bools[3]=0;
             
             
             //spells
             if(mouseX >= new_width-(width/4.36046511628)&& mouseX <= new_width-(width/4.36046511628) + buttonSize && mouseY >= new_height+(height/4.82142857143) && mouseY <= new_height+(height/4.82142857143) + buttonSize&&mousePressed)
-            bools[4]=0;
+                bools[4]=0;
             
             if(mouseX >= new_width&& mouseX <= new_width+ buttonSize && mouseY >= new_height+(height/4.82142857143) && mouseY <= new_height+(height/4.82142857143) + buttonSize&&mousePressed)
-            bools[5]=0;
+                bools[5]=0;
           
             if(mouseX >= new_width+(width/4.36046511628)&& mouseX <= new_width+(width/4.36046511628) + buttonSize && mouseY >= new_height&& mouseY <= new_height+ buttonSize&&mousePressed)
-            bools[6]=0;
+                bools[6]=0; 
            
-            
-            if(mouseX >= new_width+(width/4.36046511628)&& mouseX <= new_width+(width/4.36046511628) + buttonSize && mouseY >= new_height+(height/9.6428571) && mouseY <= new_height+(height/9.6428571) + buttonSize&&mousePressed)
-            bools[7]=0;
-             
-             
+           if(mouseX >= new_width+(width/4.36046511628)&& mouseX <= new_width+(width/4.36046511628) + buttonSize && mouseY >= new_height+(height/9.6428571) && mouseY <= new_height+(height/9.6428571) + buttonSize&&mousePressed)
+                bools[7]=0;
 
         }
 
@@ -232,8 +227,10 @@ class ShopScreen extends Screen{
         if(mouseX >= new_width&& mouseX <= new_width + 62 && mouseY >= new_height+230 && mouseY <= new_height+230 + 62&&mousePressed&&(clicked==false)){
           for(int i=0;i<4;i++){
            if(bought[i]==false)
-           spellbook.getSpell(randSpell[i]).available=false;   
+           spellbook.getSpell(randSpell[i]).available=false; 
+           bought[i]=false;
           } 
+          RandSpell=false;
           return 1;
         }
         return 0; 
@@ -241,6 +238,8 @@ class ShopScreen extends Screen{
      
     public int show(Theme theme,PowerUp powerup[]){
         shop= loadImage("assets/Shop.png");
+        if(RandSpell==false)
+        RandomSpells();
         background(theme.getBackground());
         image(shop,0,0,wid,hei);
         buttonLayout();
