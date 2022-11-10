@@ -1,5 +1,5 @@
 import java.util.Random;
-
+import java.lang.Math;
 
 class Shop extends Screen{
     PowerUp powerUps[];
@@ -16,6 +16,7 @@ class Shop extends Screen{
     boolean RandSpell=false;
     boolean bought[]={false,false,false,false};//prevents repeats spells
     String Bought="assets/40f.png";//will appear if you buy spell
+    int spellcount=1;
 
 
     public Shop(int width_, int height_, Spellbook spellbook_, Theme theme_){
@@ -60,19 +61,24 @@ class Shop extends Screen{
     
     public void buySpellScreen(String name,int spell){
         fill(255,255,255);
+        int spellCost=(int)(Math.pow(1.1,spellcount)*100);
         rect(width/5-37,height/4,300,300);
         spellbook.getSpell(spell).show(width/2-(width/3.125), height/2-(height/4.17),(width/1.5),(width/1.5),theme);
         makebutton(width/2+80, height/2+60,name,70);//cancle
         makebutton(width/2-150, height/2+60,name,70);//buy
-        fill(0, 408, 612, 816);
+  
+        textSize(width/15);
+        text(spellCost+" coins", width/2.7, height/1.57); 
+        textAlign(CENTER, BOTTOM);
         clicked=true;
+        
       if(mouseX >= width/2+80 && mouseX <= width/2+80 + 70 && mouseY >= height/2+60 && mouseY <= height/2+60 + 70&&mousePressed){   //cancle
              for(int i=4;i<8;i++)
              bools[i]=1;
              clicked=false;
         }
         if(mouseX >= width/2-150 && mouseX <= width/2-150 + 70 && mouseY >= height/2+60 && mouseY <= height/2+60 + 70&&mousePressed){ 
-          
+          spellcount++;
           if(bools[4]==0){
             bought[0]=true;  
             bools[4]=1;//prevents mouse hold
