@@ -1,8 +1,9 @@
 import java.util.Random;
 
 
-class ShopScreen extends Screen{
+class Shop extends Screen{
     PowerUp powerUps[];
+    Theme theme;
     PImage shop;
     HashMap<String, PImage> buttons = new HashMap<String, PImage>(10);
     float new_width=width/3+(width/12.5);
@@ -17,7 +18,7 @@ class ShopScreen extends Screen{
     String Bought="assets/40f.png";
 
 
-    public ShopScreen(int width_, int height_, Spellbook spellbook_){
+    public Shop(int width_, int height_, Spellbook spellbook_, Theme theme_){
         super(width_, height_);
         addImage("assets/powerUps/grow.powerUp.png");
         addImage("assets/powerUps/shrink.powerUp.png");
@@ -26,6 +27,7 @@ class ShopScreen extends Screen{
         addImage("assets/items/spell.item.png");
         addImage("assets/40f.png");
         spellbook = spellbook_; // Fixed a thing where you made your own spellbook instead of using the player's spellbook
+        theme =theme_;
       
     }
 
@@ -58,13 +60,10 @@ class ShopScreen extends Screen{
     public void buySpellScreen(String name,int spell){
         fill(255,255,255);
         rect(width/5-37,height/4,300,300);
-        makebutton(width/2-70, height/2-100,name,150);//displayimage
+        spellbook.getSpell(spell).show(width/2-(width/3.125), height/2-(height/4.17),(width/1.5),(width/1.5),theme);
         makebutton(width/2+80, height/2+60,name,70);//cancle
         makebutton(width/2-150, height/2+60,name,70);//buy
         fill(0, 408, 612, 816);
-        textSize(30);
-        textAlign(CENTER, BOTTOM);
-        text(spellbook.getSpell(spell).name,width/2, height/2.9);
         clicked=true;
       if(mouseX >= width/2+80 && mouseX <= width/2+80 + 70 && mouseY >= height/2+60 && mouseY <= height/2+60 + 70&&mousePressed){   //cancle
              for(int i=4;i<8;i++)
@@ -236,7 +235,7 @@ class ShopScreen extends Screen{
         return 0; 
     }
      
-    public int show(Theme theme,PowerUp powerup[]){
+    public int show(PowerUp powerup[]){
         shop= loadImage("assets/Shop.png");
         if(RandSpell==false)
         RandomSpells();
