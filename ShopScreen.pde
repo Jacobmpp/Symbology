@@ -4,28 +4,29 @@ import java.util.Random;
 class ShopScreen extends Screen{
     PowerUp powerUps[];
     PImage shop;
-    String buttonFilenames[] = { 
-        "assets/powerUps/grow.powerUp.png", 
-        "assets/powerUps/shrink.powerUp.png", 
-        "assets/powerUps/skip.powerUp.png", 
-        "assets/powerUps/heal.powerUp.png", 
-        "assets/items/spell.item.png"
-        };
-    HashMap<String, PImage> buttons = new HashMap<String, PImage>(buttonFilenames.length*2);
+    HashMap<String, PImage> buttons = new HashMap<String, PImage>(10);
     float new_width=width/3+(width/12.5);
     float new_height=height/3-(height/33.75);
     float buttonSize = width*0.16533333333;
     boolean clicked=false;//prevents overlaping screens
-    int bools[]={1,1,1,1};//prevents overlaping screens
+    int bools[]={1,1,1,1,1,1,1,1};//prevents overlaping screens
     Spellbook spellbook;
-    Spell[] spell;
+    int randSpell[]={1,2,3,4};
+    boolean RandSpell=false;
+    boolean bought[]={false,false,false,false};//prevents repeats spalls
+    String Bought="assets/40f.png";
+
 
     public ShopScreen(int width_, int height_, Spellbook spellbook_){
         super(width_, height_);
-        for(String imageFilename : buttonFilenames){
-            addImage(imageFilename);
-        }
+        addImage("assets/powerUps/grow.powerUp.png");
+        addImage("assets/powerUps/shrink.powerUp.png");
+        addImage("assets/powerUps/skip.powerUp.png");
+        addImage("assets/powerUps/heal.powerUp.png");
+        addImage("assets/items/spell.item.png");
+        addImage("assets/40f.png");
         spellbook = spellbook_; // Fixed a thing where you made your own spellbook instead of using the player's spellbook
+      
     }
 
     private void addImage(String name){
@@ -33,23 +34,66 @@ class ShopScreen extends Screen{
         buttons.get(name).resize((int)buttonSize,(int)buttonSize);
     }
     
-    void makebutton(float width,float height,String image){// draw a button of default size
-             image(buttons.get(image), width, height);
-    }
-    void makebutton(float width,float height,String image, float size){// draw a button with a specific size
+    void makebutton(float width,float height,String image, float size){// draw a button with a size
              image(buttons.get(image), width, height, size, size); // this is not especially fast because it resizes, but it is necessary because of the different sized images
     }
 
-    void RandomSpells(Spell[] spell){//gets a random spell 
+    void RandomSpells(){//gets a random spell 
         for(int i=0;i<4;i++){
             boolean set=false;     
             while(set==false){
                 Random rand = new Random(); //instance of random class
-                int random = rand.nextInt(10); 
-                spell[i]=    spellbook.getSpell(random);
-                print(spell[i].name); 
+                int random = rand.nextInt(18); 
+                if(!spellbook.getSpell(random).available){
+                  spellbook.getSpell(random).available=true;  
+                  set=true;
+                    randSpell[i]=random;   
+                }              
             }
-        } 
+        }
+        RandSpell=true;
+    }
+    
+    
+    public void buySpellScreen(String name,int spell){
+        fill(255,255,255);
+        rect(width/5-37,height/4,300,300);
+        makebutton(width/2-70, height/2-100,name,150);//displayimage
+        makebutton(width/2+80, height/2+60,name,70);//cancle
+        makebutton(width/2-150, height/2+60,name,70);//buy
+        fill(0, 408, 612, 816);
+        textSize(30);
+        textAlign(CENTER, BOTTOM);
+        text(spellbook.getSpell(spell).name,width/2, height/2.9);
+        clicked=true;
+      if(mouseX >= width/2+80 && mouseX <= width/2+80 + 70 && mouseY >= height/2+60 && mouseY <= height/2+60 + 70&&mousePressed){   //cancle
+             for(int i=4;i<8;i++)
+             bools[i]=1;
+             clicked=false;
+        }
+        if(mouseX >= width/2-150 && mouseX <= width/2-150 + 70 && mouseY >= height/2+60 && mouseY <= height/2+60 + 70&&mousePressed){ 
+          
+          if(bools[4]==0){
+            bought[0]=true;  
+            bools[4]=1;//prevents mouse hold
+            clicked=false;
+          }
+          if(bools[5]==0){
+            bought[1]=true; 
+            bools[5]=1;//prevents mouse hold
+            clicked=false;
+          }
+          if(bools[6]==0){
+            bought[2]=true;   
+            bools[6]=1;//prevents mouse hold
+            clicked=false;
+          }
+          if(bools[7]==0){
+            bought[3]=true;  
+            bools[7]=1;//prevents mouse hold
+            clicked=false;
+          }
+        }  
     }
 
     void buyScreen(String name,PowerUp powerup[]){// you can buy or cancle items
@@ -95,20 +139,41 @@ class ShopScreen extends Screen{
 
     void buttonLayout(){ // creates the layout
         //powerups
-        makebutton(new_width, new_height,"assets/powerUps/grow.powerUp.png");
-        makebutton(new_width-(width/4.36046511628), new_height,"assets/powerUps/shrink.powerUp.png");
-        makebutton(new_width, new_height+70,"assets/powerUps/skip.powerUp.png");
-        makebutton(new_width-(width/4.36046511628), new_height+(height/9.6428571),"assets/powerUps/heal.powerUp.png");
+        makebutton(new_width, new_height,"assets/powerUps/grow.powerUp.png",buttonSize);
+        makebutton(new_width-(width/4.36046511628), new_height,"assets/powerUps/shrink.powerUp.png",buttonSize);
+        makebutton(new_width, new_height+70,"assets/powerUps/skip.powerUp.png",buttonSize);
+        makebutton(new_width-(width/4.36046511628), new_height+(height/9.6428571),"assets/powerUps/heal.powerUp.png",buttonSize);
         //spells
-        makebutton(new_width-(width/4.36046511628), new_height+(height/4.82142857143),"assets/items/spell.item.png");
-        makebutton(new_width, new_height+(height/4.82142857143),"assets/items/spell.item.png");
-        makebutton(new_width+(width/4.36046511628), new_height,"assets/items/spell.item.png");
-        makebutton(new_width+(width/4.36046511628), new_height+(height/9.6428571),"assets/items/spell.item.png");
+        if(bought[0]==false)
+          makebutton(new_width-(width/4.36046511628), new_height+(height/4.82142857143),"assets/items/spell.item.png",buttonSize);
+        else
+          makebutton(new_width-(width/4.36046511628), new_height+(height/4.82142857143),Bought,buttonSize);
+        
+        if(bought[1]==false)
+          makebutton(new_width, new_height+(height/4.82142857143),"assets/items/spell.item.png",buttonSize);
+        else
+        makebutton(new_width, new_height+(height/4.82142857143),Bought,buttonSize);
+        
+        if(bought[2]==false)
+          makebutton(new_width+(width/4.36046511628), new_height,"assets/items/spell.item.png",buttonSize);
+        else
+          makebutton(new_width+(width/4.36046511628), new_height,Bought,buttonSize);
+        
+        if(bought[3]==false)
+          makebutton(new_width+(width/4.36046511628), new_height+(height/9.6428571),"assets/items/spell.item.png",buttonSize);
+        else
+          makebutton(new_width+(width/4.36046511628), new_height+(height/9.6428571),Bought,buttonSize);
+        
+        
+        
         //done
-        makebutton(new_width, new_height+230,"assets/powerUps/heal.powerUp.png");//chage when done button is made
+        makebutton(new_width, new_height+230,"assets/powerUps/heal.powerUp.png",buttonSize);//chage when done button is made
     } 
 
     void printshop(PowerUp powerup[]){//prints buysrceen in shop
+        //shop
+        if(RandSpell==false)
+        RandomSpells();
         if(bools[0]==0)
         buyScreen("assets/powerUps/grow.powerUp.png",powerup);
         if(bools[1]==0)
@@ -117,10 +182,19 @@ class ShopScreen extends Screen{
         buyScreen("assets/powerUps/skip.powerUp.png",powerup);
         if(bools[3]==0)
         buyScreen("assets/powerUps/heal.powerUp.png",powerup);
+        if(bools[4]==0)
+        buySpellScreen("assets/items/spell.item.png",randSpell[0]);
+        if(bools[5]==0)
+        buySpellScreen("assets/items/spell.item.png",randSpell[1]);
+        if(bools[6]==0)
+        buySpellScreen("assets/items/spell.item.png",randSpell[2]);
+        if(bools[7]==0)
+        buySpellScreen("assets/items/spell.item.png",randSpell[3]);      
     }
 
     void mouseClicked(){//for the items in the shop
         if(clicked==false){ 
+            //power ups
             if(mouseX >= new_width && mouseX <= new_width + buttonSize && mouseY >= new_height && mouseY <= new_height + buttonSize&&mousePressed)
 
             bools[0]=0;
@@ -132,18 +206,39 @@ class ShopScreen extends Screen{
 
             if(mouseX >= new_width-(width/4.36046511628)&& mouseX <= new_width-(width/4.36046511628) + buttonSize && mouseY >= new_height+(height/9.6428571) && mouseY <= new_height+(height/9.6428571) + buttonSize&&mousePressed)
             bools[3]=0;
+            
+            
+            //spells
+            if(mouseX >= new_width-(width/4.36046511628)&& mouseX <= new_width-(width/4.36046511628) + buttonSize && mouseY >= new_height+(height/4.82142857143) && mouseY <= new_height+(height/4.82142857143) + buttonSize&&mousePressed)
+            bools[4]=0;
+            
+            if(mouseX >= new_width&& mouseX <= new_width+ buttonSize && mouseY >= new_height+(height/4.82142857143) && mouseY <= new_height+(height/4.82142857143) + buttonSize&&mousePressed)
+            bools[5]=0;
+          
+            if(mouseX >= new_width+(width/4.36046511628)&& mouseX <= new_width+(width/4.36046511628) + buttonSize && mouseY >= new_height&& mouseY <= new_height+ buttonSize&&mousePressed)
+            bools[6]=0;
+           
+            
+            if(mouseX >= new_width+(width/4.36046511628)&& mouseX <= new_width+(width/4.36046511628) + buttonSize && mouseY >= new_height+(height/9.6428571) && mouseY <= new_height+(height/9.6428571) + buttonSize&&mousePressed)
+            bools[7]=0;
+             
+             
 
         }
 
     }
 
     public int exitShop(){ //if done is pressed you return back to battle screen
-        if(mouseX >= new_width&& mouseX <= new_width + 62 && mouseY >= new_height+230 && mouseY <= new_height+230 + 62&&mousePressed&&(clicked==false))
-            return 1;
+        if(mouseX >= new_width&& mouseX <= new_width + 62 && mouseY >= new_height+230 && mouseY <= new_height+230 + 62&&mousePressed&&(clicked==false)){
+          for(int i=0;i<4;i++){
+           if(bought[i]==false)
+           spellbook.getSpell(randSpell[i]).available=false;   
+          } 
+          return 1;
+        }
         return 0; 
     }
-
-         
+     
     public int show(Theme theme,PowerUp powerup[]){
         shop= loadImage("assets/Shop.png");
         background(theme.getBackground());
