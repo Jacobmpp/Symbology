@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.lang.Math;
 
-class Shop extends Screen{
+class ShopScreen extends Screen{
     PowerUp powerUps[];
     Theme theme;
     PImage shop;
@@ -19,7 +19,7 @@ class Shop extends Screen{
     int spellcount=1;
 
 
-    public Shop(int width_, int height_, Spellbook spellbook_, Theme theme_){
+    public ShopScreen(int width_, int height_, Spellbook spellbook_, Theme theme_){
         super(width_, height_);
         addImage("assets/powerUps/grow.powerUp.png");
         addImage("assets/powerUps/shrink.powerUp.png");
