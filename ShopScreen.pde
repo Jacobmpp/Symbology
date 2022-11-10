@@ -41,11 +41,12 @@ class Shop extends Screen{
     }
 
     void RandomSpells(){//gets a random spell 
+        spellbook.getSpell(0).available=true;
         for(int i=0;i<4;i++){
             boolean set=false;     
             while(set==false){
                 Random rand = new Random(); //instance of random class
-                int random = rand.nextInt(18); 
+                int random = rand.nextInt(17)+1; 
                 if(!spellbook.getSpell(random).available){
                   spellbook.getSpell(random).available=true;  
                   set=true;
