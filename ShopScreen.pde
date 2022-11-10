@@ -15,7 +15,7 @@ class Shop extends Screen{
     int randSpell[]={1,2,3,4};
     boolean RandSpell=false;
     boolean bought[]={false,false,false,false};//prevents repeats spells
-    String Bought="assets/40f.png";
+    String Bought="assets/40f.png";//will appear if you buy spell
 
 
     public Shop(int width_, int height_, Spellbook spellbook_, Theme theme_){
