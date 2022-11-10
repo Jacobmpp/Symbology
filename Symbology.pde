@@ -24,13 +24,13 @@ void setup(){
         new PowerUp("Skip Level",5,"skip",'l'), // start with 5 skip powerUps
         new PowerUp("Heal Player",5,"heal",'h') // start with 5 heal powerUps
     };
+    currentTheme = new AnimatedTheme(color(255, 150, 150), color(50, 20, 20), color(60, 20, 20), "0", .6, width, height);
     battleScreen = new BattleScreen(width, height, player, powerUps);
-    shopScreen = new ShopScreen(width, height, player.spellbook);
+    shopScreen = new ShopScreen(width, height, player.spellbook,currentTheme);
     for(int i = 0; i < powerUps.length; i++){
         powerUps[i].resize(width/5, width/5);
         if(i>1)powerUps[i].loadScreen(battleScreen);
     }
-    currentTheme = new AnimatedTheme(color(255, 150, 150), color(50, 20, 20), color(60, 20, 20), "0", .6, width, height);
 }
 
 
@@ -68,7 +68,7 @@ void draw(){
         case 0:
             break;
         case 1:
-            if(shopScreen.show(currentTheme,powerUps)==1)
+            if(shopScreen.show(powerUps)==1)
                 screen++;
             break;
         case 2:
