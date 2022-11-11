@@ -60,9 +60,10 @@ class ShopScreen extends Screen{
     
     
     public void buySpellScreen(String name,int spell){
-        fill(255,255,255);
+        fill(255, 165, 44);
         int spellCost=(int)(Math.pow(1.1,spellcount)*100);
-        rect(width/5-37,height/4,width*.8,width*.8533);
+        rect(width/9.70,height/4,width*.8,height*0.47407407407);
+     
         spellbook.getSpell(spell).show(width/2-(width/3.125), height/2-(height/4.7),(width/1.5),(width/1.5),theme);
         makebutton(width/2+94, height/2+94,name,buttonSize);//cancle
         makebutton(width/2-150, height/2+94,name,buttonSize);//buy
@@ -147,7 +148,7 @@ class ShopScreen extends Screen{
         //powerups
         makebutton(new_width, new_height,"assets/powerUps/grow.powerUp.png",buttonSize);
         makebutton(new_width-(width/4.36046511628), new_height,"assets/powerUps/shrink.powerUp.png",buttonSize);
-        makebutton(new_width, new_height+70,"assets/powerUps/skip.powerUp.png",buttonSize);
+        makebutton(new_width, new_height+(height/9.6428571),"assets/powerUps/skip.powerUp.png",buttonSize);
         makebutton(new_width-(width/4.36046511628), new_height+(height/9.6428571),"assets/powerUps/heal.powerUp.png",buttonSize);
         //spells
         if(bought[0]==false)
@@ -170,10 +171,9 @@ class ShopScreen extends Screen{
         else
           makebutton(new_width+(width/4.36046511628), new_height+(height/9.6428571),Bought,buttonSize);
         
-        
-        
+  
         //done
-        makebutton(new_width, height/2+85,"assets/powerUps/heal.powerUp.png",buttonSize);//chage when done button is made
+        makebutton(new_width, height/2+230,"assets/powerUps/heal.powerUp.png",buttonSize);//chage when done button is made
     } 
 
     void printshop(PowerUp powerup[]){//prints buysrceen in shop
@@ -230,7 +230,7 @@ class ShopScreen extends Screen{
     }
 
     public int exitShop(){ //if done is pressed you return back to battle screen
-        if(mouseX >= new_width&& mouseX <= new_width + 62 && mouseY >= new_height+230 && mouseY <= new_height+230 + 62&&mousePressed&&(clicked==false)){
+        if(mouseX >= new_width && mouseX <= new_width + buttonSize && mouseY >= height/2+230 && mouseY <= height/2+230 + buttonSize&&mousePressed){
           for(int i=0;i<4;i++){
            if(bought[i]==false)
            spellbook.getSpell(randSpell[i]).available=false; 
