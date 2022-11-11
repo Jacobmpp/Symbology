@@ -62,13 +62,13 @@ class ShopScreen extends Screen{
     public void buySpellScreen(String name,int spell){
         fill(255,255,255);
         int spellCost=(int)(Math.pow(1.1,spellcount)*100);
-        rect(width/5-37,height/4,300,300);
-        spellbook.getSpell(spell).show(width/2-(width/3.125), height/2-(height/4.17),(width/1.5),(width/1.5),theme);
-        makebutton(width/2+80, height/2+60,name,70);//cancle
-        makebutton(width/2-150, height/2+60,name,70);//buy
+        rect(width/5-37,height/4,width*.8,width*.8533);
+        spellbook.getSpell(spell).show(width/2-(width/3.125), height/2-(height/4.7),(width/1.5),(width/1.5),theme);
+        makebutton(width/2+94, height/2+94,name,buttonSize);//cancle
+        makebutton(width/2-150, height/2+94,name,buttonSize);//buy
   
         textSize(width/15);
-        text(spellCost+" coins", width/2.7, height/1.57); 
+        text(spellCost+" coins", width/2.7, height/1.5); 
         textAlign(CENTER, BOTTOM);
         clicked=true;
         
@@ -108,9 +108,9 @@ class ShopScreen extends Screen{
         // scaleFactorX based on width and scaleFactorY based on height ezpz
         rect(width/5-37,height/4,300,300);
         fill(255,255,255);
-        makebutton(width/2-70, height/2-170,name,150);//displayimage
-        makebutton(width/2+80, height/2+60,name,70);//cancle
-        makebutton(width/2-150, height/2+60,name,70);//buy
+        makebutton(width/2-70, height/2-170,name,buttonSize*2);//displayimage
+        makebutton(width/2+80, height/2+60,name,buttonSize);//cancle
+        makebutton(width/2-150, height/2+60,name,buttonSize);//buy
         clicked=true;
 
         if(mouseX >= width/2+80 && mouseX <= width/2+80 + 70 && mouseY >= height/2+60 && mouseY <= height/2+60 + 70&&mousePressed){   //cancle
@@ -173,7 +173,7 @@ class ShopScreen extends Screen{
         
         
         //done
-        makebutton(new_width, new_height+230,"assets/powerUps/heal.powerUp.png",buttonSize);//chage when done button is made
+        makebutton(new_width, height/2+85,"assets/powerUps/heal.powerUp.png",buttonSize);//chage when done button is made
     } 
 
     void printshop(PowerUp powerup[]){//prints buysrceen in shop
