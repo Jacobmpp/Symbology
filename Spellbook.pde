@@ -35,10 +35,6 @@ class Spellbook{
         }
     }
 
-    public Spell getSpellIndexed(int spellNum){
-        return spells.get(spellsLookup[spellNum]);    
-    }
-
     public void click(int mX, int mY, BattleScreen screen){
         int attempts = 0;
         do {
@@ -81,5 +77,21 @@ class Spellbook{
 
     public Spell getSpell(long encodedTopState){
         return spells.get(encodedTopState);
+    }
+
+    public Spell getSpellIndexed(int spellNum){
+        return spells.get(spellsLookup[spellNum]);    
+    }
+
+    public int getSpellCount(){
+        return spellCount;
+    }
+
+    public int someSpellsUnavailable(){
+        int count = 0;
+        for(int i=0;i<getSpellCount();i++){
+            if(!getSpellIndexed(i).available)count++;
+        }
+        return count;
     }
 }
