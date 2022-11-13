@@ -34,6 +34,10 @@ class Spell{
         text(flavor, x, y+3*w/4, w, y+5*h/8);
     }
 
+    public String getStateEncoded(){
+        return state.toString();
+    }
+
     public long getEncoded(){
         return state.getEncoded();
     }

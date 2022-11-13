@@ -94,4 +94,26 @@ class Spellbook{
         }
         return count;
     }
+
+    public String getAvailableSpells(){
+        String out = "";
+        for(int i = 0; i < spellCount; i++){
+            Spell temp = getSpellIndexed(i);
+            if(temp.available)out+=temp.getStateEncoded()+",";
+        }
+        out = out.substring(0,max(out.length()-2,0));
+        return out;
+    }
+
+    public void updateAvailableSpells(String encodedList){
+        String stateCodes[] = encodedList.split(",");
+        for(int i=0;i<spellCount;i++){
+            getSpellIndexed(i).available = false;
+        }
+        for(String s : stateCodes){
+            long temp = new State().StringToLong(s);
+            if(spells.containsKey(temp))
+                spells.get(temp).available = true;
+        }
+    }
 }

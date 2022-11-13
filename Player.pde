@@ -6,12 +6,21 @@ class Player{
     public Spellbook spellbook;
     private int currency;
 
-    public Player(int maxHp_, int level_){
+    public Player(int maxHp_, int level_, int currency_){
         maxHp = maxHp_;
         hp = maxHp_;
         level = level_;
         spellbook = new Spellbook("spells.dat", "0");
-        currency = 0;
+        currency = currency_;
+    }
+
+    public Player(String encoded){
+        this(encoded.split(";"));
+    }
+
+    public Player(String[] parts){
+        this(parseInt(parts[0]),parseInt(parts[1]),parseInt(parts[2]));
+        spellbook.updateAvailableSpells(parts[3]);
     }
 
     public void takeDamage(int damage){
@@ -57,5 +66,14 @@ class Player{
         fill(t.getOn());
         rect(x, y+h/20, edge, 9*h/10);
         image(t.playerHealthBar, x, y, w, h);
+    }
+
+    public String toString(){
+        String out = "";
+        out += maxHp + ";";
+        out += level + ";";
+        out += currency + ";";
+        out += spellbook.getAvailableSpells();
+        return out;
     }
 }

@@ -5,6 +5,7 @@ Player player;
 ShopScreen shopScreen;
 Theme currentTheme;
 PowerUp[] powerUps = new PowerUp[4];
+
 void setup(){
     //fullScreen(); // use when compiled for android
     size(450,800); // use when testing on Processing IDE
@@ -17,7 +18,7 @@ void setup(){
     strokeWeight(0);
 
     // initializing system variables
-    player = new Player(300, 1); // 3000 base hp, level 1
+    player = new Player(3000, 1, 1000); // 3000 base hp, level 1, 1000 currency
     powerUps = new PowerUp[]{
         new PowerUp("Grow Board",5,"grow",1), // start with 5 grow powerUps
         new PowerUp("Shrink Board",5,"shrink",-1), // start with 5 shrink powerUps
@@ -32,7 +33,6 @@ void setup(){
         if(i>1)powerUps[i].loadScreen(battleScreen);
     }
 }
-
 
 void mousePressed(){
     switch(screen){
@@ -76,9 +76,26 @@ void draw(){
                 player.spellbook.toggleable = false;
                 player.level -= (player.level - 1)%4;
                 player.revive(); // may cause errors when maxHP is increased
-                screen--;                                                       
+                screen--;
+                println(getSaveString());
             }
             battleScreen.show(currentTheme, debug);
             break;
     }
+}
+
+void loadFromSaveString(String save){
+    String greaterParts[] = save.split("#");
+    player = new Player(greaterParts[0]);
+    String powerUpParts[] = greaterParts[1].split(";");
+    for(int i = 0; i < 4; i++){
+        powerUps[i].count = parseInt(powerUpParts[i]);
+    }
+}
+String getSaveString(){
+    String out = player.toString() + "#";
+    for(int i = 0; i < 3; i++)
+        out += powerUps[i].count + ";";
+    out += powerUps[3].count + "";
+    return out;
 }

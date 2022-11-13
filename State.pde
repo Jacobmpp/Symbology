@@ -1,19 +1,27 @@
 class State{
     boolean[][] subState;
     boolean[][] topState;
+    long encodedSubState;
     long encodedTopState;
     int size;
     
     // Constructors
     State(boolean[][] state){
+        encodedSubState = convert(state);
         size = state.length;
         subState = state;
         calc();
     }
     State(long state){
-        this((int)8);
+        size = (int)(state%8);
+        subState = new boolean[size][size];
+        topState = new boolean[size][size];
+        encodedSubState = state;
         subState = convert(state);
         calc();
+    }
+    State(String state){
+        this(new State().StringToLong(state));
     }
     State(int size_){
         size = size_;
@@ -25,10 +33,13 @@ class State{
             }
         }
         calc();
+        encodedSubState = convert(subState);
+        encodedTopState = convert(topState);
     }
-    State(){ // This is weird, make sure it works
+    State(boolean irrelevant){ // This is weird, make sure it works
         this((long)random(1<<3,1<<54) + 3); 
     }
+    State(){}
 
     // Cell Math
     public void click(int x, int y){
@@ -114,6 +125,30 @@ class State{
         }
         return out;
     }
+    public String toString(){
+        long original = encodedSubState;
+        String out = "";
+        int bitBit = 1<<5;
+
+        while(original > 0){
+            int temp = 0;
+            for(int i = 0; i < 6; i++){
+                temp >>= 1;
+                temp += bitBit * (original%2);
+                original >>= 1;
+            }
+            out = intToChar(temp)+out;
+        }
+        return out;
+    }
+    public long StringToLong(String state){
+        long out = 0;
+        for(char c : state.toCharArray()) {
+            out <<= 6;
+            out += charToInt(c);
+        }
+        return out;
+    }
 
     // Show
     public void show(float x, float y, float gWidth, color on, color off){
@@ -140,4 +175,31 @@ class State{
             if(subState[i][j])
               ellipse(x+(i+.5)*gWidth/size, y+(j+.5)*gWidth/size, gWidth/size/2, gWidth/size/2);
     }
+
+    private char intToChar(int x){
+        if(x==constrain(x, 0, 9)){
+            return (char)('0'+x);
+        }
+        if(x==constrain(x, 10, 35)){
+            return (char)('a'+x-10);
+        }
+        if(x==constrain(x, 36, 64)){
+            return (char)('A'+x-36);
+        }
+        return '$';
+    }
+    private int charToInt(char x_){
+        int x = (int)x_;
+        if(x==constrain(x, (int)'0', (int)'9')){
+            return x-'0';
+        }
+        if(x==constrain(x, (int)'a', (int)'z')){
+            return x-'a'+10;
+        }
+        if(x==constrain(x, (int)'A', (int)'Z')){
+            return x-'A'+36;
+        }
+        return 0;
+    }
+
  }
