@@ -19,7 +19,7 @@ class Enemy{
         randomSeed(seed); // set the random seed so each level is always the same, and different levels are different and we don't have to make them
         maxHp = floor(4*pow(1.01, seed)*random(.8,1.2)*map((seed%4), 0, 3, 1, 3)*(boss?2:1));
         hp = maxHp;
-        damage = floor(pow(1.01, seed)*random(.8,1.2)*(boss?2:1));
+        damage = max(floor(pow(1.01, seed)*random(.8,1.2)*(boss?2:1)),1);
         type = randomResistance(seed);
         sprite = loadImage("assets/monsters/"+floor(random(0,4))+".monster.png");
         sprite.resize(width/2, width/2); // small optimization
@@ -90,11 +90,12 @@ class Enemy{
     }
 
     public void showHp(float x, float y, float w, float h, Theme t){
-        float edge = map(hp,0,maxHp,0,w);
+        float edge = map(hp,0,maxHp,9*w/64,w);
         edge = min(edge - edge%(w/15) + w/15, w);
         fill(t.getOff());
-        rect(x+edge,y,w-edge,h);
+        rect(x+edge,y+h/20,w-edge,9*h/10);
         fill(t.getOn());
-        rect(x, y, edge, h);
+        rect(x, y+h/20, edge, 9*h/10);
+        image(t.enemyHealthBar, x, y, w, h);
     }
 }

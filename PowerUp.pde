@@ -35,9 +35,9 @@ class PowerUp{
         ellipse(x+w*.8, y+h*.85, w/3, h/3);
         textAlign(CENTER, CENTER);
         String tempCount = "" + count;
-        textSize(w/3/tempCount.length());
+        textSize(w/2/pow(tempCount.length()+1, .7));
         fill(0);
-        text(tempCount, x+w*.8, y+h*.83);
+        text(tempCount, x+w*.8, y+h*.79);
     }
 
     public boolean use(GameBoard gb){

@@ -97,7 +97,7 @@ class ShopScreen extends Screen{
         //powerups
         makebutton(new_width, new_height,"assets/powerUps/grow.powerUp.png");
         makebutton(new_width-(width/4.36046511628), new_height,"assets/powerUps/shrink.powerUp.png");
-        makebutton(new_width, new_height+70,"assets/powerUps/skip.powerUp.png");
+        makebutton(new_width, new_height+(height/9.6428571),"assets/powerUps/skip.powerUp.png");
         makebutton(new_width-(width/4.36046511628), new_height+(height/9.6428571),"assets/powerUps/heal.powerUp.png");
         //spells
         makebutton(new_width-(width/4.36046511628), new_height+(height/4.82142857143),"assets/items/spell.item.png");
@@ -105,7 +105,7 @@ class ShopScreen extends Screen{
         makebutton(new_width+(width/4.36046511628), new_height,"assets/items/spell.item.png");
         makebutton(new_width+(width/4.36046511628), new_height+(height/9.6428571),"assets/items/spell.item.png");
         //done
-        makebutton(new_width, new_height+230,"assets/powerUps/heal.powerUp.png");//chage when done button is made
+        makebutton(new_width, new_height+3*(height/9.6428571),"assets/powerUps/heal.powerUp.png");//change when done button is made
     } 
 
     void printshop(PowerUp powerup[]){//prints buysrceen in shop
@@ -138,7 +138,7 @@ class ShopScreen extends Screen{
     }
 
     public int exitShop(){ //if done is pressed you return back to battle screen
-        if(mouseX >= new_width&& mouseX <= new_width + 62 && mouseY >= new_height+230 && mouseY <= new_height+230 + 62&&mousePressed&&(clicked==false))
+        if(mouseX >= new_width&& mouseX <= new_width + 62 && mouseY >= new_height+3*(height/9.6428571) && mouseY <= new_height+3*(height/9.6428571) + 62&&mousePressed&&(clicked==false))
             return 1;
         return 0; 
     }

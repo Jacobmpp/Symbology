@@ -7,7 +7,7 @@ abstract class Screen {
     public Screen(int width_, int height_){
         wid = width_;
         hei = height_;
-        margin = min(width_, 3*height_/4)/8;
-        gameWidth = min(width_, 3*height_/4)-margin*2;;
+        margin = min(wid, hei/2)/8;
+        gameWidth = margin*6;
     }
 }

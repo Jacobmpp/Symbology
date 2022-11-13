@@ -7,7 +7,7 @@ Theme currentTheme;
 PowerUp[] powerUps = new PowerUp[4];
 void setup(){
     //fullScreen(); // use when compiled for android
-    size(375,675); // use when testing on Processing IDE
+    size(500,800); // use when testing on Processing IDE
 
     // enitializing several drawing properties
     ellipseMode(CENTER);
@@ -17,7 +17,7 @@ void setup(){
     strokeWeight(0);
 
     // initializing system variables
-    player = new Player(300, 1); // 3000 base hp, level 1
+    player = new Player(3000, 1); // 3000 base hp, level 1
     powerUps = new PowerUp[]{
         new PowerUp("Grow Board",5,"grow",1), // start with 5 grow powerUps
         new PowerUp("Shrink Board",5,"shrink",-1), // start with 5 shrink powerUps
@@ -73,8 +73,10 @@ void draw(){
             break;
         case 2:
             if(!battleScreen.update(currentTheme)){
-                screen--;                                                       
+                player.spellbook.toggleable = false;
+                player.level -= (player.level - 1)%4;
                 player.revive(); // may cause errors when maxHP is increased
+                screen--;                                                       
             }
             battleScreen.show(currentTheme, debug);
             break;

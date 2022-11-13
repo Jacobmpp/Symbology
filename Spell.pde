@@ -19,12 +19,12 @@ class Spell{
     public void show(float x, float y, float w, float h, Theme theme){
         state.show(x, y, w/2, theme.getOn(), theme.getOff());
         textAlign(CENTER, CENTER);
-        float tSize = w/2/(""+damage).length();
+        float tSize = w/2/pow((""+damage).length(), .7);
         textSize(tSize);
         fill(typeToTint());
         rect(x+w/2,y,w/2,w/2);
         fill(0);
-        text(""+damage, x+3*w/4, y+h/5-tSize/5);
+        text(""+damage, x+3*w/4, y+w/5.6);
         textAlign(CENTER, BOTTOM);
         fill(theme.getOff());
         textSize(w/10);

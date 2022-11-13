@@ -40,9 +40,9 @@ class BattleScreen extends Screen{
                 }
             }
         }
-
-        // if you click a powerUp
-        if(mx==constrain(mx, wid/10, 9*wid/10)&&my==constrain(my, hei/3.2 + gameWidth*1.1 + margin/2, hei/3.2 + gameWidth*1.1 + margin/2 + wid/5)){
+        
+        // if you click a powerUp without the spellbook open
+        if(!player.spellbook.visible && mx==constrain(mx, wid/10, 9*wid/10)&&my==constrain(my, (hei/2+gameWidth/2+hei-margin-wid/5)/2, (hei/2+gameWidth/2+hei-margin+wid/5)/2)){
             int x = floor((mx-wid/10)/(wid/5)); // which one
             if(x == constrain(x, 0, 3)) // anti-nullPointerException measures
                 powerUps[x].use(gameBoard);
@@ -59,13 +59,13 @@ class BattleScreen extends Screen{
     public void show(Theme theme, boolean debug){
         background(theme.getBackground());
         image(theme.getBackgroundImage(),0,0);
-        enemy.show(wid/2-margin, margin, margin*2, margin*2);
-        enemy.showHp(0, 0, wid, margin/2, theme);
-        gameBoard.show(wid/2-gameWidth/2, hei/3.2, gameWidth, theme.getOn(), theme.getOff(), debug);
-        player.showHp(0,height-margin/2, width, margin/2, theme);
-        player.spellbook.show(map(lastX-mouseX, 0, 2*margin, 0, 1), wid-1.5*margin, gameWidth+2*margin, this, theme);
+        enemy.showHp(0, 0, wid, wid/64*9, theme);
+        enemy.show(wid/2-margin, (hei/2-gameWidth/2-margin)/2, margin*2, margin*2);
+        gameBoard.show(wid/2-gameWidth/2, hei/2-gameWidth/2, gameWidth, theme.getOn(), theme.getOff(), debug);
+        player.showHp(0,hei-width/64*9, wid, wid/64*9, theme);
         for(int i=0; i<4; i++){
-            powerUps[i].show(wid/10 * (1+2*i), hei/3.2 + gameWidth*1.1 + margin/2, wid/5, wid/5);
+            powerUps[i].show(wid/10 * (1+2*i), (hei/2+gameWidth/2+hei-margin-wid/5)/2, wid/5, wid/5);
         }
+        player.spellbook.show(map(lastX-mouseX, 0, 2*margin, 0, 1), wid-1.5*margin, hei-3*margin, this, theme);
     }
 }

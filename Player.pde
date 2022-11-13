@@ -50,11 +50,12 @@ class Player{
     }
 
     public void showHp(float x, float y, float w, float h, Theme t){
-        float edge = map(hp,0,maxHp,0,w);
+        float edge = map(hp,0,maxHp,7*w/64,w);
         edge = min(edge - edge%(w/(maxHp/50)) + w/(maxHp/50), w);
         fill(t.getOff());
-        rect(x+edge,y,w-edge,h);
+        rect(x+edge,y+h/20,w-edge,9*h/10);
         fill(t.getOn());
-        rect(x, y, edge, h);
+        rect(x, y+h/20, edge, 9*h/10);
+        image(t.playerHealthBar, x, y, w, h);
     }
 }

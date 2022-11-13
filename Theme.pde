@@ -3,6 +3,8 @@ class Theme{
     protected color off;
     protected color background;
     protected PImage backgroundImage;
+    public PImage enemyHealthBar = loadImage("assets/monster.hpbar.png");
+    public PImage playerHealthBar = loadImage("assets/player.hpbar.png");
 
     Theme(color on_, color off_, color background_, String backgroundImageFilename, int wid, int hei){
         on = on_;
