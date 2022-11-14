@@ -178,21 +178,22 @@ class ShopScreen extends Screen{
         
         if(!bought[1]){
             if(randSpell[1]!=-1)
-                makebutton(new_width-(width/widthRatio), new_height+(height/5), "assets/items/spell.item.png", buttonSize);
+                makebutton(new_width, new_height+(height/5), "assets/items/spell.item.png", buttonSize);
         } else
         	makebutton(new_width, new_height+(height/5), Bought, buttonSize);
         
         if(!bought[2]){
             if(randSpell[2]!=-1)
-                makebutton(new_width-(width/widthRatio), new_height+(height/5), "assets/items/spell.item.png", buttonSize);
+                makebutton(new_width+(width/widthRatio), new_height, "assets/items/spell.item.png", buttonSize);
         } else
             makebutton(new_width+(width/widthRatio), new_height, Bought, buttonSize);
         
         if(!bought[3]){
             if(randSpell[3]!=-1)
-                makebutton(new_width-(width/widthRatio), new_height+(height/5), "assets/items/spell.item.png", buttonSize);
+                makebutton(new_width+(width/widthRatio), new_height+(height/heightRatio), "assets/items/spell.item.png", buttonSize);
         } else
             makebutton(new_width+(width/widthRatio), new_height+(height/heightRatio), Bought, buttonSize);
+        
         
     
         //done
