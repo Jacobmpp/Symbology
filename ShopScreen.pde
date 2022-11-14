@@ -162,39 +162,31 @@ class ShopScreen extends Screen{
         }
 
     }
+    
+    
+    void spellPurOrNot(int Boughtnum,String name,float width ,float height,float size){
+      
+       if(!bought[Boughtnum]){
+            if(randSpell[Boughtnum]!=-1)
+                makebutton(width, height,name,size);
+        } else
+            makebutton(width, height,Bought,size);
+    }
 
     void buttonLayout(){ // creates the layout
+        String name="assets/items/spell.item.png";
         //powerups
         makebutton(new_width, new_height, "assets/powerUps/grow.powerUp.png", buttonSize);
         makebutton(new_width-(width/widthRatio), new_height, "assets/powerUps/shrink.powerUp.png", buttonSize);
         makebutton(new_width, new_height+(height/heightRatio), "assets/powerUps/skip.powerUp.png", buttonSize);
         makebutton(new_width-(width/widthRatio), new_height+(height/heightRatio), "assets/powerUps/heal.powerUp.png", buttonSize);
+        
         //spells
-        if(!bought[0]){
-            if(randSpell[0]!=-1)
-                makebutton(new_width-(width/widthRatio), new_height+(height/5), "assets/items/spell.item.png", buttonSize);
-        } else
-            makebutton(new_width-(width/widthRatio), new_height+(height/5), Bought, buttonSize);
-        
-        if(!bought[1]){
-            if(randSpell[1]!=-1)
-                makebutton(new_width, new_height+(height/5), "assets/items/spell.item.png", buttonSize);
-        } else
-        	makebutton(new_width, new_height+(height/5), Bought, buttonSize);
-        
-        if(!bought[2]){
-            if(randSpell[2]!=-1)
-                makebutton(new_width+(width/widthRatio), new_height, "assets/items/spell.item.png", buttonSize);
-        } else
-            makebutton(new_width+(width/widthRatio), new_height, Bought, buttonSize);
-        
-        if(!bought[3]){
-            if(randSpell[3]!=-1)
-                makebutton(new_width+(width/widthRatio), new_height+(height/heightRatio), "assets/items/spell.item.png", buttonSize);
-        } else
-            makebutton(new_width+(width/widthRatio), new_height+(height/heightRatio), Bought, buttonSize);
-        
-        
+        spellPurOrNot(0,name,new_width-(width/widthRatio),new_height+(height/5),buttonSize);
+        spellPurOrNot(1,name,new_width,new_height+(height/5),buttonSize);
+        spellPurOrNot(2,name,new_width+(width/widthRatio),new_height,buttonSize);
+        spellPurOrNot(3,name,new_width+(width/widthRatio), new_height+(height/heightRatio),buttonSize);
+
     
         //done
         makebutton(new_width, height/1.58, "assets/powerUps/heal.powerUp.png", buttonSize);//chage when done button is made
@@ -215,28 +207,36 @@ class ShopScreen extends Screen{
                 buySpellScreen("assets/items/spell.item.png", randSpell[0]); 
     }
 
-      void mouseClicked(int boolnum,float new_width,float new_height,float buttonSize ){//for the items in the shop
+    void mouseClicked(int boolnum,float new_width,float new_height,float buttonSize ){//for the items in the shop
         if(clicked==false){ 
+            //power ups
             if(mouseX >= new_width && mouseX <= new_width + buttonSize && mouseY >= new_height && mouseY <= new_height + buttonSize && mousePressed)
                 bools[boolnum]=0;     
         }
+
     }
     
-  
     public void presses(){
       //powerup
       mouseClicked(0,new_width,new_height,buttonSize);
       mouseClicked(1,new_width-(width/widthRatio),new_height,buttonSize);
       mouseClicked(2,new_width,new_height+(height/heightRatio),buttonSize);
       mouseClicked(3,new_width-(width/widthRatio) ,new_height+(height/heightRatio),buttonSize);
-      //spell  
+      //spell
+  
+      if(bought[0]==false)
       mouseClicked(4,new_width-(width/widthRatio),new_height+(height/5),buttonSize);
+      if(bought[1]==false)
       mouseClicked(5,new_width,new_height+(height/5),buttonSize);
+      if(bought[2]==false)
       mouseClicked(6,new_width+(width/widthRatio),new_height,buttonSize);
-      mouseClicked(7,new_width+(width/widthRatio),new_height+(height/heightRatio),buttonSize);   
+      if(bought[3]==false)
+      mouseClicked(7,new_width+(width/widthRatio),new_height+(height/heightRatio),buttonSize);
+      
+      
     }
-   
-   public int exitShop(){ //if done is pressed you return back to battle screen
+
+    public int exitShop(){ //if done is pressed you return back to battle screen
         if(mouseX >= new_width && mouseX <= new_width + buttonSize && mouseY >= height/1.58 && mouseY <= height/1.58 + buttonSize && mousePressed){
             for(int i=0;i<4;i++){
              if(bought[i]==false)
