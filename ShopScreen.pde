@@ -217,13 +217,12 @@ class ShopScreen extends Screen{
 
       void mouseClicked(int boolnum,float new_width,float new_height,float buttonSize ){//for the items in the shop
         if(clicked==false){ 
-            //power ups
             if(mouseX >= new_width && mouseX <= new_width + buttonSize && mouseY >= new_height && mouseY <= new_height + buttonSize && mousePressed)
                 bools[boolnum]=0;     
         }
-
     }
     
+  
     public void presses(){
       //powerup
       mouseClicked(0,new_width,new_height,buttonSize);
@@ -234,11 +233,10 @@ class ShopScreen extends Screen{
       mouseClicked(4,new_width-(width/widthRatio),new_height+(height/5),buttonSize);
       mouseClicked(5,new_width,new_height+(height/5),buttonSize);
       mouseClicked(6,new_width+(width/widthRatio),new_height,buttonSize);
-      mouseClicked(7,new_width+(width/widthRatio),new_height+(height/heightRatio),buttonSize);
-      
-      
+      mouseClicked(7,new_width+(width/widthRatio),new_height+(height/heightRatio),buttonSize);   
     }
-    public int exitShop(){ //if done is pressed you return back to battle screen
+   
+   public int exitShop(){ //if done is pressed you return back to battle screen
         if(mouseX >= new_width && mouseX <= new_width + buttonSize && mouseY >= height/1.58 && mouseY <= height/1.58 + buttonSize && mousePressed){
             for(int i=0;i<4;i++){
              if(bought[i]==false)
