@@ -67,15 +67,13 @@ class ShopScreen extends Screen{
     }
     
     public void shoopKeeper(){
-        if(clicked==false)
-        makebutton(new_width+(width/widthRatio), new_height+(height/5), "assets/items/shopkeeper.png", buttonSize);
-        if(cantAfford==1){
-           textSize(width/25);
-           text("why you no\n"+ "have money",new_width+(width/widthRatio)*1.4,new_height+(height/5)*1.8);         
-        }
-       
-     
-      
+        if(clicked==false){
+          makebutton(new_width+(width/widthRatio), new_height+(height/5), "assets/items/shopkeeper.png", buttonSize);
+          if(cantAfford==1){
+             textSize(width/25);
+             text("why you no\n"+ "have money",new_width+(width/widthRatio)*1.4,new_height+(height/5)*1.53);         
+          }
+        }     
     }
 
     void RandomSpells(){//gets a random spell 
