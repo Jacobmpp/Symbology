@@ -27,7 +27,7 @@ void setup(){
     };
     currentTheme = new AnimatedTheme(color(255, 150, 150), color(50, 20, 20), color(60, 20, 20), "0", .6, width, height);
     battleScreen = new BattleScreen(width, height, player, powerUps);
-    shopScreen = new ShopScreen(width, height, player.spellbook,currentTheme);
+    shopScreen = new ShopScreen(width, height, player,currentTheme);
     for(int i = 0; i < powerUps.length; i++){
         powerUps[i].resize(width/5, width/5);
         if(i>1)powerUps[i].loadScreen(battleScreen);
