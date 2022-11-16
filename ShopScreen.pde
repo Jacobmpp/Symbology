@@ -19,7 +19,8 @@ class ShopScreen extends Screen{
         "assets/powerUps/heal.powerUp.png", 
         "assets/items/spell.item.png", 
         "assets/40f.png", 
-        "assets/Shop.png"
+        "assets/Shop.png",
+        "assets/items/shopkeeper.png"
         };
     HashMap<String, PImage> buttons = new HashMap<String, PImage>(buttonFilenames.length*2);
     boolean clicked=false;//prevents overlaping screens
@@ -30,14 +31,17 @@ class ShopScreen extends Screen{
     boolean bought[]={false, false, false, false};//prevents repeats spells
     String Bought="assets/40f.png";//will appear if you buy spell
     int spellcount=1;
+    int cantAfford=0;
+    Player player;
 
 
-    public ShopScreen(int width_, int height_, Spellbook spellbook_, Theme theme_){
+    public ShopScreen(int width_, int height_, Player player_, Theme theme_){
         super(width_, height_);
         for(String imageFilename : buttonFilenames){
             addImage(imageFilename);
         }
-        spellbook = spellbook_; // Fixed a thing where you made your own spellbook instead of using the player's spellbook
+        player=player_;
+        spellbook = player_.spellbook; // Fixed a thing where you made your own spellbook instead of using the player's spellbook
         theme = theme_;
         
     }
@@ -48,6 +52,30 @@ class ShopScreen extends Screen{
     
     void makebutton(float width, float height, String image, float size){ // draw a button with a size
         image(buttons.get(image), width, height, size, size); // this is not especially fast because it resizes, but it is necessary because of the different sized images
+    }
+    
+    
+    public boolean priceCheck(int price){
+      if(player.getCurrency()<price){
+        for(int i=0;i<8;i++)
+           bools[i]=1;
+           clicked=false;
+           cantAfford=1;
+           return false;   
+      }
+      return true;
+    }
+    
+    public void shoopKeeper(){
+        if(clicked==false)
+        makebutton(new_width+(width/widthRatio), new_height+(height/5), "assets/items/shopkeeper.png", buttonSize);
+        if(cantAfford==1){
+           textSize(width/25);
+           text("why you no\n"+ "have money",new_width+(width/widthRatio)*1.4,new_height+(height/5)*1.8);         
+        }
+       
+     
+      
     }
 
     void RandomSpells(){//gets a random spell 
@@ -66,12 +94,14 @@ class ShopScreen extends Screen{
                     spellbook.getSpellIndexed(random).available=true;  
                     set=true;
                     randSpell[i]=random;   
+                
                 }        
             }
-        }
+        }   
 
         RandSpell=true;
     }
+    
     
     
     public void buySpellScreen(String name, int spell){
@@ -85,7 +115,7 @@ class ShopScreen extends Screen{
     
         textSize(width/15);
         text(spellCost+" coins", width/2.7, height/1.5); 
-        textAlign(CENTER, BOTTOM);
+        textAlign(CENTER);
         clicked=true;
         
         if(mouseX >= width/2+width/4 && mouseX <= width/2+width/4 + buttonSize && mouseY >= height/2+width/4 && mouseY <= height/2+width/4 + buttonSize && mousePressed){   //cancle
@@ -94,6 +124,7 @@ class ShopScreen extends Screen{
              clicked=false;
         }
         if(mouseX >= width/2-width/2.5 && mouseX <= width/2-width/2.5 + buttonSize && mouseY >= height/2+width/4 && mouseY <=height/2+width/4 + buttonSize && mousePressed){ 
+          if(priceCheck(spellCost)){
             spellcount++;
             if(bools[4]==0){
             bought[0]=true;  
@@ -115,6 +146,9 @@ class ShopScreen extends Screen{
             bools[7]=1;//prevents mouse hold
             clicked=false;
             }
+            player.setCurrency(player.getCurrency()-spellCost);
+            cantAfford=0;
+           }
         }  
     }
 
@@ -139,25 +173,30 @@ class ShopScreen extends Screen{
              clicked=false;
         }
         if(mouseX >= width/2-width/2.5 && mouseX <= width/2-width/2.5 + buttonSize && mouseY >= height/2+width/4 && mouseY <=height/2+width/4 + buttonSize && mousePressed){ //buy
-            if(name=="assets/powerUps/grow.powerUp.png"){
+           
+            if(priceCheck(cost)){
+              if(name=="assets/powerUps/grow.powerUp.png"){
                     powerup[0].count++;
                     bools[0]=1;//prevents mouse hold
                     clicked=false;
-            }
-            if(name=="assets/powerUps/shrink.powerUp.png" && (bools[1]==0)){
+              }
+              if(name=="assets/powerUps/shrink.powerUp.png" && (bools[1]==0)){
                     powerup[1].count++;
                     bools[1]=1;//prevents mouse hold
                     clicked=false;
-            }
-            if(name=="assets/powerUps/skip.powerUp.png" && (bools[2]==0)){
-                 powerup[2].count++;
-                 bools[2]=1;//prevents mouse hold
-                 clicked=false;
-            }
-            if(name=="assets/powerUps/heal.powerUp.png" && (bools[3]==0)){
-                 powerup[3].count++;
-                 bools[3]=1;//prevents mouse hold
-                 clicked=false;
+              }
+              if(name=="assets/powerUps/skip.powerUp.png" && (bools[2]==0)){
+                   powerup[2].count++;
+                   bools[2]=1;//prevents mouse hold
+                   clicked=false;
+              }
+              if(name=="assets/powerUps/heal.powerUp.png" && (bools[3]==0)){
+                   powerup[3].count++;
+                   bools[3]=1;//prevents mouse hold
+                   clicked=false;
+              }
+              player.setCurrency(player.getCurrency()-cost);
+              cantAfford=0;
             }
         }
 
@@ -167,14 +206,21 @@ class ShopScreen extends Screen{
     void spellPurOrNot(int Boughtnum,String name,float width ,float height,float size){
       
        if(!bought[Boughtnum]){
-            if(randSpell[Boughtnum]!=-1)
-                makebutton(width, height,name,size);
-        } else
+    
+               makebutton(width, height,name,size);
+        } 
+        else
             makebutton(width, height,Bought,size);
     }
 
     void buttonLayout(){ // creates the layout
+    
+        textSize(width/15);
+        text(player.getCurrency()+" coins", new_width*1.2, new_height-(height/heightRatio)*.6); 
+        textAlign(CENTER);
+        
         String name="assets/items/spell.item.png";
+        
         //powerups
         makebutton(new_width, new_height, "assets/powerUps/grow.powerUp.png", buttonSize);
         makebutton(new_width-(width/widthRatio), new_height, "assets/powerUps/shrink.powerUp.png", buttonSize);
@@ -204,7 +250,7 @@ class ShopScreen extends Screen{
             buyScreen("assets/powerUps/heal.powerUp.png", powerup);
         for(int i = 0; i < 4; i++)
             if(bools[i+4]==0 && randSpell[i]!=-1)
-                buySpellScreen("assets/items/spell.item.png", randSpell[0]); 
+                buySpellScreen("assets/items/spell.item.png", randSpell[i]); 
     }
 
     void mouseClicked(int boolnum,float new_width,float new_height,float buttonSize ){//for the items in the shop
@@ -258,6 +304,7 @@ class ShopScreen extends Screen{
         buttonLayout();
         presses();
         printshop(powerup);
+        shoopKeeper();
         return exitShop();   
     }
 }
