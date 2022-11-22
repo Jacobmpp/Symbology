@@ -36,7 +36,7 @@ class BattleScreen extends Screen{
                 gameBoard.scramble();
                 if(!enemy.alive()){ // if you kill the enemy, make a new one
                     player.level++;
-                    player.currency += floor(enemy.maxHp * random(8, 12));
+                    player.earnCurrency(enemy.maxHp * random(8, 12));
                     enemy = new Enemy(player.level);
                 }
             }

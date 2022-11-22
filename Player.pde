@@ -2,9 +2,12 @@ class Player{
 
     private int hp;
     private int maxHp;
+    private float damageMultiplier = 1.0f;
+    private float earningsMultiplier = 1.0f;
     private int level;
     public Spellbook spellbook;
     private int currency;
+    private String stats[] = { "Max HP", "Spell Damage", "Armor", "Earnings" };
 
     public Player(int maxHp_, int level_, int currency_){
         maxHp = maxHp_;
@@ -20,7 +23,9 @@ class Player{
 
     public Player(String[] parts){
         this(parseInt(parts[0]),parseInt(parts[1]),parseInt(parts[2]));
-        spellbook.updateAvailableSpells(parts[3]);
+        spellbook.updateAvailableSpells(parts[5]);
+        damageMultiplier = parseFloat(parts[3]);
+        damageMultiplier = parseFloat(parts[4]);
     }
 
     public void takeDamage(int damage){
@@ -50,6 +55,10 @@ class Player{
         hp = maxHp;
     }
 
+    void earnCurrency(float earnings){
+        currency += ceil(earnings * earningsMultiplier);
+    }
+
     void setCurrency(int currency_){
         currency = currency_;
     }
@@ -73,7 +82,31 @@ class Player{
         out += maxHp + ";";
         out += level + ";";
         out += currency + ";";
+        out += damageMultiplier + ";";
+        out += earningsMultiplier + ";";
         out += spellbook.getAvailableSpells();
         return out;
+    }
+
+    public String getUpgrade(){
+        randomSeed(level);
+        return stats[floor(random(0,4))];
+    }
+
+    public void upgrade(){
+        randomSeed(level);
+        int stat = floor(random(0,4));
+        switch(stat){
+            case 0:
+            case 2:
+                maxHp *= random(1.01, 1.2);
+                break;
+            case 1:
+                damageMultiplier *= random(1.01, 1.2);
+                break;
+            case 3:
+                earningsMultiplier *= random(1.01, 1.2);
+                break;
+        }
     }
 }
