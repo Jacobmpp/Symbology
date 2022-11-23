@@ -112,8 +112,8 @@ class ShopScreen extends Screen{
         rect(width/9.70, height/4, width*.8, height*0.47407407407);
      
         spellbook.getSpellIndexed(spell).show(width/2-(width/3.125), height/2-(height/4.7), (width/1.5), (width/1.5), theme);
-        makebutton(width/2+width/4, height/2+width/4, name, buttonSize);//cancle
-        makebutton(width/2-width/2.5, height/2+width/4, name, buttonSize);//buy
+        makebutton(3*width/4, height/2+width/4, "assets/buttons/cancel.png", buttonSize);//cancel
+        makebutton(width/10, height/2+width/4, "assets/buttons/buy.png", buttonSize);//buy
     
         textSize(width/15);
         text(spellCost+" coins", width/2.7, height/1.5); 
@@ -237,7 +237,7 @@ class ShopScreen extends Screen{
 
     
         //done
-        makebutton(new_width, height/1.58, "assets/powerUps/heal.powerUp.png", buttonSize);//chage when done button is made
+        makebutton(new_width, height/1.58, "assets/buttons/go.png", buttonSize);//chage when done button is made
     } 
 
     void printshop(PowerUp powerup[]){//prints buysrceen in shop

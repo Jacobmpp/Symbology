@@ -1,5 +1,5 @@
 boolean debug = false;
-int screen = 2;
+int screen = 1;
 BattleScreen battleScreen;
 Player player;
 ShopScreen shopScreen;
@@ -14,6 +14,8 @@ void setup(){
     ellipseMode(CENTER);
     rectMode(CORNER);
     textSize(min(width, 3*height/4)/18);
+    fill(0);
+    stroke(0);
     textAlign(CENTER);
     strokeWeight(0);
 

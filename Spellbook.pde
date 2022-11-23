@@ -101,7 +101,7 @@ class Spellbook{
             Spell temp = getSpellIndexed(i);
             if(temp.available)out+=temp.getStateEncoded()+",";
         }
-        out = out.substring(0,max(out.length()-2,0));
+        out = out.substring(0,max(out.length()-1,0));
         return out;
     }
 
