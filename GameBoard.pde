@@ -5,6 +5,7 @@ class GameBoard{
     private PImage board, original, boarder; 
     private PVector topCorner = null;
     private PVector dimensions = null;
+    public PVector center = null;
 
     // Constructor
     GameBoard(State state_, int gWidth){
@@ -59,6 +60,7 @@ class GameBoard{
         int size = state.getSize();
         if(topCorner==null)topCorner=new PVector(x, y);
         if(dimensions==null)dimensions=new PVector(gWidth, gWidth);
+        if(center==null)center=new PVector(x+gWidth/2, y+gWidth/2);
         if(size<1)return;
             if(size!=lastSize){
                 board = original.get(((7-state.getSize())/2+(1-state.getSize()%2))*16*scaleFactor, ((7-state.getSize())/2+(1-state.getSize()%2))*16*scaleFactor, 16*state.getSize()*scaleFactor, 16*state.getSize()*scaleFactor);

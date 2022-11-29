@@ -101,3 +101,21 @@ String getSaveString(){
     out += powerUps[3].count + "";
     return out;
 }
+
+color typeToTint(char type){ // get the color tint based on a type char code
+    switch(type){
+        case 'a':
+            return color(255,255,150);
+        case 'e':
+            return color(50,150,50);
+        case 'f':
+            return color(255,100,100);
+        case 'w':
+            return color(150,150,255);
+    }
+    return color(200);
+}
+
+void addParticle(Particle p){
+    battleScreen.addParticleP(p);
+}
