@@ -6,6 +6,7 @@ class Enemy{
     private char type;
     private PImage sprite;
     private boolean boss = false;
+    public PVector center = null;
 
     Enemy(int maxHp_, int damage_, char type_, PImage sprite_){
         maxHp = maxHp_;
@@ -25,24 +26,27 @@ class Enemy{
         sprite.resize(width/2, width/2); // small optimization
     }
 
-    public void takeDamage(int amount, char damageType){
+    public int takeDamage(int amount, char damageType){
+        int damage = 0;
         switch(type){
             case 'n': // if the enemy is of type neutral it just takes the damage
-                hp-=amount;
+                damage=amount;
                 break;
             case 'a': // if the enemy is of type air it takes double damage from air spells and half from others
-                hp-=(damageType=='a')?amount*2:amount/2;
+                damage=(damageType=='a')?amount*2:amount/2;
                 break;
             case 'e': // if the enemy is of type earth it takes double damage from fire spells and half from others
-                hp-=(damageType=='f')?amount*2:amount/2;
+                damage=(damageType=='f')?amount*2:amount/2;
                 break;
             case 'f': // if the enemy is of type fire it takes double damage from water spells and half from others
-                hp-=(damageType=='w')?amount*2:amount/2;
+                damage=(damageType=='w')?amount*2:amount/2;
                 break;
             case 'w': // if the enemy is of type water it takes double damage from earth spells and half from others
-                hp-=(damageType=='e')?amount*2:amount/2;
+                damage=(damageType=='e')?amount*2:amount/2;
                 break;
         }
+        hp-=damage;
+        return damage;
     }
 
     public boolean alive(){
@@ -58,19 +62,6 @@ class Enemy{
     public int getDamage(){
         return damage;
     }
-    private color typeToTint(){ // get the color tint based on the type
-        switch(type){
-            case 'a':
-                return color(255,255,150);
-            case 'e':
-                return color(50,150,50);
-            case 'f':
-                return color(255,100,100);
-            case 'w':
-                return color(150,150,255);
-        }
-        return color(200);
-    }
 
     private char randomResistance(int seed){ // get a random resistance from the seed
         if(seed<=4)return 'n';
@@ -84,7 +75,8 @@ class Enemy{
             w*=2;
             h*=2;
         }
-        tint(typeToTint());
+        if(center==null)center=new PVector(x+w/2, y+h/2);
+        tint(typeToTint(type));
         image(sprite, x, y, w, h);
         tint(255);
     }
