@@ -28,17 +28,33 @@ class ShopScreen extends Screen{
         };
     HashMap<String, PImage> buttons = new HashMap<String, PImage>(buttonFilenames.length*2);
     boolean clicked=false;//prevents overlaping screens
-    int bools[]={1, 1, 1, 1, 1, 1, 1, 1};//prevents overlaping screens
+    int bools[]={1, 1, 1, 1, 1, 1, 1, 1,1};//prevents overlaping screens
     Spellbook spellbook;
     int randSpell[]={1, 2, 3, 4};
     boolean RandSpell=false;
-    boolean bought[]={false, false, false, false};//prevents repeats spells
-    String Bought="assets/40f.png";//will appear if you buy spell
+    boolean bought[]={false, false, false, false,false};//prevents repeats spells
+    String Bought="assets/buttons/chest.png";//will appear if you buy spell
     int spellcount=1;
     int cantAfford=0;
+    int max=0;
+    int Statprice=0;
+   
     Player player;
+    
+    
+    public void getStatPrice(){
 
-
+       if(player.currency>max)
+       max=player.currency;
+       
+       Random rand = new Random(); //instance of random class
+       float random = rand.nextFloat(1.5)+.2; 
+       Statprice=int(max*random);
+         
+        
+    }
+    
+   
     public ShopScreen(int width_, int height_, Player player_, Theme theme_){
         super(width_, height_);
         for(String imageFilename : buttonFilenames){
@@ -70,16 +86,16 @@ class ShopScreen extends Screen{
       return true;
     }
     
-    public void shoopKeeper(){
+    /*public void shoopKeeper(){
         if(clicked==false){
           makebutton(new_width+(width/widthRatio), new_height+(height/5), "assets/items/shopkeeper.png", buttonSize);
           if(cantAfford==1){
              textSize(width/25);
-             text("why you no\n"+ "have money",new_width+(width/widthRatio)*1.4,new_height+(height/5)*1.53);         
+             text("why you no\n"+ "have money",new_width+(width/widthRatio)*1.4,new_height+(height/5)*1.53);  
           }
         }     
     }
-
+*/
     void RandomSpells(){//gets a random spell 
         spellbook.getSpellIndexed(0).available=true;
         int remaining=min(spellbook.someSpellsUnavailable(), 4);
@@ -104,9 +120,50 @@ class ShopScreen extends Screen{
         RandSpell=true;
     }
     
+    public void StatScreen(){     
+   
+      if( bought[4]==false){
+       bought[4]=true;
+       getStatPrice();   
+      }
     
+      fill(255, 165, 44); 
+     
+      rect(width/9.70, height/4, width*.8, height*0.47407407407);
+      
+      makebutton(width/3, height/3, "assets/items/shopkeeper.png", buttonSize*2);//displayimage change whne image made
+      makebutton(3*width/4, height/2+width/4, "assets/buttons/cancel.png", buttonSize);//cancel
+      makebutton(width/10, height/2+width/4, "assets/buttons/buy.png", buttonSize);//buy
+      fill(0, 0, 0);
+      textSize(width/15);
+      text(Statprice+" coins", width/2, height/1.5); 
+      text(player.getUpgrade(), width/2, height/1.8); 
+      
+      
+       if(mouseX >= width/2+width/4 && mouseX <= width/2+width/4 + buttonSize && mouseY >= height/2+width/4 && mouseY <= height/2+width/4 + buttonSize && mousePressed){   //cancle
+             bools[8]=1;
+             clicked=false;
+       }
+       if(mouseX >= width/2-width/2.5 && mouseX <= width/2-width/2.5 + buttonSize && mouseY >= height/2+width/4 && mouseY <=height/2+width/4 + buttonSize && mousePressed){ 
+         print("hi"); 
+         if(priceCheck(Statprice)){
+           if(bools[8]==0){
+            bought[4]=false;  
+            bools[8]=1;//prevents mouse hold
+            player.upgrade();
+            clicked=false;
+            
+           }
+            player.setCurrency(player.getCurrency()-Statprice);
+            cantAfford=0;
+          
+           }  
+        }  
     
-    public void buySpellScreen(String name, int spell){
+ 
+    }
+    
+    public void buySpellScreen(int spell){
         fill(255, 165, 44);
         int spellCost=(int)(Math.pow(1.1, spellcount)*100);
         rect(width/9.70, height/4, width*.8, height*0.47407407407);
@@ -159,8 +216,8 @@ class ShopScreen extends Screen{
         int cost=20;
         rect(width/9.70, height/4, width*.8, height*0.47407407407);
         makebutton(width/3, height/3, name, buttonSize*2);//displayimage
-        makebutton(width/2+width/4, height/2+width/4, name, buttonSize);//cancle
-        makebutton(width/2-width/2.5, height/2+width/4, name, buttonSize);//buy
+        makebutton(width/2+width/4, height/2+width/4, "assets/buttons/cancel.png", buttonSize);//cancle
+        makebutton(width/2-width/2.5, height/2+width/4, "assets/buttons/buy.png", buttonSize);//buy
         
         fill(0, 0, 0);
         textSize(width/15);
@@ -234,6 +291,9 @@ class ShopScreen extends Screen{
         spellPurOrNot(1,name,new_width,new_height+(height/5),buttonSize);
         spellPurOrNot(2,name,new_width+(width/widthRatio),new_height,buttonSize);
         spellPurOrNot(3,name,new_width+(width/widthRatio), new_height+(height/heightRatio),buttonSize);
+        
+        makebutton(new_width+(width/widthRatio), new_height+(height/5), "assets/items/shopkeeper.png", buttonSize);//chage when image is ready
+      
 
     
         //done
@@ -252,7 +312,10 @@ class ShopScreen extends Screen{
             buyScreen("assets/powerUps/heal.powerUp.png", powerup);
         for(int i = 0; i < 4; i++)
             if(bools[i+4]==0 && randSpell[i]!=-1)
-                buySpellScreen("assets/items/spell.item.png", randSpell[i]); 
+                buySpellScreen(randSpell[i]); 
+                
+        if(bools[8]==0)
+          StatScreen();
     }
 
     void mouseClicked(int boolnum,float new_width,float new_height,float buttonSize ){//for the items in the shop
@@ -282,6 +345,9 @@ class ShopScreen extends Screen{
       mouseClicked(7,new_width+(width/widthRatio),new_height+(height/heightRatio),buttonSize);
       
       
+      mouseClicked(8,new_width+(width/widthRatio),new_height+(height/5),buttonSize);
+      
+      
     }
 
     public int exitShop(){ //if done is pressed you return back to battle screen
@@ -306,7 +372,7 @@ class ShopScreen extends Screen{
         buttonLayout();
         presses();
         printshop(powerup);
-        shoopKeeper();
+        //shoopKeeper();
         return exitShop();   
     }
 }
