@@ -32,7 +32,7 @@ class ShopScreen extends Screen{
     Spellbook spellbook;
     int randSpell[]={1, 2, 3, 4};
     boolean RandSpell=false;
-    boolean bought[]={false, false, false, false,false};//prevents repeats spells
+    boolean bought[]={false, false, false, false, false};//prevents repeats spells
     String Bought="assets/buttons/chest.png";//will appear if you buy spell
     int spellcount=1;
     int cantAfford=0;
@@ -47,7 +47,7 @@ class ShopScreen extends Screen{
        if(player.currency>max)
        max=player.currency;
        
-       float random = random(1.5)+.2; 
+       float random = random(1.2)+.2; 
        Statprice=int(max*random);
          
         
@@ -163,10 +163,11 @@ class ShopScreen extends Screen{
     
     public void buySpellScreen(int spell){
         fill(255, 165, 44);
-        int spellCost=(int)(Math.pow(1.1, spellcount)*100);
+        Spell temp = spellbook.getSpellIndexed(spell);
+        int spellCost=(int)(Math.pow(1.1, spellcount)*10)*(temp.damage);
         rect(width/9.70, height/4, width*.8, height*0.47407407407);
      
-        spellbook.getSpellIndexed(spell).show(width/2-(width/3.125), height/2-(height/4.7), (width/1.5), (width/1.5), theme);
+        temp.show(width/2-(width/3.125), height/2-(height/4.7), (width/1.5), (width/1.5), theme);
         makebutton(3*width/4, height/2+width/4, "assets/buttons/cancel.png", buttonSize);//cancel
         makebutton(width/10, height/2+width/4, "assets/buttons/buy.png", buttonSize);//buy
     

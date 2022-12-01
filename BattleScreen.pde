@@ -47,7 +47,7 @@ class BattleScreen extends Screen{
                     player.level++;
                     int currencyEarned = floor(enemy.maxHp * random(8, 12));
                     for(int i = currencyEarned; i > 0; i >>= 1){
-                        addParticle(new Particle(enemy.center.x, enemy.center.y, random(-width/40, width/40), random(-width/40, width/40), 2000000, width/2, height*1.5, log(currencyEarned*5)*width/90, randomGoldColor(), 0, height/2));
+                        addParticle(new Particle(enemy.center.x, enemy.center.y, random(-width/40, width/40), random(-width/40, width/40), 500000, width/2, height*1.5, log(currencyEarned*5)*width/200, randomGoldColor(), 0, height/2));
                     }
                     player.earnCurrency(currencyEarned);
                     enemy = new Enemy(player.level);

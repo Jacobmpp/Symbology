@@ -41,9 +41,9 @@ class Particle {
         age++;
         float angle = atan2(target.y-pos.y, target.x-pos.x), m = forceMagnitude/(.001 + sqdist(pos, target));
         PVector acc = new PVector(cos(angle)*m, sin(angle)*m);
-        acc.limit(3);
+        acc.limit(width/150);
         vel.add(acc);
-        vel.limit(10);
+        vel.limit(width/15);
         pos.add(vel);
 
     }
