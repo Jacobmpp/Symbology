@@ -1,0 +1,44 @@
+com.google.android.gms:play-services-ads:21.3.0
+com.google.android.gms:play-services-afs-native:19.0.3
+com.google.android.gms:play-services-auth:20.4.0
+com.google.gms:google-services:4.3.14
+com.google.gms.google-services
+implementation platform('com.google.firebase:firebase-bom:31.1.0')
+implementation 'com.google.firebase:firebase-auth'
+  implementation 'com.google.firebase:firebase-firestore'
+
+
+
+
+/// Code needed to implment
+
+
+
+
+
+
+/// Quick to do list for simon 
+
+
+
+ buildscript {
+    repositories {
+      google()
+      mavenCentral()
+    }
+  }
+
+  allprojects {
+    repositories {
+      google()
+      mavenCentral()
+    }
+  }
+
+
+
+
+
+dependencies {
+    implementation "com.google.android.gms:play-services-games-v2:+"
+  }
