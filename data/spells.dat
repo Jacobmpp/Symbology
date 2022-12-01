@@ -5,7 +5,10 @@ Slap;1;n;Well it's a start.;true;131
 Spear;10;n;Wow, using weapons instead of spells what a cop out.;false;547
 Magic Staff of Wacking;10;R;Magic slap!!!;false;2731
 Magic Missle;3;n;It's a magic whistle... I mean missle.;false;1155
-Magic Magic Missle GX5090 Ti SUPER;25;It's bigger.;false;34643933
+Magic Magic Missle GX5090 SUPER Ti;25;It's bigger.;false;34643933
+Magic Punch;2;n;PUNCH;true;3
+Firebolt;5;f;Basic spell boyyyyyyy;2059
+
 
 <level 1 spells 3x3>
 Fire Ball;5;f;It's a bit hot, don't you know?;false;1491
