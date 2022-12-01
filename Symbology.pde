@@ -3,6 +3,7 @@ int screen = 1;
 BattleScreen battleScreen;
 Player player;
 ShopScreen shopScreen;
+SplashScreen splashscreen;
 Theme currentTheme;
 PowerUp[] powerUps = new PowerUp[4];
 
