@@ -47,8 +47,7 @@ class ShopScreen extends Screen{
        if(player.currency>max)
        max=player.currency;
        
-       Random rand = new Random(); //instance of random class
-       float random = rand.nextFloat(1.5)+.2; 
+       float random = random(1.5)+.2; 
        Statprice=int(max*random);
          
         
@@ -106,8 +105,7 @@ class ShopScreen extends Screen{
                 set=true;
                 randSpell[i]=-1; 
             } else while(set==false){
-                Random rand = new Random(); //instance of random class
-                int random = rand.nextInt(spellbook.getSpellCount()-1)+1; 
+                int random = floor(random(spellbook.getSpellCount()-1)+1); 
                 if(!spellbook.getSpellIndexed(random).available){
                     spellbook.getSpellIndexed(random).available=true;  
                     set=true;
