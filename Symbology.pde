@@ -31,6 +31,7 @@ void setup(){
     currentTheme = new AnimatedTheme(color(255, 150, 150), color(50, 20, 20), color(60, 20, 20), "0", .6, width, height);
     battleScreen = new BattleScreen(width, height, player, powerUps);
     shopScreen = new ShopScreen(width, height, player,currentTheme);
+    splashscreen = new SplashScreen(width,height);
     for(int i = 0; i < powerUps.length; i++){
         powerUps[i].resize(width/5, width/5);
         if(i>1)powerUps[i].loadScreen(battleScreen);
@@ -68,13 +69,15 @@ void keyPressed(){
 
 void draw(){
     switch (screen){
-        case 0:
-            break;
         case 1:
+            if(splashscreen.show()==1)
+            screen++
+            break;
+        case 2:
             if(shopScreen.show(powerUps)==1)
                 screen++;
             break;
-        case 2:
+        case 3:
             if(!battleScreen.update(currentTheme)){
                 player.spellbook.toggleable = false;
                 player.level -= (player.level - 1)%4;
