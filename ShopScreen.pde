@@ -41,19 +41,15 @@ class ShopScreen extends Screen{
    
     Player player;
     
-    
     public void getStatPrice(){
 
        if(player.currency>max)
        max=player.currency;
        
        float random = random(1.2)+.2; 
-       Statprice=int(max*random);
-         
-        
+       Statprice=int(max*random);     
     }
     
-   
     public ShopScreen(int width_, int height_, Player player_, Theme theme_){
         super(width_, height_);
         for(String imageFilename : buttonFilenames){
@@ -61,8 +57,7 @@ class ShopScreen extends Screen{
         }
         player=player_;
         spellbook = player_.spellbook; // Fixed a thing where you made your own spellbook instead of using the player's spellbook
-        theme = theme_;
-        
+        theme = theme_;      
     }
 
     private void addImage(String name){
@@ -72,8 +67,7 @@ class ShopScreen extends Screen{
     void makebutton(float width, float height, String image, float size){ // draw a button with a size
         image(buttons.get(image), width, height, size, size); // this is not especially fast because it resizes, but it is necessary because of the different sized images
     }
-    
-    
+     
     public boolean priceCheck(int price){
       if(player.getCurrency()<price){
         for(int i=0;i<8;i++)
@@ -135,8 +129,7 @@ class ShopScreen extends Screen{
       textSize(width/15);
       text(Statprice+" coins", width/2, height/1.5); 
       text(player.getUpgrade(), width/2, height/1.8); 
-      
-      
+        
        if(mouseX >= width/2+width/4 && mouseX <= width/2+width/4 + buttonSize && mouseY >= height/2+width/4 && mouseY <= height/2+width/4 + buttonSize && mousePressed){   //cancle
              bools[8]=1;
              clicked=false;
@@ -184,24 +177,24 @@ class ShopScreen extends Screen{
           if(priceCheck(spellCost)){
             spellcount++;
             if(bools[4]==0){
-            bought[0]=true;  
-            bools[4]=1;//prevents mouse hold
-            clicked=false;
+                bought[0]=true;  
+                bools[4]=1;//prevents mouse hold
+                clicked=false;
             }
             if(bools[5]==0){
-            bought[1]=true; 
-            bools[5]=1;//prevents mouse hold
-            clicked=false;
+                bought[1]=true; 
+                bools[5]=1;//prevents mouse hold
+                clicked=false;
             }
             if(bools[6]==0){
-            bought[2]=true;   
-            bools[6]=1;//prevents mouse hold
-            clicked=false;
+                bought[2]=true;   
+                bools[6]=1;//prevents mouse hold
+                clicked=false;
             }
             if(bools[7]==0){
-            bought[3]=true;  
-            bools[7]=1;//prevents mouse hold
-            clicked=false;
+                bought[3]=true;  
+                bools[7]=1;//prevents mouse hold
+                clicked=false;
             }
             player.setCurrency(player.getCurrency()-spellCost);
             cantAfford=0;
@@ -221,8 +214,7 @@ class ShopScreen extends Screen{
         stroke(0);
         textSize(width/15);
         text(cost+" coins", width/2, height/1.5); 
- 
-        
+    
         clicked=true;
 
          if(mouseX >= width/2+width/4 && mouseX <= width/2+width/4 + buttonSize && mouseY >= height/2+width/4 && mouseY <= height/2+width/4 + buttonSize && mousePressed){   //cancle
@@ -264,11 +256,10 @@ class ShopScreen extends Screen{
     void spellPurOrNot(int Boughtnum,String name,float width ,float height,float size){
       
        if(!bought[Boughtnum]){
-    
-               makebutton(width, height,name,size);
-        } 
-        else
-            makebutton(width, height,Bought,size);
+        makebutton(width, height,name,size);
+       } 
+       else
+        makebutton(width, height,Bought,size);
     }
 
     void buttonLayout(){ // creates the layout
@@ -336,13 +327,13 @@ class ShopScreen extends Screen{
       //spell
   
       if(bought[0]==false)
-      mouseClicked(4,new_width-(width/widthRatio),new_height+(height/5),buttonSize);
+        mouseClicked(4,new_width-(width/widthRatio),new_height+(height/5),buttonSize);
       if(bought[1]==false)
-      mouseClicked(5,new_width,new_height+(height/5),buttonSize);
+        mouseClicked(5,new_width,new_height+(height/5),buttonSize);
       if(bought[2]==false)
-      mouseClicked(6,new_width+(width/widthRatio),new_height,buttonSize);
+        mouseClicked(6,new_width+(width/widthRatio),new_height,buttonSize);
       if(bought[3]==false)
-      mouseClicked(7,new_width+(width/widthRatio),new_height+(height/heightRatio),buttonSize);
+        mouseClicked(7,new_width+(width/widthRatio),new_height+(height/heightRatio),buttonSize);
       
       
       mouseClicked(8,new_width+(width/widthRatio),new_height+(height/5),buttonSize);
