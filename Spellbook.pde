@@ -30,7 +30,7 @@ class Spellbook{
                 }
             }
         } catch (NullPointerException e) {
-            System.out.println("Spells file not found!"); // Display to screen
+            println("Spells file not found!"); // Display to screen
             e.printStackTrace();
         }
     }

@@ -26,7 +26,7 @@ void setup(){
     strokeWeight(0);
 
     // initializing system variables
-    player = new Player(100, 1, 0); // 3000 base hp, level 1, 1000 currency
+    player = new Player(500, 1, 0); // 3000 base hp, level 1, 1000 currency
     powerUps = new PowerUp[]{
         new PowerUp("Grow Board",0,"grow",1), // start with 5 grow powerUps
         new PowerUp("Shrink Board",0,"shrink",-1), // start with 5 shrink powerUps
@@ -90,7 +90,6 @@ void draw(){
             if(!fading && !battleScreen.update(currentTheme)){
                 player.spellbook.toggleable = false;
                 player.level = player.level - (player.level - 1)%4;
-                player.revive(); // may cause errors when maxHP is increased
                 println(getSaveString());
                 fade(30, 2);
             }
@@ -101,7 +100,7 @@ void draw(){
 }
 
 void loadFromSaveString(String save){
-    if(save.length()==0)save = "100;1;0;1.0;1.0;23,wb#0;0;0;0";
+    if(save.length()==0)save = "500;1;0;1.0;1.0;23,wb#0;0;0;0";
     String greaterParts[] = save.split("#");
     player = new Player(greaterParts[0]);
     String powerUpParts[] = greaterParts[1].split(";");

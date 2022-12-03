@@ -357,6 +357,7 @@ class ShopScreen extends Screen{
              bought[i]=false;
             } 
             RandSpell=false;
+            player.effect('h');
             return 1;
         }
         return 0; 

@@ -37,7 +37,6 @@ class BattleScreen extends Screen{
                 int damageTaken = enemy.takeDamage(currentBoardSpell.damage, currentBoardSpell.type);
                 gameBoard.scramble();
                 for(int i = currentBoardSpell.damage; i > 0; i >>= 1){
-                    println(gameBoard.center.x + ", " + gameBoard.center.y + "->" + (log(currentBoardSpell.damage*5)*width/90));
                     addParticle(new Particle(gameBoard.center.x, gameBoard.center.y, random(-width/40, width/40), random(-width/40, width/40), 20, log(currentBoardSpell.damage*5)*width/90, typeToTint(currentBoardSpell.type)));
                 }
                 for(int i = damageTaken; i > 0; i >>= 1){
