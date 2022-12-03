@@ -92,19 +92,18 @@ class Player{
     void testGetUpgrade(){
         int temp = level;
         while(level++<temp+25){
-            getUpgrade(level);
+            getUpgrade();
         }
     }
 
-    public String getUpgrade(int seed){
-        randomSeed(seed);
+    public String getUpgrade(){
+        randomSeed(level);
         int stat = floor(random(128)%4);
-        println(level + ":" + stats[floor(random(128)%4)]);
         return stats[floor(random(128)%4)];
     }
 
     public void upgrade(){
-        randomSeed(seed);
+        randomSeed(level);
         int stat = floor(random(128)%4);
         switch(stat){
             case 0:

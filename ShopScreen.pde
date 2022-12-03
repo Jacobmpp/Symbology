@@ -134,7 +134,7 @@ class ShopScreen extends Screen{
       stroke(0);
       textSize(width/15);
       text(Statprice+" coins", width/2, height/1.5); 
-      text(player.getUpgrade(player.level), width/2, height/1.8); 
+      text(player.getUpgrade(), width/2, height/1.8); 
       
       
        if(mouseX >= width/2+width/4 && mouseX <= width/2+width/4 + buttonSize && mouseY >= height/2+width/4 && mouseY <= height/2+width/4 + buttonSize && mousePressed){   //cancle
