@@ -96,7 +96,6 @@ class ShopScreen extends Screen{
     }
 */
     void RandomSpells(){//gets a random spell 
-        spellbook.getSpellIndexed(0).available=true;
         int remaining=min(spellbook.someSpellsUnavailable(), 4);
 
         for(int i=0;i<4;i++){
@@ -107,7 +106,6 @@ class ShopScreen extends Screen{
             } else while(set==false){
                 int random = floor(random(spellbook.getSpellCount()-1)+1); 
                 if(!spellbook.getSpellIndexed(random).available){
-                    spellbook.getSpellIndexed(random).available=true;  
                     set=true;
                     randSpell[i]=random;   
                 
@@ -132,10 +130,11 @@ class ShopScreen extends Screen{
       makebutton(width/3, height/3, "assets/items/shopkeeper.png", buttonSize*2);//displayimage change whne image made
       makebutton(3*width/4, height/2+width/4, "assets/buttons/cancel.png", buttonSize);//cancel
       makebutton(width/10, height/2+width/4, "assets/buttons/buy.png", buttonSize);//buy
-      fill(0, 0, 0);
+      fill(0);
+      stroke(0);
       textSize(width/15);
       text(Statprice+" coins", width/2, height/1.5); 
-      text(player.getUpgrade(), width/2, height/1.8); 
+      text(player.getUpgrade(player.level), width/2, height/1.8); 
       
       
        if(mouseX >= width/2+width/4 && mouseX <= width/2+width/4 + buttonSize && mouseY >= height/2+width/4 && mouseY <= height/2+width/4 + buttonSize && mousePressed){   //cancle
@@ -218,7 +217,8 @@ class ShopScreen extends Screen{
         makebutton(width/2+width/4, height/2+width/4, "assets/buttons/cancel.png", buttonSize);//cancle
         makebutton(width/2-width/2.5, height/2+width/4, "assets/buttons/buy.png", buttonSize);//buy
         
-        fill(0, 0, 0);
+        fill(0);
+        stroke(0);
         textSize(width/15);
         text(cost+" coins", width/2, height/1.5); 
  
@@ -274,6 +274,7 @@ class ShopScreen extends Screen{
     void buttonLayout(){ // creates the layout
     
         textSize(width/15);
+        fill(0);
         text(player.getCurrency()+" coins", new_width*1.2, new_height-(height/heightRatio)*.6); 
         textAlign(CENTER);
         
@@ -352,8 +353,7 @@ class ShopScreen extends Screen{
     public int exitShop(){ //if done is pressed you return back to battle screen
         if(mouseX >= new_width && mouseX <= new_width + buttonSize && mouseY >= height/1.58 && mouseY <= height/1.58 + buttonSize && mousePressed){
             for(int i=0;i<4;i++){
-             if(bought[i]==false)
-             spellbook.getSpellIndexed(randSpell[i]).available=false; 
+             spellbook.getSpellIndexed(randSpell[i]).available=bought[i]; 
              bought[i]=false;
             } 
             RandSpell=false;
@@ -366,6 +366,7 @@ class ShopScreen extends Screen{
         shop = buttons.get("assets/Shop.png");
         if(RandSpell==false)
         RandomSpells();
+        stroke(0);
         background(theme.getBackground());
         image(shop, 0, 0, wid, hei);
         buttonLayout();

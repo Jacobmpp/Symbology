@@ -26,6 +26,7 @@ class Player{
         spellbook.updateAvailableSpells(parts[5]);
         damageMultiplier = parseFloat(parts[3]);
         damageMultiplier = parseFloat(parts[4]);
+        testGetUpgrade();
     }
 
     public void takeDamage(int damage){
@@ -88,14 +89,23 @@ class Player{
         return out;
     }
 
-    public String getUpgrade(){
-        randomSeed(level);
-        return stats[floor(random(0,4))];
+    void testGetUpgrade(){
+        int temp = level;
+        while(level++<temp+25){
+            getUpgrade(level);
+        }
+    }
+
+    public String getUpgrade(int seed){
+        randomSeed(seed);
+        int stat = floor(random(128)%4);
+        println(level + ":" + stats[floor(random(128)%4)]);
+        return stats[floor(random(128)%4)];
     }
 
     public void upgrade(){
-        randomSeed(level);
-        int stat = floor(random(0,4));
+        randomSeed(seed);
+        int stat = floor(random(128)%4);
         switch(stat){
             case 0:
             case 2:

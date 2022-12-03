@@ -9,7 +9,7 @@ class Spellbook{
     private PImage background;
     private float x, y, w, h;
 
-    public boolean visible, toggleable = false;
+    public boolean visible = false, toggleable = false;
     public int visibleIndex = 0;
     int spellCount = 0;
 

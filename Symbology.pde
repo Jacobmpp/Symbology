@@ -1,19 +1,22 @@
 boolean debug = false;
-int screen = 2;
+int screen = 1;
 BattleScreen battleScreen;
 Player player;
 ShopScreen shopScreen;
 SplashScreen splashscreen;
 Theme currentTheme;
 PowerUp[] powerUps = new PowerUp[4];
-int fadeMax = 0;
+int fadeMax = 60;
 int fade = 0;
+boolean fading = true;
+int screenAfter = 1;
 
 void setup(){
     //fullScreen(); // use when compiled for android
     size(450,800); // use when testing on Processing IDE
 
     // enitializing several drawing properties
+    frameRate(30);
     ellipseMode(CENTER);
     rectMode(CORNER);
     textSize(min(width, 3*height/4)/18);
@@ -42,7 +45,7 @@ void setup(){
 
 void mousePressed(){
     switch(screen){
-        case 2:
+        case 3:
             battleScreen.mousePressed(mouseX, mouseY);
             break;
     }
@@ -51,7 +54,7 @@ void mousePressed(){
 
 void mouseReleased(){
     switch(screen){
-        case 2:
+        case 3:
             battleScreen.mouseReleased(mouseX, mouseY);
             break;
     }
@@ -72,22 +75,27 @@ void keyPressed(){
 void draw(){
     switch (screen){
         case 1:
-            if(splashscreen.show()==1)
-            screen++;
+            if(splashscreen.show()&&!fading){
+                fade(30,2);
+                loadFromSaveString(splashscreen.loadedString);
+              }
+            fade();
             break;
         case 2:
             if(shopScreen.show(powerUps)==1)
-                screen++;
+                fade(30,3);
+            fade();
             break;
         case 3:
-            if(!battleScreen.update(currentTheme)){
+            if(!fading && !battleScreen.update(currentTheme)){
                 player.spellbook.toggleable = false;
-                player.level -= (player.level - 1)%4;
+                player.level = player.level - (player.level - 1)%4;
                 player.revive(); // may cause errors when maxHP is increased
-                screen--;
                 println(getSaveString());
+                fade(30, 2);
             }
             battleScreen.show(currentTheme, debug);
+            fade();
             break;
     }
 }
@@ -125,4 +133,28 @@ color typeToTint(char type){ // get the color tint based on a type char code
 
 void addParticle(Particle p){
     battleScreen.addParticleP(p);
+}
+
+void fade(int frames, int screenAfter_){
+    if(!fading){
+        fading = true;
+        fadeMax = frames;
+        fade = -frames;
+        screenAfter = screenAfter_;
+    }
+    fade();
+}
+void fade(){
+    if(fading){
+        fill(0,0,0,255-(255*abs(fade++))/(fadeMax+1));
+        stroke(0,0,0,255-(255*abs(fade++))/(fadeMax+1));
+        rect(-3,-3,width+3,height+3);
+        if(fade==0)
+            screen = screenAfter;
+        if(fade>=fadeMax){
+            fading = false;
+            fade = 0;
+            fadeMax = 0;
+        }
+    }
 }
