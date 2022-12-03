@@ -1,11 +1,13 @@
 boolean debug = false;
-int screen = 1;
+int screen = 2;
 BattleScreen battleScreen;
 Player player;
 ShopScreen shopScreen;
 SplashScreen splashscreen;
 Theme currentTheme;
 PowerUp[] powerUps = new PowerUp[4];
+int fadeMax = 0;
+int fade = 0;
 
 void setup(){
     //fullScreen(); // use when compiled for android
@@ -21,12 +23,12 @@ void setup(){
     strokeWeight(0);
 
     // initializing system variables
-    player = new Player(3000, 1, 1000); // 3000 base hp, level 1, 1000 currency
+    player = new Player(100, 1, 0); // 3000 base hp, level 1, 1000 currency
     powerUps = new PowerUp[]{
-        new PowerUp("Grow Board",5,"grow",1), // start with 5 grow powerUps
-        new PowerUp("Shrink Board",5,"shrink",-1), // start with 5 shrink powerUps
-        new PowerUp("Skip Level",5,"skip",'l'), // start with 5 skip powerUps
-        new PowerUp("Heal Player",5,"heal",'h') // start with 5 heal powerUps
+        new PowerUp("Grow Board",0,"grow",1), // start with 5 grow powerUps
+        new PowerUp("Shrink Board",0,"shrink",-1), // start with 5 shrink powerUps
+        new PowerUp("Skip Level",0,"skip",'l'), // start with 5 skip powerUps
+        new PowerUp("Heal Player",0,"heal",'h') // start with 5 heal powerUps
     };
     currentTheme = new AnimatedTheme(color(255, 150, 150), color(50, 20, 20), color(60, 20, 20), "0", .6, width, height);
     battleScreen = new BattleScreen(width, height, player, powerUps);
@@ -91,6 +93,7 @@ void draw(){
 }
 
 void loadFromSaveString(String save){
+    if(save.length()==0)save = "100;1;0;1.0;1.0;23,wb#0;0;0;0";
     String greaterParts[] = save.split("#");
     player = new Player(greaterParts[0]);
     String powerUpParts[] = greaterParts[1].split(";");
