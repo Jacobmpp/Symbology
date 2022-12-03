@@ -3,7 +3,7 @@ int screen = 1;
 BattleScreen battleScreen;
 Player player;
 ShopScreen shopScreen;
-//SplashScreen splashscreen;
+SplashScreen splashscreen;
 Theme currentTheme;
 PowerUp[] powerUps = new PowerUp[4];
 
@@ -71,7 +71,7 @@ void draw(){
     switch (screen){
         case 1:
             if(splashscreen.show()==1)
-            screen++
+            screen++;
             break;
         case 2:
             if(shopScreen.show(powerUps)==1)
