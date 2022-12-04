@@ -1698,7 +1698,7 @@ class Theme{
 }
 
 
-  public void settings() { size(450, 800); }
+  public void settings() { fullScreen(); }
 
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "Symbology" };
