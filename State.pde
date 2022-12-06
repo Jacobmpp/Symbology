@@ -21,7 +21,7 @@ class State{
         calc();
     }
     State(String state){
-        this(new State().StringToLong(state));
+        this(new State().StringToEncodedLong(state));
     }
     State(int size_){
         size = size_;
@@ -141,13 +141,14 @@ class State{
         }
         return out;
     }
-    public long StringToLong(String state){
+    public long StringToEncodedLong(String state){
         long out = 0;
         for(char c : state.toCharArray()) {
             out <<= 6;
             out += charToInt(c);
         }
-        return out;
+        State temp = new State(out);
+        return temp.getEncoded();
     }
 
     // Show

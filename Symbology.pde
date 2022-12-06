@@ -10,6 +10,8 @@ int fadeMax = 60;
 int fade = 0;
 boolean fading = true;
 int screenAfter = 1;
+String LOCAL_SAVEDATA_FILENAME = "save.dat";
+PrintWriter saver;
 
 void setup(){
     //fullScreen(); // use when compiled for android
@@ -26,13 +28,15 @@ void setup(){
     strokeWeight(0);
 
     // initializing system variables
-    player = new Player(500, 1, 0); // 3000 base hp, level 1, 1000 currency
+    player = new Player(5000, 1, 0); // 3000 base hp, level 1, 1000 currency
     powerUps = new PowerUp[]{
-        new PowerUp("Grow Board",0,"grow",1), // start with 5 grow powerUps
-        new PowerUp("Shrink Board",0,"shrink",-1), // start with 5 shrink powerUps
-        new PowerUp("Skip Level",0,"skip",'l'), // start with 5 skip powerUps
-        new PowerUp("Heal Player",0,"heal",'h') // start with 5 heal powerUps
+        new PowerUp("Grow Board",0,"grow",1), // start with 0 grow powerUps
+        new PowerUp("Shrink Board",0,"shrink",-1), // start with 0 shrink powerUps
+        new PowerUp("Skip Level",0,"skip",'l'), // start with 0 skip powerUps
+        new PowerUp("Heal Player",0,"heal",'h') // start with 0 heal powerUps
     };
+    //save();
+    loadFromFilename(player, LOCAL_SAVEDATA_FILENAME);
     currentTheme = new AnimatedTheme(color(255, 150, 150), color(50, 20, 20), color(60, 20, 20), "0", .6, width, height);
     battleScreen = new BattleScreen(width, height, player, powerUps);
     shopScreen = new ShopScreen(width, height, player,currentTheme);
@@ -77,13 +81,14 @@ void draw(){
         case 1:
             if(splashscreen.show()&&!fading){
                 fade(30,2);
-                loadFromSaveString(splashscreen.loadedString);
               }
             fade();
             break;
         case 2:
-            if(shopScreen.show(powerUps)==1)
+            if(shopScreen.show(powerUps)==1){
                 fade(30,3);
+                save();
+            }
             fade();
             break;
         case 3:
@@ -92,6 +97,7 @@ void draw(){
                 player.level = player.level - (player.level - 1)%4;
                 println(getSaveString());
                 fade(30, 2);
+                save();
             }
             battleScreen.show(currentTheme, debug);
             fade();
@@ -99,14 +105,30 @@ void draw(){
     }
 }
 
-void loadFromSaveString(String save){
+void loadFromFilename(Player p, String filename){
+    try {
+        String[] lines = loadStrings(filename);
+        loadFromSaveString(p, lines[0]);
+    } catch (Exception e) {
+        println("File not found loading from starting values");
+        loadFromSaveString(p, "");
+    }
+}
+
+void loadFromSaveString(Player p, String save){
     if(save.length()==0)save = "500;1;0;1.0;1.0;23,wb#0;0;0;0";
     String greaterParts[] = save.split("#");
-    player = new Player(greaterParts[0]);
+    p.reload(greaterParts[0].split(";"));
     String powerUpParts[] = greaterParts[1].split(";");
     for(int i = 0; i < 4; i++){
         powerUps[i].count = parseInt(powerUpParts[i]);
     }
+}
+void save(){
+    saver = createWriter("data/" + LOCAL_SAVEDATA_FILENAME);
+    saver.println(getSaveString());
+    saver.flush();
+    saver.close();
 }
 String getSaveString(){
     String out = player.toString() + "#";

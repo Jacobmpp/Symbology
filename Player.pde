@@ -17,13 +17,13 @@ class Player{
         currency = currency_;
     }
 
-    public Player(String encoded){
-        this(encoded.split(";"));
-    }
-
-    public Player(String[] parts){
-        this(parseInt(parts[0]),parseInt(parts[1]),parseInt(parts[2]));
+    public void reload(String[] parts){
+        maxHp = parseInt(parts[0]);
+        hp = maxHp;
+        level = parseInt(parts[1]);
+        currency = parseInt(parts[2]);
         spellbook.updateAvailableSpells(parts[5]);
+        /* debuging */ println(spellbook.getAvailableSpells());
         damageMultiplier = parseFloat(parts[3]);
         damageMultiplier = parseFloat(parts[4]);
         testGetUpgrade();

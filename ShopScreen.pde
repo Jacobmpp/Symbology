@@ -365,6 +365,7 @@ class ShopScreen extends Screen{
         presses();
         printshop(powerup);
         //shoopKeeper();
+        
         return exitShop();   
     }
 }
