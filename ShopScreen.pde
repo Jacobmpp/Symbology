@@ -341,10 +341,11 @@ class ShopScreen extends Screen{
       
     }
 
-    public void resetBought(){
+    public void resetSpellBuy(){
         for(int i = 0; i < 4; i++){
             bought[i]=false;
         }
+        RandSpell=false;
     }
 
     public int exitShop(){ //if done is pressed you return back to battle screen
@@ -352,7 +353,6 @@ class ShopScreen extends Screen{
             for(int i=0;i<4;i++){
                 spellbook.getSpellIndexed(randSpell[i]).available=bought[i]; 
             } 
-            RandSpell=false;
             player.effect('h');
             return 1;
         }
@@ -362,7 +362,7 @@ class ShopScreen extends Screen{
     public int show(PowerUp powerup[]){
         shop = buttons.get("assets/Shop.png");
         if(RandSpell==false)
-        RandomSpells();
+            RandomSpells();
         stroke(0);
         background(theme.getBackground());
         image(shop, 0, 0, wid, hei);

@@ -38,9 +38,10 @@ class SplashScreen extends Screen
     
      
   //loads image to show
-  public boolean show(){
+  public boolean show(Player player){
     image(Background.get("assets/backgrounds/splashScreen.png"),    0,  0, wid,     hei  );
     image(Background.get("assets/backgrounds/SymbologyTitle.png"), 50, 50, wid/1.3, wid/10);
+    loadFromFilename(player, LOCAL_SAVEDATA_FILENAME);
     return done;
   }
     

@@ -12,6 +12,7 @@ boolean fading = true;
 int screenAfter = 1;
 String LOCAL_SAVEDATA_FILENAME = "save.symbosave";
 PrintWriter saver;
+boolean loaded = false;
 
 void setup(){
     //fullScreen(); // use when compiled for android
@@ -37,7 +38,6 @@ void setup(){
     };
     new State().testIntToChar();
     //save();
-    loadFromFilename(player, LOCAL_SAVEDATA_FILENAME);
     currentTheme = new AnimatedTheme(color(255, 150, 150), color(50, 20, 20), color(60, 20, 20), "0", .6, width, height);
     battleScreen = new BattleScreen(width, height, player, powerUps);
     shopScreen = new ShopScreen(width, height, player,currentTheme);
@@ -80,9 +80,9 @@ void keyPressed(){
 void draw(){
     switch (screen){
         case 1:
-            if(splashscreen.show()&&!fading){
+            if(splashscreen.show(player)&&!fading){
                 fade(30,2);
-              }
+            }
             fade();
             break;
         case 2:
@@ -96,8 +96,7 @@ void draw(){
             if(!fading && !battleScreen.update(currentTheme)){
                 player.spellbook.toggleable = false;
                 player.level = player.level - (player.level - 1)%4;
-                println(getSaveString());
-                shopScreen.resetBought();
+                shopScreen.resetSpellBuy();
                 fade(30, 2);
                 save();
             }
