@@ -23,10 +23,8 @@ class Player{
         level = parseInt(parts[1]);
         currency = parseInt(parts[2]);
         spellbook.updateAvailableSpells(parts[5]);
-        /* debuging */ println(spellbook.getAvailableSpells());
         damageMultiplier = parseFloat(parts[3]);
         damageMultiplier = parseFloat(parts[4]);
-        testGetUpgrade();
     }
 
     public void takeDamage(int damage){
@@ -87,13 +85,6 @@ class Player{
         out += earningsMultiplier + ";";
         out += spellbook.getAvailableSpells();
         return out;
-    }
-
-    void testGetUpgrade(){
-        int temp = level;
-        while(level++<temp+25){
-            getUpgrade();
-        }
     }
 
     public String getUpgrade(){

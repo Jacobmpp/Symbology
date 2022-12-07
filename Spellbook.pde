@@ -25,7 +25,6 @@ class Spellbook{
             for(int i=0; i<lines.length;i++) {
                 if(lines[i].split(";").length>5){
                     Spell temp = new Spell(lines[i]);
-                    /* debugging */ println("" + temp.getEncoded());
                     spells.put(temp.getEncoded(), temp);
                     spellsLookup[spellCount++] = temp.getEncoded();
                 }
@@ -115,7 +114,6 @@ class Spellbook{
             long temp = new State().StringToEncodedLong(s);
             if(spells.containsKey(temp)){
                 spells.get(temp).available = true;
-                /*debugging*/println(s + temp);
             }
         }
     }

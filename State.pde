@@ -36,9 +36,6 @@ class State{
         encodedSubState = convert(subState);
         encodedTopState = convert(topState);
     }
-    State(boolean irrelevant){ // This is weird, make sure it works
-        this((long)random(1<<3,1<<54) + 3); 
-    }
     State(){}
 
     // Cell Math
@@ -181,24 +178,35 @@ class State{
         if(x==constrain(x, 0, 9)){
             return (char)('0'+x);
         }
-        if(x==constrain(x, 10, 35)){
+        if(x==constrain(x, 10, 37)){
             return (char)('a'+x-10);
         }
-        if(x==constrain(x, 36, 64)){
-            return (char)('A'+x-36);
+        if(x==constrain(x, 38, 64)){
+            return (char)('A'+x-38);
         }
         return '$';
     }
+    public void testIntToChar(){
+        String expected = "0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,{,|,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,";
+        String output = "";
+        println("Expected to print: \"" + expected + "\"");
+        for(int i = 0; i < 64; i++){
+            output += (intToChar(i) + ",");
+        }
+        println("Actual output:     \"" + output + "\"\nTest outcome: " + (expected.equals(output) ? "PASSED" : "FAILED"));
+
+    }
+
     private int charToInt(char x_){
         int x = (int)x_;
         if(x==constrain(x, (int)'0', (int)'9')){
             return x-'0';
         }
-        if(x==constrain(x, (int)'a', (int)'z')){
+        if(x==constrain(x, (int)'a', (int)'|')){
             return x-'a'+10;
         }
         if(x==constrain(x, (int)'A', (int)'Z')){
-            return x-'A'+36;
+            return x-'A'+38;
         }
         return 0;
     }

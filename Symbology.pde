@@ -35,6 +35,7 @@ void setup(){
         new PowerUp("Skip Level",0,"skip",'l'), // start with 0 skip powerUps
         new PowerUp("Heal Player",0,"heal",'h') // start with 0 heal powerUps
     };
+    new State().testIntToChar();
     //save();
     loadFromFilename(player, LOCAL_SAVEDATA_FILENAME);
     currentTheme = new AnimatedTheme(color(255, 150, 150), color(50, 20, 20), color(60, 20, 20), "0", .6, width, height);
@@ -96,6 +97,7 @@ void draw(){
                 player.spellbook.toggleable = false;
                 player.level = player.level - (player.level - 1)%4;
                 println(getSaveString());
+                shopScreen.resetBought();
                 fade(30, 2);
                 save();
             }

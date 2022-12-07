@@ -341,11 +341,16 @@ class ShopScreen extends Screen{
       
     }
 
+    public void resetBought(){
+        for(int i = 0; i < 4; i++){
+            bought[i]=false;
+        }
+    }
+
     public int exitShop(){ //if done is pressed you return back to battle screen
         if(mouseX >= new_width && mouseX <= new_width + buttonSize && mouseY >= height/1.58 && mouseY <= height/1.58 + buttonSize && mousePressed){
             for(int i=0;i<4;i++){
-             spellbook.getSpellIndexed(randSpell[i]).available=bought[i]; 
-             bought[i]=false;
+                spellbook.getSpellIndexed(randSpell[i]).available=bought[i]; 
             } 
             RandSpell=false;
             player.effect('h');

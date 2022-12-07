@@ -68,6 +68,13 @@ class Enemy{
         return TYPES[floor(random(0,4))];
     }
 
+    public void testRandomResistance(int start, int end){
+        for(int i=start; i<end; i++){
+            println(randomResistance(i));
+        }
+        // expected to print 4 n's if started at 1, followed by a reasonably random assortment of f's, e's, a's, and w's
+    }
+
     public void show(float x, float y, float w, float h){
         if(boss){
             x-=w/2;
