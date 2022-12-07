@@ -98,10 +98,13 @@ class ShopScreen extends Screen{
                 set=true;
                 randSpell[i]=-1; 
             } else while(set==false){
-                int random = floor(random(spellbook.getSpellCount()-1)+1); 
+                Random rand = new Random(); //instance of random class
+                int random = rand.nextInt(spellbook.getSpellCount()-1)+1; 
                 if(!spellbook.getSpellIndexed(random).available){
                     set=true;
-                    randSpell[i]=random;   
+                    spellbook.getSpellIndexed(random).available=true;
+                    randSpell[i]=random; 
+
                 
                 }        
             }
