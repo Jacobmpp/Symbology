@@ -10,7 +10,7 @@ int fadeMax = 60;
 int fade = 0;
 boolean fading = true;
 int screenAfter = 1;
-String LOCAL_SAVEDATA_FILENAME = "save.dat";
+String LOCAL_SAVEDATA_FILENAME = "save.symbosave";
 PrintWriter saver;
 
 void setup(){
