@@ -24,7 +24,8 @@ class ShopScreen extends Screen{
         "assets/items/spell.item.png", 
         "assets/40f.png", 
         "assets/Shop.png",
-        "assets/items/shopkeeper.png"
+        "assets/items/shopkeeper.png",
+        "assets/items/potion3.item.png"
         };
     HashMap<String, PImage> buttons = new HashMap<String, PImage>(buttonFilenames.length*2);
     boolean clicked=false;//prevents overlaping screens
@@ -81,7 +82,7 @@ class ShopScreen extends Screen{
     
     /*public void shoopKeeper(){
         if(clicked==false){
-          makebutton(new_width+(width/widthRatio), new_height+(height/5), "assets/items/shopkeeper.png", buttonSize);
+          makebutton(new_width+(width/widthRatio), new_height+(height/5), "assets/items/potion3.item.png", buttonSize);
           if(cantAfford==1){
              textSize(width/25);
              text("why you no\n"+ "have money",new_width+(width/widthRatio)*1.4,new_height+(height/5)*1.53);  
@@ -124,7 +125,7 @@ class ShopScreen extends Screen{
      
       rect(width/9.70, height/4, width*.8, height*0.47407407407);
       
-      makebutton(width/3, height/3, "assets/items/shopkeeper.png", buttonSize*2);//displayimage change whne image made
+      makebutton(width/3, height/3, "assets/items/potion3.item.png", buttonSize*2);//displayimage change whne image made
       makebutton(3*width/4, height/2+width/4, "assets/buttons/cancel.png", buttonSize);//cancel
       makebutton(width/10, height/2+width/4, "assets/buttons/buy.png", buttonSize);//buy
       fill(0);
@@ -286,7 +287,7 @@ class ShopScreen extends Screen{
         spellPurOrNot(2,name,new_width+(width/widthRatio),new_height,buttonSize);
         spellPurOrNot(3,name,new_width+(width/widthRatio), new_height+(height/heightRatio),buttonSize);
         
-        makebutton(new_width+(width/widthRatio), new_height+(height/5), "assets/items/shopkeeper.png", buttonSize);//chage when image is ready
+        makebutton(new_width+(width/widthRatio), new_height+(height/5),"assets/items/potion3.item.png", buttonSize);//chage when image is ready
       
 
     
